@@ -16,6 +16,7 @@ public abstract class AminoAcid {
 	private double pKaCOOH = 0.0, pKaNH3 = 0.0, pKaR = 0.0;
 	private String sideChainProperty = "";
 	private int extinctionCoef = 0;
+	private String [] halfLife = {"", "", ""};
 	
 	// Constructeur
 	public AminoAcid(char syn1l, String syn3l, String formuleBrute, double masseMolaire, double precisionMasseMolaire,
@@ -193,5 +194,13 @@ public abstract class AminoAcid {
 
 	public void setExtinctionCoef(int extinctionCoef) {
 		this.extinctionCoef = extinctionCoef;
+	}
+
+	public String [] getHalfLife() {
+		return halfLife;
+	}
+
+	public void setHalfLife(String [] halfLife) {
+		this.halfLife = halfLife;
 	}	
 }

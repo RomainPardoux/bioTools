@@ -19,6 +19,7 @@ public class GlutamicAcid extends AminoAcid{
 	private  double pHIsoelectrique = 3.22;
 	private double pKaCOOH = 2.16, pKaNH3 = 9.58, pKaR = 4.15;
 	private String sideChainProperty = "negative_charged";
+	private String [] halfLife = {"1 hour", "30 min", ">10 hour"};
 	
 	// Constructeur
 	public GlutamicAcid() {
@@ -36,6 +37,7 @@ public class GlutamicAcid extends AminoAcid{
 		super.setMasseVolumique(masseVolumique);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

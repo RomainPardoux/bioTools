@@ -21,6 +21,7 @@ public class Tryptophan extends AminoAcid{
 	private double pKaCOOH = 2.38, pKaNH3 = 9.34;
 	private String sideChainProperty = "hydrophobic";
 	private int extinctionCoef = 5500;
+	private String [] halfLife = {"2.8 hour", "3 min", "2 min"};
 	
 	// Constructeur
 	public Tryptophan() {
@@ -40,6 +41,7 @@ public class Tryptophan extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setExtinctionCoef(extinctionCoef);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

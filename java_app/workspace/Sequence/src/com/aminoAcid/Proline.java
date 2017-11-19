@@ -18,6 +18,7 @@ public class Proline extends AminoAcid{
 	private  double pHIsoelectrique = 6.3;
 	private double pKaCOOH = 1.95, pKaNH3 = 10.47;
 	private String sideChainProperty = "special";
+	private String [] halfLife = {">20 hour", ">20 hour", "?"};
 	
 	// Constructeur
 	public Proline() {
@@ -34,6 +35,7 @@ public class Proline extends AminoAcid{
 		super.setPrecisionMasseMolaire(precisionMasseMolaire);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 
 	// Getters and Setters

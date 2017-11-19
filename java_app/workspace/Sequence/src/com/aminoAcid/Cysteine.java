@@ -21,6 +21,7 @@ public class Cysteine extends AminoAcid{
 	private double pKaCOOH = 1.91, pKaNH3 = 10.28, pKaR = 8.14;
 	private String sideChainProperty = "special";
 	private int extinctionCoef = 125;
+	private String [] halfLife = {"1.2 hour", ">20 hour", ">10 hour"};
 	
 	// Constructeur
 	public Cysteine() {
@@ -39,6 +40,7 @@ public class Cysteine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setExtinctionCoef(extinctionCoef);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

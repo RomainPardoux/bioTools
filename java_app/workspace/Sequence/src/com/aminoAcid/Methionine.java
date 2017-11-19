@@ -18,6 +18,7 @@ public class Methionine extends AminoAcid{
 	private  double pHIsoelectrique = 5.74;
 	private double pKaCOOH = 2.16, pKaNH3 = 9.08;
 	private String sideChainProperty = "hydrophobic";
+	private String [] halfLife = {"30 hour", ">20 hour", ">10 hour"};
 	
 	// Constructeur
 	public Methionine() {
@@ -34,6 +35,7 @@ public class Methionine extends AminoAcid{
 		super.setPrecisionMasseMolaire(precisionMasseMolaire);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 
 	// Getters and Setters

@@ -18,6 +18,7 @@ public class Valine extends AminoAcid{
 	private  double pHIsoelectrique = 5.96;
 	private double pKaCOOH = 2.27, pKaNH3 = 9.52;
 	private String sideChainProperty = "hydrophobic";
+	private String [] halfLife = {"100 hour", ">20 hour", ">10 hour"};
 	
 	// Constructeur
 	public Valine() {
@@ -34,6 +35,7 @@ public class Valine extends AminoAcid{
 		super.setPrecisionMasseMolaire(precisionMasseMolaire);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters
@@ -155,5 +157,13 @@ public class Valine extends AminoAcid{
 
 	public void setNbCarbonAtom(int nbCarbonAtom) {
 		this.nbCarbonAtom = nbCarbonAtom;
+	}
+
+	public String [] getHalfLife() {
+		return halfLife;
+	}
+
+	public void setHalfLife(String [] halfLife) {
+		this.halfLife = halfLife;
 	}	
 }

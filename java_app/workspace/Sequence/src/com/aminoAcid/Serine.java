@@ -19,6 +19,7 @@ public class Serine extends AminoAcid{
 	private  double pHIsoelectrique = 5.68;
 	private double pKaCOOH = 2.13, pKaNH3 = 9.05;
 	private String sideChainProperty = "polar_uncharged";
+	private String [] halfLife = {"1.9 hour", ">20 hour", ">10 hour"};
 	
 	// Constructeur
 	public Serine() {
@@ -36,6 +37,7 @@ public class Serine extends AminoAcid{
 		super.setSolubilite(solubilite);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

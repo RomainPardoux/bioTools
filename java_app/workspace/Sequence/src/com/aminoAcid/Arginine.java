@@ -19,6 +19,7 @@ public class Arginine extends AminoAcid{
 	private  double pHIsoelectrique = 10.76;
 	private double pKaCOOH = 2.03, pKaNH3 = 9.0, pKaR = 12.10;
 	private String sideChainProperty = "positive_charged";
+	private String [] halfLife = {"1 hour", "2 min", "2 min"};
 	
 	// Constructeur
 	public Arginine() {
@@ -36,6 +37,7 @@ public class Arginine extends AminoAcid{
 		super.setMasseVolumique(masseVolumique);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

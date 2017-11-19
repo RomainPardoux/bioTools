@@ -7,6 +7,7 @@ public final class Sequence {
 
 	/* Declaration des variables d'instance */
 	private String sequence = "", nomSeq = "", typeSeq = "", formule = "";
+	private String [] halfLife = {"","",""};
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
 	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex; 
 	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound;
@@ -21,7 +22,6 @@ public final class Sequence {
 
 	/* Constructeurs */
 	public Sequence() {	}
-
 
 	public Sequence(String seq, String nom) {
 		this.sequence = seq;
@@ -44,7 +44,9 @@ public final class Sequence {
 		this.abs01PercWithoutCysRound = (new BigDecimal(this.abs01PercWithoutCys)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.aliphIndex = computeAliphaticIndex(aminoAcidList);
 		this.aliphIndexRound = (new BigDecimal(this.aliphIndex)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.setHalfLife(getHalfLife(aminoAcidList));
 	}
+
 
 
 	public Sequence(String seq) {
@@ -67,6 +69,7 @@ public final class Sequence {
 		this.abs01PercWithoutCysRound = (new BigDecimal(this.abs01PercWithoutCys)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.aliphIndex = computeAliphaticIndex(aminoAcidList);
 		this.aliphIndexRound = (new BigDecimal(this.aliphIndex)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.setHalfLife(getHalfLife(aminoAcidList));
 	}
 
 	//Fonctions de classe
@@ -86,8 +89,7 @@ public final class Sequence {
 		}
 	}
 	
-	//1.2 Compte le nbre de monomere dans la sequence
-
+	//1.2 Alimente la liste aminoAcidList ou nucleotidList
 	public void addMonomer(String seq){
 		seq = seq.toLowerCase();
 		if(typeSeq.equals("protein")){
@@ -174,14 +176,14 @@ public final class Sequence {
 		}
 	}
 
+	//1.3 Compte le nbre de monomere dans la sequence
 	public int countMonomer(ArrayList<AminoAcid> aminoAcidList){
 		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
 	
-	//1.3 Compte le nombre d'atome de la sequence
-
-	// Fonctions which work with protein
+	//2. Fonctions propre a l analyse proteique
+	//2.1 Compte le nbre d acide amine dans la sequence
 	public void countAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i < aminoAcidList.size(); i++) {
 			switch (aminoAcidList.get(i).getSyn1L()) {
@@ -254,6 +256,7 @@ public final class Sequence {
 		}
 	}
 
+	//2.2 Compte le nbre d aa charger dans la sequence
 	public void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i <aminoAcidList.size(); i++) {
 			if (aminoAcidList.get(i).getSideChainProperty().equals("positive_charged")) {
@@ -264,6 +267,7 @@ public final class Sequence {
 		}
 	}
 	
+	//2.3 Compte le nombre d'atome dans la sequence proteique
 	public void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
@@ -292,6 +296,7 @@ public final class Sequence {
 		this.setNbSeAtom(seAtomBuffer);
 	}
 	
+	//2.4 Calcul le poid moleculaire de la sequence proteique
 	public Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
 		Double MW = 0.0;
@@ -303,7 +308,7 @@ public final class Sequence {
 		return MWTotal;
 	}
 
-
+	//2.5 Calcul le pHI de la seq proteique
 	public Double computePHI(ArrayList<AminoAcid> aminoAcidList){
 		Double pHI = 0.0;
 		ArrayList<Double> listPKa = new ArrayList<Double>();
@@ -331,8 +336,7 @@ public final class Sequence {
 		return pHI;
 	}
 	
-	//2. Fonctions propre à l'analyse proteique
-	//2.1 Calcul le coefficiant d'extinction molaire de la proteine
+	//2.6 Calcul le coefficiant d'extinction molaire de la proteine
 	public int computeExtinctionCoef(ArrayList<AminoAcid> aminoAcidList){
 		int cem = 0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -349,13 +353,13 @@ public final class Sequence {
 		return cem;
 	}
 
-	//2.2 Calcul le coefficiant d'extinction molaire de la proteine sans prendre en compte les cysteines
+	//2.7 Calcul le coefficiant d'extinction molaire de la proteine sans prendre en compte les cysteines
 	public int computeExtinctionCoefWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = (getNbTyr() * 1280) + (getNbTrp() * 5690);
 		return cem;
 	}
 	
-	//2.3 Calcul l'aborbance à 0.1 pourcent de proteine
+	//2.8 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine
 	public Double computeAbs01Perc(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoef(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
@@ -363,7 +367,7 @@ public final class Sequence {
 		return abs01Perc;
 	}
 	
-	//2.4 Calcul l'aborbance à 0.1 pourcent de proteine sans prendre en compte les cysteines
+	//2.9 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine sans prendre en compte les cysteines
 	public Double computeAbs01PercWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoefWithoutCys(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
@@ -371,7 +375,7 @@ public final class Sequence {
 		return abs01Perc;
 	}
 	
-	//2.5 Calcul l'index aliphatique de la proteine
+	//2.10 Calcul l'index aliphatique de la proteine
 	/*Detail du calcul: p(ala) + 2.9 * p(val) + 3.9 * ( p(ile) + p(leu) ) */
 	public Double computeAliphaticIndex(ArrayList<AminoAcid> aminoAcidList){
 		Double alpihIndex = ((double)(this.getNbAla() * 100) / (double)this.getNbMonomer()) 
@@ -381,7 +385,13 @@ public final class Sequence {
 		return alpihIndex;
 	}
 	
-	//2.6 Renvoie le nombre d'acide aminé renségné en parametre
+	//2.11 Determine le In vivo half life de la proteine
+	public String [] getHalfLife(ArrayList<AminoAcid> aminoAcidList) {
+		this.halfLife = aminoAcidList.get(0).getHalfLife();
+		return halfLife;
+	}
+	
+	//2.11 Renvoie le nombre d'acide aminï¿½ rensï¿½gnï¿½ en parametre
 	public int getNbAa(char aA){
 		switch (aA) {
 		case 'A':
@@ -452,7 +462,7 @@ public final class Sequence {
 		}
 	}
 
-
+	//2.12 Renvoi la seq proteique reformater
 	public String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -461,7 +471,7 @@ public final class Sequence {
 		return formatedSeq;
 	}
 
-
+	//2.13 Renvoi une description de la composition de la seq en acide amine
 	public String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
 		String aAComposition = "";
 		ArrayList<String> aminAc = new ArrayList<String>();
@@ -515,8 +525,8 @@ public final class Sequence {
 				"\n\nMolecular weight (MW): " + mWRound + " g/mol " + 
 				"\n\nTheoretical pI: " + pHIRound +
 				"\n\nAmino Acid Composition: \n" + describeAminoAcidComposition(aminoAcidList) + "\n" +
-				"\n\nTotal number of negatively charged residues: " + this.getNbNegativeAA() +
-				"\nTotal number of positively charged residues: " + this.getNbPositiveAA() +
+				"\n\nTotal number of negatively charged residues (Asp + Glu):     " + this.getNbNegativeAA() +
+				"\nTotal number of positively charged residues (Arg + Lys + His): " + this.getNbPositiveAA() +
 				"\n\nAomic Composition: " +
 				"\n\nCarbon       C        " + getNbCatom() +
 				"\nHydrogen     H        " + getNbHatom() +
@@ -531,6 +541,11 @@ public final class Sequence {
 				msgExtCoefWithoutCys +
 				"\n\nAbs 0.1% (=1 g/l)                       " + this.getAbs01PercRound()
 				 + msgAbsWithoutCys +
+				 "\n\nEstimated halph-life: " +
+				 "\n\nThe N-terminal of the sequence considered is " + aminoAcidList.get(0).getSyn1L() + " (" + aminoAcidList.get(0).getSyn3L() + "). " + 
+				 "\nThe estimated half-life is: " + getHalfLife(aminoAcidList)[0] + " (mammalian reticulocytes, in vitro)." +
+				 "\n                            " + getHalfLife(aminoAcidList)[1] + " (yeast, in vivo)." +
+				 "\n                            " + getHalfLife(aminoAcidList)[2] + " (Escherichia coli, in vivo)." +
 				 "\n\nAliphatic index:  " + getAliphIndexRound() +
 				"\n\n---------------------------------------------------------------------------------";
 	}
@@ -974,5 +989,9 @@ public final class Sequence {
 
 	public void setAliphIndexRound(BigDecimal aliphIndexRound) {
 		this.aliphIndexRound = aliphIndexRound;
+	}
+	
+	public void setHalfLife(String[] halfLife) {
+		this.halfLife = halfLife;
 	}
 }

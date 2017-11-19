@@ -20,6 +20,7 @@ public class Alanine extends AminoAcid{
 	private  double pHIsoelectrique = 6.0;
 	private double pKaCOOH = 2.33, pKaNH3 = 9.71;
 	private String sideChainProperty = "hydrophobic";
+	private String [] halfLife = {"4.4 hour", ">20 hour", ">10 hour"};
 	
 	// Constructeur
 	public Alanine() {
@@ -38,6 +39,7 @@ public class Alanine extends AminoAcid{
 		super.setMasseVolumique(masseVolumique);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

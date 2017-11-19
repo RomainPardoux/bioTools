@@ -20,6 +20,7 @@ public class AsparticAcid extends AminoAcid{
 	private  double pHIsoelectrique = 2.77;
 	private double pKaCOOH = 1.95, pKaNH3 = 9.66, pKaR = 3.71;
 	private String sideChainProperty = "negative_charged";
+	private String [] halfLife = {"1.1 hour", "3 min", ">10 hour"};
 	
 	// Constructeur
 	public AsparticAcid() {
@@ -38,6 +39,7 @@ public class AsparticAcid extends AminoAcid{
 		super.setMasseVolumique(masseVolumique);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 
 	// Getters and Setters

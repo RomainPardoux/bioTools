@@ -20,6 +20,7 @@ public class Asparagine extends AminoAcid{
 	private  double pHIsoelectrique = 5.41;
 	private double pKaCOOH = 2.16, pKaNH3 = 8.76;
 	private String sideChainProperty = "uncharged";
+	private String [] halfLife = {"1.4 hour", "3 min", ">10 hour"};
 
 	// Constructeur
 	public Asparagine() {
@@ -38,6 +39,7 @@ public class Asparagine extends AminoAcid{
 		super.setMasseVolumique(masseVolumique);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 
 	//Getters and Setters

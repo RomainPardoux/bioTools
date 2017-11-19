@@ -18,6 +18,7 @@ public class Lysine extends AminoAcid{
 	private  double pHIsoelectrique = 9.74;
 	private double pKaCOOH = 2.15, pKaNH3 = 10.67, pKaR = 9.16;
 	private String sideChainProperty = "positive_charged";
+	private String [] halfLife = {"1.3 hour", "3 min", "2 min"};
 	
 	// Constructeur
 	public Lysine() {
@@ -34,6 +35,7 @@ public class Lysine extends AminoAcid{
 		super.setPrecisionMasseMolaire(precisionMasseMolaire);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 
 	// Getters and Setters

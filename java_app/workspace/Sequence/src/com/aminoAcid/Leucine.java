@@ -18,6 +18,7 @@ public class Leucine extends AminoAcid{
 	private  double pHIsoelectrique = 5.98;
 	private double pKaCOOH = 2.32, pKaNH3 = 9.58;
 	private String sideChainProperty = "hydrophobic";
+	private String [] halfLife = {"5.5 hour", "3 min", "2 min"};
 	
 	// Constructeur
 	public Leucine() {
@@ -34,6 +35,7 @@ public class Leucine extends AminoAcid{
 		super.setPrecisionMasseMolaire(precisionMasseMolaire);
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
+		super.setHalfLife(halfLife);
 	}
 	
 	// Getters and Setters

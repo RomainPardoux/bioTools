@@ -21,6 +21,7 @@ public class Tyrosine extends AminoAcid{
 	private String sideChainProperty = "hydrophobic";
 	private int extinctionCoef = 1490;
 	private String [] halfLife = {"2.8 hour", "10 min", "2 min"};
+	private double hydropathie = - 1.30;
 	
 	// Constructeur
 	public Tyrosine() {
@@ -40,6 +41,7 @@ public class Tyrosine extends AminoAcid{
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setExtinctionCoef(extinctionCoef);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

@@ -21,6 +21,7 @@ public class Asparagine extends AminoAcid{
 	private double pKaCOOH = 2.16, pKaNH3 = 8.76;
 	private String sideChainProperty = "uncharged";
 	private String [] halfLife = {"1.4 hour", "3 min", ">10 hour"};
+	private double hydropathie = - 3.50;
 
 	// Constructeur
 	public Asparagine() {
@@ -40,6 +41,7 @@ public class Asparagine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	//Getters and Setters

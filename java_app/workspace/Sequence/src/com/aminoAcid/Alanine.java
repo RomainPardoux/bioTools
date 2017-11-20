@@ -21,6 +21,7 @@ public class Alanine extends AminoAcid{
 	private double pKaCOOH = 2.33, pKaNH3 = 9.71;
 	private String sideChainProperty = "hydrophobic";
 	private String [] halfLife = {"4.4 hour", ">20 hour", ">10 hour"};
+	private double hydropathie = 1.80;
 	
 	// Constructeur
 	public Alanine() {
@@ -40,6 +41,7 @@ public class Alanine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

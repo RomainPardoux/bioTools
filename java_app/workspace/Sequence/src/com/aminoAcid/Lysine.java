@@ -19,6 +19,7 @@ public class Lysine extends AminoAcid{
 	private double pKaCOOH = 2.15, pKaNH3 = 10.67, pKaR = 9.16;
 	private String sideChainProperty = "positive_charged";
 	private String [] halfLife = {"1.3 hour", "3 min", "2 min"};
+	private double hydropathie = - 3.90;
 	
 	// Constructeur
 	public Lysine() {
@@ -36,6 +37,7 @@ public class Lysine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

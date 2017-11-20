@@ -19,6 +19,7 @@ public class PhenylAlanine extends AminoAcid{
 	private double pKaCOOH = 2.18, pKaNH3 = 9.09;
 	private String sideChainProperty = "hydrophobic";
 	private String [] halfLife = {"1.1 hour", "3 min", "2 min"};
+	private double hydropathie = 2.80;
 	
 	// Constructeur
 	public PhenylAlanine() {
@@ -36,6 +37,7 @@ public class PhenylAlanine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

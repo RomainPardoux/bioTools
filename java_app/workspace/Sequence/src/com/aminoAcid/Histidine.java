@@ -21,6 +21,7 @@ public class Histidine extends AminoAcid{
 	private double pKaCOOH = 1.7, pKaNH3 = 9.09, pKaR = 6.04;
 	private String sideChainProperty = "positive_charged";
 	private String [] halfLife = {"3.5 hour", "10 min", ">10 hour"};
+	private double hydropathie = - 3.20;
 	
 	// Constructeur
 	public Histidine() {
@@ -40,6 +41,7 @@ public class Histidine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

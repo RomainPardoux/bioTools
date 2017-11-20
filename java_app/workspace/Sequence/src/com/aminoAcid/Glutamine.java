@@ -20,6 +20,7 @@ public class Glutamine extends AminoAcid{
 	private double pKaCOOH = 2.18, pKaNH3 = 9.0;
 	private String sideChainProperty = "special";
 	private String [] halfLife = {"0.8 hour", "10 min", ">10 hour"};
+	private double hydropathie = - 3.50;
 	
 	// Constructeur
 	public Glutamine() {
@@ -37,6 +38,7 @@ public class Glutamine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

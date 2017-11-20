@@ -17,6 +17,7 @@ public abstract class AminoAcid {
 	private String sideChainProperty = "";
 	private int extinctionCoef = 0;
 	private String [] halfLife = {"", "", ""};
+	private double hydropathie = 0.00;
 	
 	// Constructeur
 	public AminoAcid(char syn1l, String syn3l, String formuleBrute, double masseMolaire, double precisionMasseMolaire,
@@ -202,5 +203,13 @@ public abstract class AminoAcid {
 
 	public void setHalfLife(String [] halfLife) {
 		this.halfLife = halfLife;
+	}
+
+	public double getHydropathie() {
+		return hydropathie;
+	}
+
+	public void setHydropathie(double hydropathie) {
+		this.hydropathie = hydropathie;
 	}	
 }

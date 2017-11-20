@@ -22,6 +22,7 @@ public class Glycine extends AminoAcid{
 	private double pKaCOOH = 2.34, pKaNH3 = 9.58;
 	private String sideChainProperty = "special";
 	private String [] halfLife = {"30 hour", ">20 hour", ">10 hour"};
+	private double hydropathie = - 0.40;
 	
 	// Constructeur
 	public Glycine() {
@@ -41,6 +42,7 @@ public class Glycine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

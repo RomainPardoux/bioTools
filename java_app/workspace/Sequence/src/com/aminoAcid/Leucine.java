@@ -19,6 +19,7 @@ public class Leucine extends AminoAcid{
 	private double pKaCOOH = 2.32, pKaNH3 = 9.58;
 	private String sideChainProperty = "hydrophobic";
 	private String [] halfLife = {"5.5 hour", "3 min", "2 min"};
+	private double hydropathie = 3.80;
 	
 	// Constructeur
 	public Leucine() {
@@ -36,6 +37,7 @@ public class Leucine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

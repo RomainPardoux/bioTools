@@ -22,6 +22,7 @@ public class Cysteine extends AminoAcid{
 	private String sideChainProperty = "special";
 	private int extinctionCoef = 125;
 	private String [] halfLife = {"1.2 hour", ">20 hour", ">10 hour"};
+	private double hydropathie = 2.50;
 	
 	// Constructeur
 	public Cysteine() {
@@ -41,6 +42,7 @@ public class Cysteine extends AminoAcid{
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setExtinctionCoef(extinctionCoef);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

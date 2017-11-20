@@ -20,6 +20,7 @@ public class Threonine extends AminoAcid{
 	private double pKaCOOH = 2.20, pKaNH3 = 8.96;
 	private String sideChainProperty = "polar_uncharged";
 	private String [] halfLife = {"7.2 hour", ">20 hour", ">10 hour"};
+	private double hydropathie = - 0.7;
 	
 	// Constructeur
 	public Threonine() {
@@ -38,6 +39,7 @@ public class Threonine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

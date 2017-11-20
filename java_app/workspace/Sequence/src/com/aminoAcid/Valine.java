@@ -19,6 +19,7 @@ public class Valine extends AminoAcid{
 	private double pKaCOOH = 2.27, pKaNH3 = 9.52;
 	private String sideChainProperty = "hydrophobic";
 	private String [] halfLife = {"100 hour", ">20 hour", ">10 hour"};
+	private double hydropathie = 4.20;
 	
 	// Constructeur
 	public Valine() {
@@ -36,6 +37,7 @@ public class Valine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters

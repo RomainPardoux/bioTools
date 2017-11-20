@@ -9,8 +9,8 @@ public final class Sequence {
 	private String sequence = "", nomSeq = "", typeSeq = "", formule = "";
 	private String [] halfLife = {"","",""};
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
-	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex; 
-	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound;
+	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex, gravy; 
+	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound, gravyRound;
 	protected ArrayList<AminoAcid> aminoAcidList;
 	protected AminoAcid aminoAcid;
 	protected ArrayList<Nucleotid> nucleotidList;
@@ -45,6 +45,8 @@ public final class Sequence {
 		this.aliphIndex = computeAliphaticIndex(aminoAcidList);
 		this.aliphIndexRound = (new BigDecimal(this.aliphIndex)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.setHalfLife(getHalfLife(aminoAcidList));
+		this.setGravy(computeGravyIndex(aminoAcidList));
+		this.gravyRound = (new BigDecimal(this.gravy)).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 
@@ -70,6 +72,8 @@ public final class Sequence {
 		this.aliphIndex = computeAliphaticIndex(aminoAcidList);
 		this.aliphIndexRound = (new BigDecimal(this.aliphIndex)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.setHalfLife(getHalfLife(aminoAcidList));
+		this.setGravy(computeGravyIndex(aminoAcidList));
+		this.gravyRound = (new BigDecimal(this.gravy)).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 	//Fonctions de classe
@@ -391,7 +395,7 @@ public final class Sequence {
 		return halfLife;
 	}
 	
-	//2.11 Renvoie le nombre d'acide amin� rens�gn� en parametre
+	//2.12 Renvoie le nombre d'acide amin� rens�gn� en parametre
 	public int getNbAa(char aA){
 		switch (aA) {
 		case 'A':
@@ -462,7 +466,7 @@ public final class Sequence {
 		}
 	}
 
-	//2.12 Renvoi la seq proteique reformater
+	//2.13 Renvoi la seq proteique reformater
 	public String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -471,7 +475,7 @@ public final class Sequence {
 		return formatedSeq;
 	}
 
-	//2.13 Renvoi une description de la composition de la seq en acide amine
+	//2.14 Renvoi une description de la composition de la seq en acide amine
 	public String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
 		String aAComposition = "";
 		ArrayList<String> aminAc = new ArrayList<String>();
@@ -501,6 +505,17 @@ public final class Sequence {
 
 	}
 
+	//Calcul l'index GRAVY de la proteine
+	//The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
+	public Double computeGravyIndex(ArrayList<AminoAcid> aminoAcidList){
+		Double iI = 0.00;
+		for (int i = 0; i < aminoAcidList.size(); i++) {
+			iI += aminoAcidList.get(i).getHydropathie();
+		}
+		iI /= aminoAcidList.size();
+		return iI;
+	}
+	
 	@Override
 	public String toString() {
 		String msgWithoutTrpOrTyr = "";
@@ -527,7 +542,7 @@ public final class Sequence {
 				"\n\nAmino Acid Composition: \n" + describeAminoAcidComposition(aminoAcidList) + "\n" +
 				"\n\nTotal number of negatively charged residues (Asp + Glu):     " + this.getNbNegativeAA() +
 				"\nTotal number of positively charged residues (Arg + Lys + His): " + this.getNbPositiveAA() +
-				"\n\nAomic Composition: " +
+				"\n\nAtomic Composition: " +
 				"\n\nCarbon       C        " + getNbCatom() +
 				"\nHydrogen     H        " + getNbHatom() +
 				"\nNitrogen     N        " + getNbNatom() +
@@ -547,6 +562,7 @@ public final class Sequence {
 				 "\n                            " + getHalfLife(aminoAcidList)[1] + " (yeast, in vivo)." +
 				 "\n                            " + getHalfLife(aminoAcidList)[2] + " (Escherichia coli, in vivo)." +
 				 "\n\nAliphatic index:  " + getAliphIndexRound() +
+				 "\n\nGRAVY Index: " + getGravyRound() +
 				"\n\n---------------------------------------------------------------------------------";
 	}
 
@@ -993,5 +1009,21 @@ public final class Sequence {
 	
 	public void setHalfLife(String[] halfLife) {
 		this.halfLife = halfLife;
+	}
+
+	public Double getGravy() {
+		return gravy;
+	}
+
+	public void setGravy(Double gravy) {
+		this.gravy = gravy;
+	}
+
+	public BigDecimal getGravyRound() {
+		return gravyRound;
+	}
+
+	public void setGravyRound(BigDecimal gravyRound) {
+		this.gravyRound = gravyRound;
 	}
 }

@@ -19,6 +19,7 @@ public class Isoleucine extends AminoAcid{
 	private double pKaCOOH = 2.26, pKaNH3 = 9.60;
 	private String sideChainProperty = "hydrophobic";
 	private String [] halfLife = {"20 hour", "30 min", ">10 hour"};
+	private double hydropathie = 4.50;
 	
 	// Constructeur
 	public Isoleucine() {
@@ -36,6 +37,7 @@ public class Isoleucine extends AminoAcid{
 		super.setCodons(codons);
 		super.setpHIsoelectrique(pHIsoelectrique);
 		super.setHalfLife(halfLife);
+		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters

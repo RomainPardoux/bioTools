@@ -28,7 +28,6 @@ public class Main {
 		String regexSeqDna = "^[aAtTcCgGuU]*$";
 		if ( sequence.matches(regexSeqProt)){
 			SequenceProteique seqProt = new SequenceProteique(sequence, nomSeq);
-			System.out.println(seqProt.toString());
 		}
 		else if ( sequence.matches(regexSeqDna)){
 			
@@ -36,5 +35,6 @@ public class Main {
 			
 		}
 		
+		System.out.println(seq.toString());
 	}
 	}

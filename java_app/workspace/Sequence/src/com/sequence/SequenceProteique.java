@@ -3,18 +3,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import com.aminoAcid.*;
 
-public final class SequenceProteique {
+public final class SequenceProteique implements Sequence{
 
 	/* Declaration des variables d'instance */
-	private String sequence = "", nomSeq = "", typeSeq = "", formule = "";
+	private String sequence = "", nomSeq = "", typeSeq = "protein", formule = "";
 	private String [] halfLife = {"","",""};
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
 	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex, gravy; 
 	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound, gravyRound;
 	private ArrayList<AminoAcid> aminoAcidList;
 	private AminoAcid aminoAcid;
-	private ArrayList<Nucleotid> nucleotidList;
-	private Nucleotid nucleotid;
 	/* Variable Amino Acid */
 	private int nbAla, nbArg, nbAsn, nbAsp, nbCys, nbGlu, nbGln, nbGly, nbHis,
 	nbIso, nbLeu, nbLys, nbMet, nbPhe, nbPro, nbSec, nbSer, nbThr, nbTrp, nbTyr, nbVal, 
@@ -23,23 +21,14 @@ public final class SequenceProteique {
 	/* Constructeurs */
 	public SequenceProteique() {	}
 
-	public SequenceProteique(String seq, String nom, String typeSeq) {
-		this.sequence = seq;
-		this.nomSeq = nom;
-		this.typeSeq = typeSeq;
-		initConstructeur();
-	}
-	
 	public SequenceProteique(String seq, String nom) {
 		this.sequence = seq;
 		this.nomSeq = nom;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 
 	public SequenceProteique(String seq) {
 		this.sequence = seq;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 	
@@ -69,25 +58,10 @@ public final class SequenceProteique {
 
 	//Fonctions de classe
 	//1. Fonctions generiques
-	//1.1 Controle du type de la sequence (protein, dna or undifinied)
-	private void ctrlTypeSeq(String seq){
-		// ctrl regex
-		String regexSeqProt = "^([ ]*)?[mM][RrHhKkDdEeSsTtNnQqCcUuGgPpAaVvIiLlMmFfYyWw]*$";
-		String regexSeqDna = "^[aAtTcCgGuU]*$";
-		if ( seq.matches(regexSeqProt)){
-			typeSeq = "protein";
-		}
-		else if ( seq.matches(regexSeqDna)){
-			typeSeq = "dna";
-		} else {
-			typeSeq = "undefined";
-		}
-	}
 	
-	//1.2 Alimente la liste aminoAcidList ou nucleotidList
-	private void addMonomer(String seq){
+	//1.1 Alimente la liste aminoAcidList ou nucleotidList
+	public void addMonomer(String seq){
 		seq = seq.toLowerCase();
-		if(typeSeq.equals("protein")){
 			aminoAcidList = new ArrayList<AminoAcid>();
 			for (int i = 0; i < seq.length(); i++) {
 				char aminoAcid = seq.charAt(i);
@@ -157,22 +131,22 @@ public final class SequenceProteique {
 					break;
 				default:
 					break;
+			
 				}
-			}
-		} else if(typeSeq.equals("dna")){
-			nucleotidList = new ArrayList<Nucleotid>();
-			for (int i = 0; i < seq.length(); i++) {
-				char nucleotid = seq.charAt(i);
-				nucleotidList.add(new Nucleotid(nucleotid));
-			} 
-		}
-		else {
-			System.out.println("Une erreure s'est produite ...");
+//		} else if(typeSeq.equals("dna")){
+//			nucleotidList = new ArrayList<Nucleotid>();
+//			for (int i = 0; i < seq.length(); i++) {
+//				char nucleotid = seq.charAt(i);
+//				nucleotidList.add(new Nucleotid(nucleotid));
+//			} 
+//		}
+//		else {
+//			System.out.println("Une erreure s'est produite ...");
 		}
 	}
 
-	//1.3 Compte le nbre de monomere dans la sequence
-	private int countMonomer(ArrayList<AminoAcid> aminoAcidList){
+	//1.2 Compte le nbre de monomere dans la sequence
+	public int countMonomer(ArrayList<AminoAcid> aminoAcidList){
 		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
@@ -263,7 +237,7 @@ public final class SequenceProteique {
 	}
 	
 	//2.3 Compte le nombre d'atome dans la sequence proteique
-	private void countAtom(ArrayList<AminoAcid> aminoAcidList){
+	public void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
 		int oAtomBuffer = 0;
@@ -292,7 +266,7 @@ public final class SequenceProteique {
 	}
 	
 	//2.4 Calcul le poid moleculaire de la sequence proteique
-	private Double computeMW(ArrayList<AminoAcid> aminoAcidList){
+	public Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
 		Double MW = 0.0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -572,10 +546,6 @@ public final class SequenceProteique {
 
 	public ArrayList<AminoAcid> getAminoAcidList() {
 		return aminoAcidList;
-	}
-
-	public ArrayList<Nucleotid> getNucleotidList() {
-		return nucleotidList;
 	}
 
 	public Double getmW() {

@@ -11,10 +11,10 @@ public final class Sequence {
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
 	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex, gravy; 
 	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound, gravyRound;
-	private ArrayList<AminoAcid> aminoAcidList;
-	private AminoAcid aminoAcid;
-	private ArrayList<Nucleotid> nucleotidList;
-	private Nucleotid nucleotid;
+	protected ArrayList<AminoAcid> aminoAcidList;
+	protected AminoAcid aminoAcid;
+	protected ArrayList<Nucleotid> nucleotidList;
+	protected Nucleotid nucleotid;
 	/* Variable Amino Acid */
 	private int nbAla, nbArg, nbAsn, nbAsp, nbCys, nbGlu, nbGln, nbGly, nbHis,
 	nbIso, nbLeu, nbLys, nbMet, nbPhe, nbPro, nbSec, nbSer, nbThr, nbTrp, nbTyr, nbVal, 
@@ -23,28 +23,20 @@ public final class Sequence {
 	/* Constructeurs */
 	public Sequence() {	}
 
-	public Sequence(String seq, String nom, String typeSeq) {
-		this.sequence = seq;
-		this.nomSeq = nom;
-		this.typeSeq = typeSeq;
-		initConstructeur();
-	}
-	
 	public Sequence(String seq, String nom) {
 		this.sequence = seq;
 		this.nomSeq = nom;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 
 	public Sequence(String seq) {
 		this.sequence = seq;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 	
 	//Init Constructeur
 	private void initConstructeur(){
+		ctrlTypeSeq(sequence);
 		addMonomer(sequence);
 		this.nbMonomer = countMonomer(aminoAcidList);
 		this.countAminoAcid(aminoAcidList);
@@ -282,13 +274,13 @@ public final class Sequence {
 		oAtomBuffer -= (aminoAcidList.size() - 1);
 		hAtomBuffer -= (2 * (aminoAcidList.size() - 1));
 		totAtomBuffer = cAtomBuffer + nAtomBuffer + oAtomBuffer + hAtomBuffer + sAtomBuffer + seAtomBuffer;
-		this.nbAtom = totAtomBuffer;
-		this.nbCatom = cAtomBuffer;
-		this.nbNatom = nAtomBuffer;
-		this.nbOatom = oAtomBuffer;
-		this.nbHatom = hAtomBuffer;
-		this.nbSatom = sAtomBuffer;
-		this.nbSeAtom = seAtomBuffer;
+		this.setNbAtom(totAtomBuffer);
+		this.setNbCatom(cAtomBuffer);
+		this.setNbNatom(nAtomBuffer);
+		this.setNbOatom(oAtomBuffer);
+		this.setNbHatom(hAtomBuffer);
+		this.setNbSatom(sAtomBuffer);
+		this.setNbSeAtom(seAtomBuffer);
 	}
 	
 	//2.4 Calcul le poid moleculaire de la sequence proteique
@@ -568,6 +560,10 @@ public final class Sequence {
 
 	public String getTypeSeq() {
 		return typeSeq;
+	}
+
+	public void setTypeSeq(String typeSeq) {
+		this.typeSeq = typeSeq;
 	}
 
 	public ArrayList<AminoAcid> getAminoAcidList() {

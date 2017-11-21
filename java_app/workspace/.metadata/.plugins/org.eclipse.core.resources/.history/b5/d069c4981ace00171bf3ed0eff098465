@@ -1,0 +1,11 @@
+package com.aminoAcid;
+
+public enum sideChaineType {
+
+	HYDROPHOBIC,
+	POSITIVE_CHARGED,
+	NEGATIVE_CHARGED,
+	SPECIAL,
+	POLAR_UNCHARGED
+	
+}

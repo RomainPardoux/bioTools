@@ -11,10 +11,10 @@ public final class Sequence {
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
 	private Double mW = 0.0, pHI = 0.0, abs01Perc, abs01PercWithoutCys, aliphIndex, gravy; 
 	private BigDecimal mWRound, pHIRound, abs01PercRound, abs01PercWithoutCysRound, aliphIndexRound, gravyRound;
-	private ArrayList<AminoAcid> aminoAcidList;
-	private AminoAcid aminoAcid;
-	private ArrayList<Nucleotid> nucleotidList;
-	private Nucleotid nucleotid;
+	protected ArrayList<AminoAcid> aminoAcidList;
+	protected AminoAcid aminoAcid;
+	protected ArrayList<Nucleotid> nucleotidList;
+	protected Nucleotid nucleotid;
 	/* Variable Amino Acid */
 	private int nbAla, nbArg, nbAsn, nbAsp, nbCys, nbGlu, nbGln, nbGly, nbHis,
 	nbIso, nbLeu, nbLys, nbMet, nbPhe, nbPro, nbSec, nbSer, nbThr, nbTrp, nbTyr, nbVal, 
@@ -23,18 +23,10 @@ public final class Sequence {
 	/* Constructeurs */
 	public Sequence() {	}
 
-	public Sequence(String seq, String nom, String typeSeq) {
-		this.sequence = seq;
-		this.nomSeq = nom;
-		this.typeSeq = typeSeq;
-		initConstructeur();
-	}
-	
 	public Sequence(String seq, String nom) {
 		this.sequence = seq;
 		this.nomSeq = nom;
 		ctrlTypeSeq(sequence);
-		initConstructeur();
 	}
 
 	public Sequence(String seq) {
@@ -43,34 +35,33 @@ public final class Sequence {
 		initConstructeur();
 	}
 	
-	//Init Constructeur
 	private void initConstructeur(){
 		addMonomer(sequence);
 		this.nbMonomer = countMonomer(aminoAcidList);
-		this.countAminoAcid(aminoAcidList);
-		this.countChargedAminoAcid(aminoAcidList);
-		this.countAtom(aminoAcidList);
+		countAminoAcid(aminoAcidList);
 		this.mW = computeMW(aminoAcidList);
 		this.mWRound = (new BigDecimal(this.mW)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.pHI = computePHI(aminoAcidList);
 		this.pHIRound = (new BigDecimal(this.pHI)).setScale(2, BigDecimal.ROUND_HALF_UP);
-		this.extCoef = computeExtinctionCoef(aminoAcidList);
-		this.extCoefWithoutCys = computeExtinctionCoefWithoutCys(aminoAcidList);
+		this.countChargedAminoAcid(aminoAcidList);
+		this.countAtom(aminoAcidList);
+		this.setExtCoef(computeExtinctionCoef(aminoAcidList));
+		this.setExtCoefWithoutCys(computeExtinctionCoefWithoutCys(aminoAcidList));
 		this.abs01Perc = computeAbs01Perc(aminoAcidList);
 		this.abs01PercRound = (new BigDecimal(this.abs01Perc)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.abs01PercWithoutCys = computeAbs01PercWithoutCys(aminoAcidList);
 		this.abs01PercWithoutCysRound = (new BigDecimal(this.abs01PercWithoutCys)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		this.aliphIndex = computeAliphaticIndex(aminoAcidList);
 		this.aliphIndexRound = (new BigDecimal(this.aliphIndex)).setScale(2, BigDecimal.ROUND_HALF_UP);
-		this.halfLife = getHalfLife(aminoAcidList);
-		this.gravy = computeGravyIndex(aminoAcidList);
+		this.setHalfLife(getHalfLife(aminoAcidList));
+		this.setGravy(computeGravyIndex(aminoAcidList));
 		this.gravyRound = (new BigDecimal(this.gravy)).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 	//Fonctions de classe
 	//1. Fonctions generiques
 	//1.1 Controle du type de la sequence (protein, dna or undifinied)
-	private void ctrlTypeSeq(String seq){
+	public void ctrlTypeSeq(String seq){
 		// ctrl regex
 		String regexSeqProt = "^([ ]*)?[mM][RrHhKkDdEeSsTtNnQqCcUuGgPpAaVvIiLlMmFfYyWw]*$";
 		String regexSeqDna = "^[aAtTcCgGuU]*$";
@@ -85,7 +76,7 @@ public final class Sequence {
 	}
 	
 	//1.2 Alimente la liste aminoAcidList ou nucleotidList
-	private void addMonomer(String seq){
+	public void addMonomer(String seq){
 		seq = seq.toLowerCase();
 		if(typeSeq.equals("protein")){
 			aminoAcidList = new ArrayList<AminoAcid>();
@@ -172,14 +163,14 @@ public final class Sequence {
 	}
 
 	//1.3 Compte le nbre de monomere dans la sequence
-	private int countMonomer(ArrayList<AminoAcid> aminoAcidList){
+	public int countMonomer(ArrayList<AminoAcid> aminoAcidList){
 		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
 	
 	//2. Fonctions propre a l analyse proteique
 	//2.1 Compte le nbre d acide amine dans la sequence
-	private void countAminoAcid(ArrayList<AminoAcid> aminoAcidList){
+	public void countAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i < aminoAcidList.size(); i++) {
 			switch (aminoAcidList.get(i).getSyn1L()) {
 			case 'A':
@@ -252,7 +243,7 @@ public final class Sequence {
 	}
 
 	//2.2 Compte le nbre d aa charger dans la sequence
-	private void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
+	public void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i <aminoAcidList.size(); i++) {
 			if (aminoAcidList.get(i).getSideChainProperty().equals("positive_charged")) {
 				this.nbPositiveAA ++;
@@ -263,7 +254,7 @@ public final class Sequence {
 	}
 	
 	//2.3 Compte le nombre d'atome dans la sequence proteique
-	private void countAtom(ArrayList<AminoAcid> aminoAcidList){
+	public void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
 		int oAtomBuffer = 0;
@@ -282,17 +273,17 @@ public final class Sequence {
 		oAtomBuffer -= (aminoAcidList.size() - 1);
 		hAtomBuffer -= (2 * (aminoAcidList.size() - 1));
 		totAtomBuffer = cAtomBuffer + nAtomBuffer + oAtomBuffer + hAtomBuffer + sAtomBuffer + seAtomBuffer;
-		this.nbAtom = totAtomBuffer;
-		this.nbCatom = cAtomBuffer;
-		this.nbNatom = nAtomBuffer;
-		this.nbOatom = oAtomBuffer;
-		this.nbHatom = hAtomBuffer;
-		this.nbSatom = sAtomBuffer;
-		this.nbSeAtom = seAtomBuffer;
+		this.setNbAtom(totAtomBuffer);
+		this.setNbCatom(cAtomBuffer);
+		this.setNbNatom(nAtomBuffer);
+		this.setNbOatom(oAtomBuffer);
+		this.setNbHatom(hAtomBuffer);
+		this.setNbSatom(sAtomBuffer);
+		this.setNbSeAtom(seAtomBuffer);
 	}
 	
 	//2.4 Calcul le poid moleculaire de la sequence proteique
-	private Double computeMW(ArrayList<AminoAcid> aminoAcidList){
+	public Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
 		Double MW = 0.0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -304,7 +295,7 @@ public final class Sequence {
 	}
 
 	//2.5 Calcul le pHI de la seq proteique
-	private Double computePHI(ArrayList<AminoAcid> aminoAcidList){
+	public Double computePHI(ArrayList<AminoAcid> aminoAcidList){
 		Double pHI = 0.0;
 		ArrayList<Double> listPKa = new ArrayList<Double>();
 		int cptrPositiveCharge = 0; 
@@ -332,7 +323,7 @@ public final class Sequence {
 	}
 	
 	//2.6 Calcul le coefficiant d'extinction molaire de la proteine
-	private int computeExtinctionCoef(ArrayList<AminoAcid> aminoAcidList){
+	public int computeExtinctionCoef(ArrayList<AminoAcid> aminoAcidList){
 		int cem = 0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
 			if( aminoAcidList.get(i).getSyn1L() == 'W'){
@@ -349,13 +340,13 @@ public final class Sequence {
 	}
 
 	//2.7 Calcul le coefficiant d'extinction molaire de la proteine sans prendre en compte les cysteines
-	private int computeExtinctionCoefWithoutCys(ArrayList<AminoAcid> aminoAcidList){
+	public int computeExtinctionCoefWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = (getNbTyr() * 1280) + (getNbTrp() * 5690);
 		return cem;
 	}
 	
 	//2.8 Calcul l'aborbance � 0.1 pourcent de proteine
-	private Double computeAbs01Perc(ArrayList<AminoAcid> aminoAcidList){
+	public Double computeAbs01Perc(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoef(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
 		Double abs01Perc = (double)cem / mw;
@@ -363,7 +354,7 @@ public final class Sequence {
 	}
 	
 	//2.9 Calcul l'aborbance � 0.1 pourcent de proteine sans prendre en compte les cysteines
-	private Double computeAbs01PercWithoutCys(ArrayList<AminoAcid> aminoAcidList){
+	public Double computeAbs01PercWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoefWithoutCys(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
 		Double abs01Perc = (double)cem / mw;
@@ -372,7 +363,7 @@ public final class Sequence {
 	
 	//2.10 Calcul l'index aliphatique de la proteine
 	/*Detail du calcul: p(ala) + 2.9 * p(val) + 3.9 * ( p(ile) + p(leu) ) */
-	private Double computeAliphaticIndex(ArrayList<AminoAcid> aminoAcidList){
+	public Double computeAliphaticIndex(ArrayList<AminoAcid> aminoAcidList){
 		Double alpihIndex = ((double)(this.getNbAla() * 100) / (double)this.getNbMonomer()) 
 							+ 2.9 * ((double)(this.getNbVal() * 100) / (double)this.getNbMonomer()) 
 							+ 3.9 * ((double)((this.getNbIso() * 100) / (double)this.getNbMonomer()) 
@@ -381,23 +372,12 @@ public final class Sequence {
 	}
 	
 	//2.11 Determine le In vivo half life de la proteine
-	private String [] getHalfLife(ArrayList<AminoAcid> aminoAcidList) {
+	public String [] getHalfLife(ArrayList<AminoAcid> aminoAcidList) {
 		this.halfLife = aminoAcidList.get(0).getHalfLife();
 		return halfLife;
 	}
 	
-	//Calcul l'index GRAVY de la proteine
-	//2.12 The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
-	private Double computeGravyIndex(ArrayList<AminoAcid> aminoAcidList){
-		Double iI = 0.00;
-		for (int i = 0; i < aminoAcidList.size(); i++) {
-			iI += aminoAcidList.get(i).getHydropathie();
-		}
-		iI /= aminoAcidList.size();
-		return iI;
-	}
-
-	//2.13 Renvoie le nombre d'acide amin� rens�gn� en parametre
+	//2.12 Renvoie le nombre d'acide amin� rens�gn� en parametre
 	public int getNbAa(char aA){
 		switch (aA) {
 		case 'A':
@@ -468,7 +448,7 @@ public final class Sequence {
 		}
 	}
 
-	//2.14 Renvoi la seq proteique reformater
+	//2.13 Renvoi la seq proteique reformater
 	public String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -477,7 +457,7 @@ public final class Sequence {
 		return formatedSeq;
 	}
 
-	//2.15 Renvoi une description de la composition de la seq en acide amine
+	//2.14 Renvoi une description de la composition de la seq en acide amine
 	public String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
 		String aAComposition = "";
 		ArrayList<String> aminAc = new ArrayList<String>();
@@ -505,6 +485,17 @@ public final class Sequence {
 		}
 		return aAComposition;
 
+	}
+
+	//Calcul l'index GRAVY de la proteine
+	//The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
+	public Double computeGravyIndex(ArrayList<AminoAcid> aminoAcidList){
+		Double iI = 0.00;
+		for (int i = 0; i < aminoAcidList.size(); i++) {
+			iI += aminoAcidList.get(i).getHydropathie();
+		}
+		iI /= aminoAcidList.size();
+		return iI;
 	}
 	
 	@Override
@@ -562,161 +553,346 @@ public final class Sequence {
 		return sequence;
 	}
 
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
+	}
+
 	public String getNomSeq() {
 		return nomSeq;
+	}
+
+	public void setNomSeq(String nomSeq) {
+		this.nomSeq = nomSeq;
 	}
 
 	public String getTypeSeq() {
 		return typeSeq;
 	}
 
+	public void setTypeSeq(String typeSeq) {
+		this.typeSeq = typeSeq;
+	}
+
 	public ArrayList<AminoAcid> getAminoAcidList() {
 		return aminoAcidList;
+	}
+
+	public void setAminoAcidList(ArrayList<AminoAcid> aminoAcidList) {
+		this.aminoAcidList = aminoAcidList;
 	}
 
 	public ArrayList<Nucleotid> getNucleotidList() {
 		return nucleotidList;
 	}
 
+	public void setNucleotidList(ArrayList<Nucleotid> nucleotidList) {
+		this.nucleotidList = nucleotidList;
+	}
+
 	public Double getmW() {
 		return mW;
+	}
+
+	public void setmW(Double mW) {
+		this.mW = mW;
 	}
 
 	public int getNbMonomer() {
 		return nbMonomer;
 	}
 
+	public void setNbMonomer(int nbMonomer) {
+		this.nbMonomer = nbMonomer;
+	}
+
 	public int getNbAla() {
 		return nbAla;
+	}
+
+	public void setNbAla(int nbAla) {
+		this.nbAla = nbAla;
 	}
 
 	public int getNbArg() {
 		return nbArg;
 	}
 
+	public void setNbArg(int nbArg) {
+		this.nbArg = nbArg;
+	}
+
 	public int getNbAsn() {
 		return nbAsn;
+	}
+
+	public void setNbAsn(int nbAsn) {
+		this.nbAsn = nbAsn;
 	}
 
 	public int getNbAsp() {
 		return nbAsp;
 	}
 
+	public void setNbAsp(int nbAsp) {
+		this.nbAsp = nbAsp;
+	}
+
 	public int getNbCys() {
 		return nbCys;
+	}
+
+	public void setNbCys(int nbCys) {
+		this.nbCys = nbCys;
 	}
 
 	public int getNbGlu() {
 		return nbGlu;
 	}
 
+	public void setNbGlu(int nbGlu) {
+		this.nbGlu = nbGlu;
+	}
+
 	public int getNbGln() {
 		return nbGln;
+	}
+
+	public void setNbGln(int nbGln) {
+		this.nbGln = nbGln;
 	}
 
 	public int getNbGly() {
 		return nbGly;
 	}
 
+	public void setNbGly(int nbGly) {
+		this.nbGly = nbGly;
+	}
+
 	public int getNbHis() {
 		return nbHis;
+	}
+
+	public void setNbHis(int nbHis) {
+		this.nbHis = nbHis;
 	}
 
 	public int getNbIso() {
 		return nbIso;
 	}
 
+	public void setNbIso(int nbIso) {
+		this.nbIso = nbIso;
+	}
+
 	public int getNbLeu() {
 		return nbLeu;
+	}
+
+	public void setNbLeu(int nbLeu) {
+		this.nbLeu = nbLeu;
 	}
 
 	public int getNbLys() {
 		return nbLys;
 	}
 
+	public void setNbLys(int nbLys) {
+		this.nbLys = nbLys;
+	}
+
 	public int getNbMet() {
 		return nbMet;
+	}
+
+	public void setNbMet(int nbMet) {
+		this.nbMet = nbMet;
 	}
 
 	public int getNbPhe() {
 		return nbPhe;
 	}
 
+	public void setNbPhe(int nbPhe) {
+		this.nbPhe = nbPhe;
+	}
+
 	public int getNbPro() {
 		return nbPro;
+	}
+
+	public void setNbPro(int nbPro) {
+		this.nbPro = nbPro;
 	}
 
 	public int getNbSec() {
 		return nbSec;
 	}
 
+	public void setNbSec(int nbSec) {
+		this.nbSec = nbSec;
+	}
+
 	public int getNbSer() {
 		return nbSer;
+	}
+
+	public void setNbSer(int nbSer) {
+		this.nbSer = nbSer;
 	}
 
 	public int getNbThr() {
 		return nbThr;
 	}
 
+	public void setNbThr(int nbThr) {
+		this.nbThr = nbThr;
+	}
+
 	public int getNbTrp() {
 		return nbTrp;
+	}
+
+	public void setNbTrp(int nbTrp) {
+		this.nbTrp = nbTrp;
 	}
 
 	public int getNbTyr() {
 		return nbTyr;
 	}
 
+	public void setNbTyr(int nbTyr) {
+		this.nbTyr = nbTyr;
+	}
+
 	public int getNbVal() {
 		return nbVal;
 	}
+
+	public void setNbVal(int nbVal) {
+		this.nbVal = nbVal;
+	}
+
 
 	public Double getpHI() {
 		return pHI;
 	}
 
+
+	public void setpHI(Double pHI) {
+		this.pHI = pHI;
+	}
+
+
 	public BigDecimal getmWRound() {
 		return mWRound;
 	}
+
+
+	public void setmWRound(BigDecimal mWRound) {
+		this.mWRound = mWRound;
+	}
+
 
 	public BigDecimal getpHIRound() {
 		return pHIRound;
 	}
 
+
+	public void setpHIRound(BigDecimal pHIRound) {
+		this.pHIRound = pHIRound;
+	}
+
+
 	public int getNbNegativeAA() {
 		return nbNegativeAA;
 	}
+
+
+	public void setNbNegativeAA(int nbNegativeAA) {
+		this.nbNegativeAA = nbNegativeAA;
+	}
+
 
 	public int getNbPositiveAA() {
 		return nbPositiveAA;
 	}
 
+
+	public void setNbPositiveAA(int nbPositiveAA) {
+		this.nbPositiveAA = nbPositiveAA;
+	}
+
+
 	public int getNbCatom() {
 		return nbCatom;
 	}
+
+
+	public void setNbCatom(int nbCatom) {
+		this.nbCatom = nbCatom;
+	}
+
 
 	public int getNbSatom() {
 		return nbSatom;
 	}
 
+
+	public void setNbSatom(int nbSatom) {
+		this.nbSatom = nbSatom;
+	}
+
+
 	public int getNbNatom() {
 		return nbNatom;
 	}
+
+
+	public void setNbNatom(int nbNatom) {
+		this.nbNatom = nbNatom;
+	}
+
 
 	public int getNbSeAtom() {
 		return nbSeAtom;
 	}
 
+
+	public void setNbSeAtom(int nbSeAtom) {
+		this.nbSeAtom = nbSeAtom;
+	}
+
+
 	public int getNbOatom() {
 		return nbOatom;
 	}
+
+
+	public void setNbOatom(int nbOatom) {
+		this.nbOatom = nbOatom;
+	}
+
 
 	public int getNbHatom() {
 		return nbHatom;
 	}
 
+
+	public void setNbHatom(int nbHatom) {
+		this.nbHatom = nbHatom;
+	}
+
+
 	public int getNbAtom() {
 		return nbAtom;
 	}
+
+
+	public void setNbAtom(int nbAtom) {
+		this.nbAtom = nbAtom;
+	}
+
 
 	public String getFormule() {
 		formule = "C"+ getNbCatom() +
@@ -728,44 +904,108 @@ public final class Sequence {
 		return formule;
 	}
 
+
+	public void setFormule(String formule) {
+		this.formule = formule;
+	}
+
+
 	public int getExtCoefWithoutCys() {
 		return extCoefWithoutCys;
 	}
+
+
+	public void setExtCoefWithoutCys(int extCoefWithoutCys) {
+		this.extCoefWithoutCys = extCoefWithoutCys;
+	}
+
 
 	public int getExtCoef() {
 		return extCoef;
 	}
 
+
+	public void setExtCoef(int extCoef) {
+		this.extCoef = extCoef;
+	}
+
+
 	public Double getAbs01Perc() {
 		return abs01Perc;
 	}
+
+
+	public void setAbs01Perc(Double abs01Perc) {
+		this.abs01Perc = abs01Perc;
+	}
+
 
 	public BigDecimal getAbs01PercRound() {
 		return abs01PercRound;
 	}
 
+
+	public void setAbs01PercRound(BigDecimal abs01PercRound) {
+		this.abs01PercRound = abs01PercRound;
+	}
+
+
 	public Double getAbs01PercWithoutCys() {
 		return abs01PercWithoutCys;
 	}
+
+
+	public void setAbs01PercWithoutCys(Double abs01PercWithoutCys) {
+		this.abs01PercWithoutCys = abs01PercWithoutCys;
+	}
+
 
 	public BigDecimal getAbs01PercWithoutCysRound() {
 		return abs01PercWithoutCysRound;
 	}
 
+
+	public void setAbs01PercWithoutCysRound(BigDecimal abs01PercWithoutCysRound) {
+		this.abs01PercWithoutCysRound = abs01PercWithoutCysRound;
+	}
+
+
 	public Double getAliphIndex() {
 		return aliphIndex;
 	}
 
+
+	public void setAliphIndex(Double aliphIndex) {
+		this.aliphIndex = aliphIndex;
+	}
+
+
 	public BigDecimal getAliphIndexRound() {
 		return aliphIndexRound;
+	}
+
+
+	public void setAliphIndexRound(BigDecimal aliphIndexRound) {
+		this.aliphIndexRound = aliphIndexRound;
+	}
+	
+	public void setHalfLife(String[] halfLife) {
+		this.halfLife = halfLife;
 	}
 
 	public Double getGravy() {
 		return gravy;
 	}
 
+	public void setGravy(Double gravy) {
+		this.gravy = gravy;
+	}
+
 	public BigDecimal getGravyRound() {
 		return gravyRound;
 	}
 
+	public void setGravyRound(BigDecimal gravyRound) {
+		this.gravyRound = gravyRound;
+	}
 }

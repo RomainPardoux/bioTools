@@ -23,28 +23,20 @@ public final class Sequence {
 	/* Constructeurs */
 	public Sequence() {	}
 
-	public Sequence(String seq, String nom, String typeSeq) {
-		this.sequence = seq;
-		this.nomSeq = nom;
-		this.typeSeq = typeSeq;
-		initConstructeur();
-	}
-	
 	public Sequence(String seq, String nom) {
 		this.sequence = seq;
 		this.nomSeq = nom;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 
 	public Sequence(String seq) {
 		this.sequence = seq;
-		ctrlTypeSeq(sequence);
 		initConstructeur();
 	}
 	
 	//Init Constructeur
 	private void initConstructeur(){
+		ctrlTypeSeq(sequence);
 		addMonomer(sequence);
 		this.nbMonomer = countMonomer(aminoAcidList);
 		this.countAminoAcid(aminoAcidList);

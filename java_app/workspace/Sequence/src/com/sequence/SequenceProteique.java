@@ -31,7 +31,7 @@ public final class SequenceProteique implements Sequence{
 		this.sequence = seq;
 		initConstructeur();
 	}
-	
+
 	//Init Constructeur
 	private void initConstructeur(){
 		addMonomer(sequence);
@@ -58,90 +58,81 @@ public final class SequenceProteique implements Sequence{
 
 	//Fonctions de classe
 	//1. Fonctions generiques
-	
+
 	//1.1 Alimente la liste aminoAcidList ou nucleotidList
 	public void addMonomer(String seq){
 		seq = seq.toLowerCase();
-			aminoAcidList = new ArrayList<AminoAcid>();
-			for (int i = 0; i < seq.length(); i++) {
-				char aminoAcid = seq.charAt(i);
-				switch (aminoAcid) {
-				case 'a':
-					aminoAcidList.add(new Alanine());	
-					break;
-				case 'v':
-					aminoAcidList.add(new Valine());	
-					break;
-				case 'i':
-					aminoAcidList.add(new Isoleucine());	
-					break;
-				case 'l':
-					aminoAcidList.add(new Leucine());	
-					break;
-				case 'm':
-					aminoAcidList.add(new Methionine());	
-					break;
-				case 'f':
-					aminoAcidList.add(new PhenylAlanine());	
-					break;
-				case 'y':
-					aminoAcidList.add(new Tyrosine());	
-					break;
-				case 'w':
-					aminoAcidList.add(new Tryptophan());	
-					break;
-				case 's':
-					aminoAcidList.add(new Serine());	
-					break;
-				case 't':
-					aminoAcidList.add(new Threonine());	
-					break;
-				case 'n':
-					aminoAcidList.add(new Asparagine());	
-					break;
-				case 'q':
-					aminoAcidList.add(new Glutamine());	
-					break;
-				case 'c':
-					aminoAcidList.add(new Cysteine());	
-					break;
-				case 'u':
-					aminoAcidList.add(new Selenocysteine());	
-					break;
-				case 'g':
-					aminoAcidList.add(new Glycine());	
-					break;
-				case 'p':
-					aminoAcidList.add(new Proline());	
-					break;
-				case 'r':
-					aminoAcidList.add(new Arginine());	
-					break;
-				case 'h':
-					aminoAcidList.add(new Histidine());	
-					break;
-				case 'k':
-					aminoAcidList.add(new Lysine());	
-					break;
-				case 'd':
-					aminoAcidList.add(new AsparticAcid());	
-					break;
-				case 'e':
-					aminoAcidList.add(new GlutamicAcid());	
-					break;
-				default:
-					break;
-			
-				}
-//		} else if(typeSeq.equals("dna")){
-//			nucleotidList = new ArrayList<Nucleotid>();
-//			for (int i = 0; i < seq.length(); i++) {
-//				char nucleotid = seq.charAt(i);
-//				nucleotidList.add(new Nucleotid(nucleotid));
-//			} 
-//		}
-//		else {
-//			System.out.println("Une erreure s'est produite ...");
+		aminoAcidList = new ArrayList<AminoAcid>();
+		for (int i = 0; i < seq.length(); i++) {
+			char aminoAcid = seq.charAt(i);
+			switch (aminoAcid) {
+			case 'a':
+				aminoAcidList.add(new Alanine());	
+				break;
+			case 'v':
+				aminoAcidList.add(new Valine());	
+				break;
+			case 'i':
+				aminoAcidList.add(new Isoleucine());	
+				break;
+			case 'l':
+				aminoAcidList.add(new Leucine());	
+				break;
+			case 'm':
+				aminoAcidList.add(new Methionine());	
+				break;
+			case 'f':
+				aminoAcidList.add(new PhenylAlanine());	
+				break;
+			case 'y':
+				aminoAcidList.add(new Tyrosine());	
+				break;
+			case 'w':
+				aminoAcidList.add(new Tryptophan());	
+				break;
+			case 's':
+				aminoAcidList.add(new Serine());	
+				break;
+			case 't':
+				aminoAcidList.add(new Threonine());	
+				break;
+			case 'n':
+				aminoAcidList.add(new Asparagine());	
+				break;
+			case 'q':
+				aminoAcidList.add(new Glutamine());	
+				break;
+			case 'c':
+				aminoAcidList.add(new Cysteine());	
+				break;
+			case 'u':
+				aminoAcidList.add(new Selenocysteine());	
+				break;
+			case 'g':
+				aminoAcidList.add(new Glycine());	
+				break;
+			case 'p':
+				aminoAcidList.add(new Proline());	
+				break;
+			case 'r':
+				aminoAcidList.add(new Arginine());	
+				break;
+			case 'h':
+				aminoAcidList.add(new Histidine());	
+				break;
+			case 'k':
+				aminoAcidList.add(new Lysine());	
+				break;
+			case 'd':
+				aminoAcidList.add(new AsparticAcid());	
+				break;
+			case 'e':
+				aminoAcidList.add(new GlutamicAcid());	
+				break;
+			default:
+				break;
+
+			}
 		}
 	}
 
@@ -150,7 +141,7 @@ public final class SequenceProteique implements Sequence{
 		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
-	
+
 	//2. Fonctions propre a l analyse proteique
 	//2.1 Compte le nbre d acide amine dans la sequence
 	private void countAminoAcid(ArrayList<AminoAcid> aminoAcidList){
@@ -228,14 +219,14 @@ public final class SequenceProteique implements Sequence{
 	//2.2 Compte le nbre d aa charger dans la sequence
 	private void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i <aminoAcidList.size(); i++) {
-			if (aminoAcidList.get(i).getSideChainProperty().equals("positive_charged")) {
+			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
 				this.nbPositiveAA ++;
-			}else if (aminoAcidList.get(i).getSideChainProperty().equals("negative_charged")) {
+			}else if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.NEGATIVE_CHARGED)) {
 				this.nbNegativeAA ++;
 			}
 		}
 	}
-	
+
 	//2.3 Compte le nombre d'atome dans la sequence proteique
 	public void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
@@ -264,7 +255,7 @@ public final class SequenceProteique implements Sequence{
 		this.nbSatom = sAtomBuffer;
 		this.nbSeAtom = seAtomBuffer;
 	}
-	
+
 	//2.4 Calcul le poid moleculaire de la sequence proteique
 	public Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
@@ -288,11 +279,11 @@ public final class SequenceProteique implements Sequence{
 		listPKa.add(aminoAcidList.get(0).getpKaNH3());
 		listPKa.add(aminoAcidList.get(aminoAcidList.size()-1).getpKaCOOH());
 		for (int i = 0; i < aminoAcidList.size(); i++) {
-			if (aminoAcidList.get(i).getSideChainProperty().equals("positive_charged")) {
+			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
 				listPKa.add(aminoAcidList.get(i).getpKaR());
 				cptrPositiveCharge++;
 			}
-			if (aminoAcidList.get(i).getSideChainProperty().equals("negative_charged")) {
+			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.NEGATIVE_CHARGED)) {
 				listPKa.add(aminoAcidList.get(i).getpKaR());
 			}
 		}
@@ -304,7 +295,7 @@ public final class SequenceProteique implements Sequence{
 		pHIRound = (new BigDecimal(pHI)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		return pHI;
 	}
-	
+
 	//2.6 Calcul le coefficiant d'extinction molaire de la proteine
 	private int computeExtinctionCoef(ArrayList<AminoAcid> aminoAcidList){
 		int cem = 0;
@@ -327,7 +318,7 @@ public final class SequenceProteique implements Sequence{
 		int cem = (getNbTyr() * 1280) + (getNbTrp() * 5690);
 		return cem;
 	}
-	
+
 	//2.8 Calcul l'aborbance � 0.1 pourcent de proteine
 	private Double computeAbs01Perc(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoef(aminoAcidList);
@@ -335,7 +326,7 @@ public final class SequenceProteique implements Sequence{
 		Double abs01Perc = (double)cem / mw;
 		return abs01Perc;
 	}
-	
+
 	//2.9 Calcul l'aborbance � 0.1 pourcent de proteine sans prendre en compte les cysteines
 	private Double computeAbs01PercWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoefWithoutCys(aminoAcidList);
@@ -343,23 +334,23 @@ public final class SequenceProteique implements Sequence{
 		Double abs01Perc = (double)cem / mw;
 		return abs01Perc;
 	}
-	
+
 	//2.10 Calcul l'index aliphatique de la proteine
 	/*Detail du calcul: p(ala) + 2.9 * p(val) + 3.9 * ( p(ile) + p(leu) ) */
 	private Double computeAliphaticIndex(ArrayList<AminoAcid> aminoAcidList){
 		Double alpihIndex = ((double)(this.getNbAla() * 100) / (double)this.getNbMonomer()) 
-							+ 2.9 * ((double)(this.getNbVal() * 100) / (double)this.getNbMonomer()) 
-							+ 3.9 * ((double)((this.getNbIso() * 100) / (double)this.getNbMonomer()) 
-							+ ((double)(this.getNbLeu() * 100) / (double)this.getNbMonomer()));
+				+ 2.9 * ((double)(this.getNbVal() * 100) / (double)this.getNbMonomer()) 
+				+ 3.9 * ((double)((this.getNbIso() * 100) / (double)this.getNbMonomer()) 
+						+ ((double)(this.getNbLeu() * 100) / (double)this.getNbMonomer()));
 		return alpihIndex;
 	}
-	
+
 	//2.11 Determine le In vivo half life de la proteine
 	private String [] getHalfLife(ArrayList<AminoAcid> aminoAcidList) {
 		this.halfLife = aminoAcidList.get(0).getHalfLife();
 		return halfLife;
 	}
-	
+
 	//Calcul l'index GRAVY de la proteine
 	//2.12 The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
 	private Double computeGravyIndex(ArrayList<AminoAcid> aminoAcidList){
@@ -480,7 +471,7 @@ public final class SequenceProteique implements Sequence{
 		return aAComposition;
 
 	}
-	
+
 	@Override
 	public String toString() {
 		String msgWithoutTrpOrTyr = "";
@@ -498,37 +489,37 @@ public final class SequenceProteique implements Sequence{
 			msgAbsWithoutCys = "\nAbs 0.1% (=1 g/l) (Without Cystein)     " + this.getAbs01PercWithoutCysRound();
 		}
 		return "-----------------------------------------------------------------------------------" +
-				"\n\nSequence name: " + nomSeq + 
-				"\n\nUser-provided Sequence: " + formateSeq(aminoAcidList) +
-				"\n\nType of sequence: " + typeSeq + 
-				"\n\nNumber of amino acids: " + nbMonomer +
-				"\n\nMolecular weight (MW): " + mWRound + " g/mol " + 
-				"\n\nTheoretical pI: " + pHIRound +
-				"\n\nAmino Acid Composition: \n" + describeAminoAcidComposition(aminoAcidList) + "\n" +
-				"\n\nTotal number of negatively charged residues (Asp + Glu):     " + this.getNbNegativeAA() +
-				"\nTotal number of positively charged residues (Arg + Lys + His): " + this.getNbPositiveAA() +
-				"\n\nAtomic Composition: " +
-				"\n\nCarbon       C        " + getNbCatom() +
-				"\nHydrogen     H        " + getNbHatom() +
-				"\nNitrogen     N        " + getNbNatom() +
-				"\nOxygen       O        " + getNbOatom() +
-				"\nSulfur       S        " + getNbSatom() +
-				"\n\nFormula: " + getFormule() +
-				"\nTotal number of atoms: " + getNbAtom() +
-				"\n\nExtinction coefficients: " + msgWithoutTrpOrTyr 
-				+ "\n\nExtinction coefficients are in units of  M-1 cm-1, at 280 nm measured in water." 
-				+ "\n\nExt. Coefficient :                     " + this.getExtCoef() +
-				msgExtCoefWithoutCys +
-				"\n\nAbs 0.1% (=1 g/l)                       " + this.getAbs01PercRound()
-				 + msgAbsWithoutCys +
-				 "\n\nEstimated halph-life: " +
-				 "\n\nThe N-terminal of the sequence considered is " + aminoAcidList.get(0).getSyn1L() + " (" + aminoAcidList.get(0).getSyn3L() + "). " + 
-				 "\nThe estimated half-life is: " + getHalfLife(aminoAcidList)[0] + " (mammalian reticulocytes, in vitro)." +
-				 "\n                            " + getHalfLife(aminoAcidList)[1] + " (yeast, in vivo)." +
-				 "\n                            " + getHalfLife(aminoAcidList)[2] + " (Escherichia coli, in vivo)." +
-				 "\n\nAliphatic index:  " + getAliphIndexRound() +
-				 "\n\nGRAVY Index: " + getGravyRound() +
-				"\n\n---------------------------------------------------------------------------------";
+		"\n\nSequence name: " + nomSeq + 
+		"\n\nUser-provided Sequence: " + formateSeq(aminoAcidList) +
+		"\n\nType of sequence: " + typeSeq + 
+		"\n\nNumber of amino acids: " + nbMonomer +
+		"\n\nMolecular weight (MW): " + mWRound + " g/mol " + 
+		"\n\nTheoretical pI: " + pHIRound +
+		"\n\nAmino Acid Composition: \n" + describeAminoAcidComposition(aminoAcidList) + "\n" +
+		"\n\nTotal number of negatively charged residues (Asp + Glu):     " + this.getNbNegativeAA() +
+		"\nTotal number of positively charged residues (Arg + Lys + His): " + this.getNbPositiveAA() +
+		"\n\nAtomic Composition: " +
+		"\n\nCarbon       C        " + getNbCatom() +
+		"\nHydrogen     H        " + getNbHatom() +
+		"\nNitrogen     N        " + getNbNatom() +
+		"\nOxygen       O        " + getNbOatom() +
+		"\nSulfur       S        " + getNbSatom() +
+		"\n\nFormula: " + getFormule() +
+		"\nTotal number of atoms: " + getNbAtom() +
+		"\n\nExtinction coefficients: " + msgWithoutTrpOrTyr 
+		+ "\n\nExtinction coefficients are in units of  M-1 cm-1, at 280 nm measured in water." 
+		+ "\n\nExt. Coefficient :                     " + this.getExtCoef() +
+		msgExtCoefWithoutCys +
+		"\n\nAbs 0.1% (=1 g/l)                       " + this.getAbs01PercRound()
+		+ msgAbsWithoutCys +
+		"\n\nEstimated halph-life: " +
+		"\n\nThe N-terminal of the sequence considered is " + aminoAcidList.get(0).getSyn1L() + " (" + aminoAcidList.get(0).getSyn3L() + "). " + 
+		"\nThe estimated half-life is: " + getHalfLife(aminoAcidList)[0] + " (mammalian reticulocytes, in vitro)." +
+		"\n                            " + getHalfLife(aminoAcidList)[1] + " (yeast, in vivo)." +
+		"\n                            " + getHalfLife(aminoAcidList)[2] + " (Escherichia coli, in vivo)." +
+		"\n\nAliphatic index:  " + getAliphIndexRound() +
+		"\n\nGRAVY Index: " + getGravyRound() +
+		"\n\n---------------------------------------------------------------------------------";
 	}
 
 	//Getters and Setters
@@ -690,11 +681,11 @@ public final class SequenceProteique implements Sequence{
 
 	public String getFormule() {
 		formule = "C"+ getNbCatom() +
-				  "H"+ getNbHatom() +
-				  "N" + getNbNatom() +
-				  "O"+ getNbOatom() +
-				  "S"+ getNbSatom();
-				
+				"H"+ getNbHatom() +
+				"N" + getNbNatom() +
+				"O"+ getNbOatom() +
+				"S"+ getNbSatom();
+
 		return formule;
 	}
 

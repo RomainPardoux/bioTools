@@ -27,27 +27,24 @@ public class Cysteine extends AminoAcid{
 	// Constructeur
 	public Cysteine() {
 		nbCys ++;
-		initAa();
-	}
-	
-	// InitClasseAA
-	public void initAa(){
-		super.setSyn1L(syn1L);
-		super.setSyn3L(syn3L);
-		super.setFormuleBrute(formuleBrute);
-		super.setMasseMolaire(masseMolaire);
-		super.setPrecisionMasseMolaire(precisionMasseMolaire);
-		super.setSolubilite(solubilite);
-		super.setCodons(codons);
-		super.setpHIsoelectrique(pHIsoelectrique);
-		super.setExtinctionCoef(extinctionCoef);
-		super.setHalfLife(halfLife);
-		super.setHydropathie(hydropathie);
 	}
 	
 	// Getters and Setters
+	
 	public static int getNbCys() {
 		return nbCys;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
+	}
+
+	public String[] getHalfLife() {
+		return halfLife;
+	}
+
+	public double getHydropathie() {
+		return hydropathie;
 	}
 
 	public static void setNbCys(int nbCys) {

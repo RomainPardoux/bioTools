@@ -3,21 +3,21 @@ package com.sequence;
 public abstract class AminoAcid {
 
 	// Variables d'instance
-	private char syn1L;
-	private String syn3L = "";
-	private String formuleBrute = "";
-	private int nbCarbonAtom = 3, nbHydrogenAtom = 0, nbAzoteAtom = 0, nbOxygenAtom = 0, nbSufferAtom = 0, nbSelenoAtom;
-	private double masseMolaire = 0.0;
-	private double precisionMasseMolaire = 0.0;
-	private double solubilite = 0.0;
-	private double masseVolumique = 0.0;
-	private String[] codons;
-	private  double pHIsoelectrique = 0.0;
-	private double pKaCOOH = 0.0, pKaNH3 = 0.0, pKaR = 0.0;
-	private String sideChainProperty = "";
+	protected char syn1L;
+	protected String syn3L = "";
+	protected String formuleBrute = "";
+	private int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0, nbOxygenAtom = 0, nbSufferAtom = 0, nbSelenoAtom;
+	protected double masseMolaire = 0.0;
+	protected double precisionMasseMolaire = 0.0;
+	protected double solubilite = 0.0;
+	protected double masseVolumique = 0.0;
+	protected String[] codons;
+	protected  double pHIsoelectrique = 0.0;
+	protected double pKaCOOH = 0.0, pKaNH3 = 0.0, pKaR = 0.0;
+	protected String sideChainProperty = "";
 	private int extinctionCoef = 0;
-	private String [] halfLife = {"", "", ""};
-	private double hydropathie = 0.00;
+	protected String [] halfLife = {"", "", ""};
+	protected double hydropathie = 0.00;
 	
 	// Constructeur
 	public AminoAcid(char syn1l, String syn3l, String formuleBrute, double masseMolaire, double precisionMasseMolaire,

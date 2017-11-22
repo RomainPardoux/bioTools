@@ -1,0 +1,20 @@
+package com.nucleotid;
+
+public class Adenine {
+
+	// Variable de classe
+	private static int nbAde = 0;
+
+	// Variables d'instance
+	private char syn1L = 'A';
+	private String syn3L = "ADE";
+	private String formuleBrute = "C5H5N5";
+	private int nbCarbonAtom = 5, nbHydrogenAtom = 5, nbAzoteAtom = 5;
+	private double masseMolaire = 135.13;
+	private double solubilite = 0.103;
+
+	//Constructeur
+	public Adenine() {
+		
+	}
+}

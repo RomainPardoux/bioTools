@@ -63,7 +63,7 @@ public class SequenceNucleique implements Sequence{
 		nucleotidList = new ArrayList<Nucleotid>();
 		for (int i = 0; i < seq.length(); i++) {
 			char nucleotid = seq.charAt(i);
-			nucleotidList.add(new Nucleotid(nucleotid));
+			nucleotidList.add(new Nucleotid());
 		} 
 	}
 	

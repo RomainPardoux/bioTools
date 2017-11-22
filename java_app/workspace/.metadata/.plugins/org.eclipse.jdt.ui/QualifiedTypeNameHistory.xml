@@ -5,4 +5,5 @@
 <fullyQualifiedTypeName name="com.aminoAcid.SideChaineProperties"/>
 <fullyQualifiedTypeName name="org.omg.CORBA.CTX_RESTRICT_SCOPE"/>
 <fullyQualifiedTypeName name="com.sequence.SequenceProteique"/>
+<fullyQualifiedTypeName name="com.sequence.Nucleotid"/>
 </qualifiedTypeNameHistroy>

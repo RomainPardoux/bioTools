@@ -26,25 +26,20 @@ public class Alanine extends AminoAcid{
 	// Constructeur
 	public Alanine() {
 		setNbAla(getNbAla() + 1);
-		initAa();
 	}
 
-	// InitClasseAA
-	public void initAa(){
-		super.setSyn1L(syn1L);
-		super.setSyn3L(syn3L);
-		super.setFormuleBrute(formuleBrute);
-		super.setMasseMolaire(masseMolaire);
-		super.setPrecisionMasseMolaire(precisionMasseMolaire);
-		super.setSolubilite(solubilite);
-		super.setMasseVolumique(masseVolumique);
-		super.setCodons(codons);
-		super.setpHIsoelectrique(pHIsoelectrique);
-		super.setHalfLife(halfLife);
-		super.setHydropathie(hydropathie);
-	}
-	
+
 	// Getters and Setters
+	public String[] getHalfLife() {
+		return halfLife;
+	}
+
+
+	public double getHydropathie() {
+		return hydropathie;
+	}
+
+
 	public char getSyn1L() {
 		return syn1L;
 	}

@@ -26,27 +26,20 @@ public class AsparticAcid extends AminoAcid{
 	// Constructeur
 	public AsparticAcid() {
 		nbAsp ++;
-		initAa();
-	}
-	
-	// InitClasseAA
-	public void initAa(){
-		super.setSyn1L(syn1L);
-		super.setSyn3L(syn3L);
-		super.setFormuleBrute(formuleBrute);
-		super.setMasseMolaire(masseMolaire);
-		super.setPrecisionMasseMolaire(precisionMasseMolaire);
-		super.setSolubilite(solubilite);
-		super.setMasseVolumique(masseVolumique);
-		super.setCodons(codons);
-		super.setpHIsoelectrique(pHIsoelectrique);
-		super.setHalfLife(halfLife);
-		super.setHydropathie(hydropathie);
 	}
 
 	// Getters and Setters
+	
 	public static int getNbAsp() {
 		return nbAsp;
+	}
+
+	public String[] getHalfLife() {
+		return halfLife;
+	}
+
+	public double getHydropathie() {
+		return hydropathie;
 	}
 
 	public static void setNbAsp(int nbAsp) {

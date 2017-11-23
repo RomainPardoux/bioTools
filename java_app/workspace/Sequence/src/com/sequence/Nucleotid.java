@@ -7,7 +7,7 @@ public class Nucleotid {
 	protected char syn1L;
 	protected String syn3L = "";
 	protected String formuleBrute = "";
-	protected int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0;
+	protected int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0,nbOxygenAtom = 0;
 	protected double masseMolaire = 0.0;
 	protected double solubilite = 0.0;
 

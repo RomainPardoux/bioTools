@@ -58,6 +58,7 @@ public final class SequenceProteique implements Sequence{
 
 	//Fonctions de classe
 	//1. Fonctions generiques
+
 	//1.1 Alimente la liste aminoAcidList ou nucleotidList
 	public void addMonomer(String seq){
 		seq = seq.toLowerCase();

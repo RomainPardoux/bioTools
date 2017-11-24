@@ -6,4 +6,10 @@
 <fullyQualifiedTypeName name="org.omg.CORBA.CTX_RESTRICT_SCOPE"/>
 <fullyQualifiedTypeName name="com.sequence.SequenceProteique"/>
 <fullyQualifiedTypeName name="com.sequence.Nucleotid"/>
+<fullyQualifiedTypeName name="com.nucleotid.Adenine"/>
+<fullyQualifiedTypeName name="com.nucleotid.Thymine"/>
+<fullyQualifiedTypeName name="com.nucleotid.Cytosine"/>
+<fullyQualifiedTypeName name="com.aminoAcid.Glycine"/>
+<fullyQualifiedTypeName name="com.nucleotid.Uracile"/>
+<fullyQualifiedTypeName name="com.nucleotid.Guanine"/>
 </qualifiedTypeNameHistroy>

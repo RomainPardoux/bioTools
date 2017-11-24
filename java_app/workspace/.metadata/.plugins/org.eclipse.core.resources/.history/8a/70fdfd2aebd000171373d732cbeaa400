@@ -93,26 +93,26 @@ public class SequenceNucleique implements Sequence{
 	}
 
 	@Override
-	public int countMonomer(ArrayList<AminoAcid> nucleotidList) {
-		nbMonomer = nucleotidList.size();
+	public int countMonomer(ArrayList<AminoAcid> aminoAcidList) {
+		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
 
 	@Override
-	public void countAtom(ArrayList<AminoAcid> nucleotidList) {
+	public void countAtom(ArrayList<AminoAcid> aminoAcidList) {
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
 		int oAtomBuffer = 0;
 		int hAtomBuffer = 0;
 		int totAtomBuffer = 0;
-		for (int i = 0; i <nucleotidList.size(); i++) {
-			cAtomBuffer += nucleotidList.get(i).getNbCarbonAtom();
-			nAtomBuffer += nucleotidList.get(i).getNbAzoteAtom();
-			hAtomBuffer += nucleotidList.get(i).getNbHydrogenAtom();
-			oAtomBuffer += nucleotidList.get(i).getNbOxygenAtom();
+		for (int i = 0; i <aminoAcidList.size(); i++) {
+			cAtomBuffer += aminoAcidList.get(i).getNbCarbonAtom();
+			nAtomBuffer += aminoAcidList.get(i).getNbAzoteAtom();
+			hAtomBuffer += aminoAcidList.get(i).getNbHydrogenAtom();
+			oAtomBuffer += aminoAcidList.get(i).getNbOxygenAtom();
 		}
-		oAtomBuffer -= (nucleotidList.size() - 1);
-		hAtomBuffer -= (2 * (nucleotidList.size() - 1));
+		oAtomBuffer -= (aminoAcidList.size() - 1);
+		hAtomBuffer -= (2 * (aminoAcidList.size() - 1));
 		totAtomBuffer = cAtomBuffer + nAtomBuffer + oAtomBuffer + hAtomBuffer;
 		this.nbAtom = totAtomBuffer;
 		this.nbCatom = cAtomBuffer;
@@ -122,14 +122,9 @@ public class SequenceNucleique implements Sequence{
 	}
 
 	@Override
-	public Double computeMW(ArrayList<AminoAcid> nucleotidList) {
-		Double MWTotal = 0.0;
-		Double MW = 0.0;
-		for (int i = 0; i < nucleotidList.size(); i++) {
-			MW = nucleotidList.get(i).getMasseMolaire();
-			MWTotal += MW;
-		}
-		return MWTotal;
+	public Double computeMW(ArrayList<AminoAcid> aminoAcidList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

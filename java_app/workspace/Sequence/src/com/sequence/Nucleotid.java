@@ -16,6 +16,10 @@ public class Nucleotid {
 		
 	}
 
+	public int getNbOxygenAtom() {
+		return nbOxygenAtom;
+	}
+
 	public char getSyn1L() {
 		return syn1L;
 	}

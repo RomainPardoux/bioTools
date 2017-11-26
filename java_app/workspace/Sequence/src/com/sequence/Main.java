@@ -24,7 +24,8 @@ public class Main {
 			System.out.println(seq.toString());
 		}
 		else if ( sequence.matches(regexSeqDna)){
-			System.out.println("sequence nucleique");
+			seq = new SequenceNucleique(sequence, nomSeq);
+			System.out.println(seq.toString());
 		} else {
 			System.out.println("sequence undefinied");
 		}

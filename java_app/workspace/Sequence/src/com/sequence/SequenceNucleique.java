@@ -30,10 +30,11 @@ import com.nucleotid.Guanine;
 import com.nucleotid.Thymine;
 import com.nucleotid.Uracile;
 
-public class SequenceNucleique implements Sequence{
+public class SequenceNucleique{
 
 	/* Declaration des variables d'instance */
-	private String sequence = "", nomSeq = "", typeSeq = "dna";
+	private String sequence = "", nomSeq = "", typeSeq = "";
+	private boolean isDna = false, isRna = false;
 	private int nbMonomer = 0;
 	private Double mW = 0.0; 
 	private BigDecimal mWRound;
@@ -58,14 +59,14 @@ public class SequenceNucleique implements Sequence{
 		initConstructeur();
 	}
 
-	//Fonctions de classe
+	//1. Fonctions de classe
 	private void initConstructeur() {
 		// TODO Auto-generated method stub
-		transcrit(sequence);
+		DetermineType(sequence);
 		initMapCodeGene();	
 		addMonomer(sequence);
-		countAtom(nucleotidList);	
 		countMonomer(nucleotidList);
+		countAtom(nucleotidList);	
 		computeMW(nucleotidList);
 		complement(nucleotidList);
 		reverse(nucleotidList);
@@ -73,14 +74,23 @@ public class SequenceNucleique implements Sequence{
 		translate(nucleotidList, nucleotidListReverseComplement);
 	}
 
-	//Transcription de la sequence
-	private String transcrit(String seq){
-		sequence = seq.replace('u', 't');
-		return sequence;
+	//2. Determine le type ADN ou ARN
+	private void DetermineType(String sequence) {
+		String regexSeqDna = "^[aAtTcCgG]*$";
+		String regexSeqRna = "^[aAuUcCgG]*$";
+		if (sequence.matches(regexSeqDna)) {
+			this.isDna = true;
+			this.isRna = false;
+			this.typeSeq = "dna";
+		}
+		if (sequence.matches(regexSeqRna)) {
+			this.isDna = false;
+			this.isRna = true;
+			this.typeSeq = "rna";
+		}
 	}
-
-	//1 Alimente la liste nucleotidList
-	@Override
+	
+	//3. Alimente la liste nucleotidList 
 	public void addMonomer(String seq) {
 		seq = seq.toLowerCase();
 		nucleotidList = new ArrayList<Nucleotid>();
@@ -106,13 +116,13 @@ public class SequenceNucleique implements Sequence{
 		}
 	}
 
-	//2. Compte le nombre de monomeres dans la liste
+	//4. Compte le nombre de monomeres dans la liste
 	private int countMonomer(ArrayList<Nucleotid> nucleotidList) {
 		nbMonomer = nucleotidList.size();
 		return nbMonomer;
 	}
 
-	//3. Compte le nombre d'atome dans la sequence
+	//5. Compte le nombre d'atome dans la sequence
 	private void countAtom(ArrayList<Nucleotid> nucleotidList) {
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
@@ -135,6 +145,7 @@ public class SequenceNucleique implements Sequence{
 		this.nbHatom = hAtomBuffer;
 	}
 
+	//6. Calcul le poids moleculaire de la sequence
 	private Double computeMW(ArrayList<Nucleotid> nucleotidList) {
 		this.mW = 0.0;
 		Double MW = 0.0;
@@ -145,7 +156,7 @@ public class SequenceNucleique implements Sequence{
 		return this.mW;
 	}
 
-	//4. Reverse la sequence
+	//7. Reverse la sequence
 	private ArrayList<Nucleotid> reverse (ArrayList<Nucleotid> nucleotidList) {
 		this.nucleotidListReverse = new ArrayList<Nucleotid>();
 		for (int i = nucleotidList.size() - 1; i >= 0 ; i--) {
@@ -154,7 +165,7 @@ public class SequenceNucleique implements Sequence{
 		return nucleotidListReverse;
 	}
 
-	//5. Complement la sequence
+	//8. Complement la sequence
 	private ArrayList<Nucleotid> complement (ArrayList<Nucleotid> nucleotidList) {
 		this.nucleotidListComplement = new ArrayList<Nucleotid>();
 		for (int i = 0 ; i < nucleotidList.size() ; i++) {
@@ -173,7 +184,7 @@ public class SequenceNucleique implements Sequence{
 		return nucleotidListComplement;
 	}
 
-	//6. Reverse Complement la sequence
+	//9. Reverse Complement la sequence
 	private ArrayList<Nucleotid> reverseComplement (ArrayList<Nucleotid> nucleotidListReverse) {
 		this.nucleotidListReverseComplement = new ArrayList<Nucleotid>();
 		for (int i = 0 ; i < nucleotidListReverse.size() ; i++) {
@@ -192,7 +203,7 @@ public class SequenceNucleique implements Sequence{
 		return nucleotidListReverseComplement;
 	}
 
-	//7. Traduit la sequence
+	//10. Traduit la sequence
 	private void translate (ArrayList<Nucleotid> nucleotidList, ArrayList<Nucleotid> nucleotidListReverseComplement) {
 		String codon53F1 = "";
 		String codon53F2 = "";
@@ -250,7 +261,7 @@ public class SequenceNucleique implements Sequence{
 		}
 	}
 
-	//8. Initialise la map du code genetique
+	//11. Initialise la map du code genetique
 	private void initMapCodeGene() {
 		// TODO Auto-generated method stub
 		mapCodeGene.put("ttt", new PhenylAlanine());
@@ -319,7 +330,7 @@ public class SequenceNucleique implements Sequence{
 		mapCodeGene.put("tga", new Terminal());
 	}
 
-	//9. Renvoi la seq proteique reformater
+	//12. Renvoi la seq proteique reformater
 	public String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -328,7 +339,7 @@ public class SequenceNucleique implements Sequence{
 		return formatedSeq;
 	}
 
-	// Methode generique to string
+	//Methode generique to string
 	@Override
 	public String toString() {
 
@@ -347,6 +358,28 @@ public class SequenceNucleique implements Sequence{
 				"\n\n---------------------------------------------------------------------------------";
 	}
 
+//	//Transcription de la sequence
+//	private String transcrit(String seq){
+//		if (this.isDna) {
+//			sequence = seq.replace('u', 't');
+//			this.isDna = true;
+//			this.isRna = false;
+//			this.typeSeq = "dna";
+//		}
+//		return sequence;
+//	}
+//
+//	//Reverse Transcription de la sequence
+//	private String reverseTranscrit(String seq){
+//		if (this.isRna) {
+//			sequence = seq.replace('t', 'u');
+//			this.isDna = false;
+//			this.isRna = true;
+//			this.typeSeq = "rna";
+//		}
+//		return sequence;
+//	}
+	
 	// getters and setters
 	public String getSequence() {
 		return sequence;
@@ -430,5 +463,13 @@ public class SequenceNucleique implements Sequence{
 
 	public int getNbAtom() {
 		return nbAtom;
+	}
+
+	public boolean isDna() {
+		return isDna;
+	}
+
+	public boolean isRna() {
+		return isRna;
 	}
 }

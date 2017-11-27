@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import com.aminoAcid.*;
 
-public final class SequenceProteique implements Sequence{
+public final class SequenceProteique{
 
 	/* Declaration des variables d'instance */
 	private String sequence = "", nomSeq = "", typeSeq = "protein", formule = "";

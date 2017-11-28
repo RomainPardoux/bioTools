@@ -63,9 +63,11 @@ public class SequenceNucleique{
 	private void initConstructeur() {
 		// TODO Auto-generated method stub
 		DetermineType(sequence);
+//		transcrit(sequence);
 		initMapCodeGene();	
 		addMonomer(sequence);
 		countMonomer(nucleotidList);
+		countNucleotid(nucleotidList);
 		countAtom(nucleotidList);	
 		computeMW(nucleotidList);
 		complement(nucleotidList);
@@ -174,12 +176,21 @@ public class SequenceNucleique{
 	private void computeMW(ArrayList<Nucleotid> nucleotidList) {
 		if(isDna){
 			for (int i = 0; i < nucleotidList.size(); i++) {
-				mwSsDna += nucleotidList.get(i).getMasseMolaire();
-				mwDsDna += (nucleotidList.get(i).getMasseMolaire() * 2);
+				this.mwSsDna += nucleotidList.get(i).getMasseMolaire();
+				this.mwDsDna += (nucleotidList.get(i).getMasseMolaire() * 2);
 			}
 			this.mwSsDna += 79;
 			this.mwDsDna += 157.9;
+		}
+		if(isRna){
+			for (int i = 0; i < nucleotidList.size(); i++) {
+				this.mwSsRna += nucleotidList.get(i).getMasseMolaire();
+			}
+			this.mwSsRna += 157.9;
 		}		
+		this.mwSsDnaRound = (new BigDecimal(this.mwSsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.mwSsRnaRound = (new BigDecimal(this.mwSsRna)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.mwDsDnaRound = (new BigDecimal(this.mwDsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 	//7. Reverse la sequence
@@ -248,6 +259,7 @@ public class SequenceNucleique{
 			codon53F1 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
 			codon53F1 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
 			codon53F1 = codon53F1.toLowerCase();
+			codon53F1.replace('u', 't');
 			seqTranslate53F1.add(mapCodeGene.get(codon53F1));
 		}
 		for (int i = 1; ( i + 2 ) < nucleotidList.size(); i += 3) {
@@ -255,6 +267,7 @@ public class SequenceNucleique{
 			codon53F2 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
 			codon53F2 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
 			codon53F2 = codon53F2.toLowerCase();
+			codon53F2.replace('u', 't');
 			seqTranslate53F2.add(mapCodeGene.get(codon53F2));
 		}
 		for (int i = 2; ( i + 2 ) < nucleotidList.size(); i += 3) {
@@ -262,6 +275,7 @@ public class SequenceNucleique{
 			codon53F3 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
 			codon53F3 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
 			codon53F3 = codon53F3.toLowerCase();
+			codon53F3.replace('u', 't');
 			seqTranslate53F3.add(mapCodeGene.get(codon53F3));
 		}
 		for (int i = 0; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
@@ -269,6 +283,7 @@ public class SequenceNucleique{
 			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
 			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
 			codon35F1 = codon35F1.toLowerCase();
+			codon35F1.replace('u', 't');
 			seqTranslate35F1.add(mapCodeGene.get(codon35F1));
 		}
 		for (int i = 1; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
@@ -276,6 +291,7 @@ public class SequenceNucleique{
 			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
 			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
 			codon35F2 = codon35F2.toLowerCase();
+			codon35F2.replace('u', 't');
 			seqTranslate35F2.add(mapCodeGene.get(codon35F2));
 		}
 		for (int i = 2; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
@@ -283,6 +299,7 @@ public class SequenceNucleique{
 			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
 			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
 			codon35F3 = codon35F3.toLowerCase();
+			codon35F3.replace('u', 't');
 			seqTranslate35F3.add(mapCodeGene.get(codon35F3));
 		}
 	}
@@ -365,16 +382,34 @@ public class SequenceNucleique{
 		return formatedSeq;
 	}
 
+	//Transcription de la sequence
+	private String transcrit(String seq){
+		if (this.isRna) {
+			this.sequence = seq.replace('u', 't');
+			this.isDna = true;
+			this.isRna = false;
+			this.typeSeq = "dna";
+		}
+		return this.sequence;
+	}
+	
 	//Methode generique to string
 	@Override
 	public String toString() {
-
+		String msgDynamique = "";
+		if(isDna){
+			msgDynamique = "\n\nMolecular weight for dsDNA (MW): " + mwDsDnaRound + " g/mol ";
+			msgDynamique += "\nMolecular weight for ssDNA (MW): " + mwSsDnaRound + " g/mol ";	
+		}else if(isRna){
+			msgDynamique = "\n\nMolecular weight for ssRNA (MW): " + mwSsRnaRound + " g/mol ";		
+		}
+		
 		return "-----------------------------------------------------------------------------------" +
 				"\n\nSequence name: " + nomSeq + 
 				"\n\nType of sequence: " + typeSeq + 
 				"\n\nNumber of nucleotids: " + nbMonomer +
-				"\n\nMolecular weight (MW): " + mwDsDna + " g/mol " + 
-				"\n\nTranslate: " +
+				"\n\nMolecular weigth:" + msgDynamique +
+				"\n\nTranslate: " + 
 				"\n\n3'5' Frame 1" + "\n" + formateSeq(seqTranslate53F1) +
 				"\n\n3'5' Frame 2" + "\n" + formateSeq(seqTranslate53F2) +
 				"\n\n3'5' Frame 3" + "\n" + formateSeq(seqTranslate53F3) +
@@ -384,16 +419,7 @@ public class SequenceNucleique{
 				"\n\n---------------------------------------------------------------------------------";
 	}
 
-	//	//Transcription de la sequence
-	//	private String transcrit(String seq){
-	//		if (this.isDna) {
-	//			sequence = seq.replace('u', 't');
-	//			this.isDna = true;
-	//			this.isRna = false;
-	//			this.typeSeq = "dna";
-	//		}
-	//		return sequence;
-	//	}
+
 	//
 	//	//Reverse Transcription de la sequence
 	//	private String reverseTranscrit(String seq){

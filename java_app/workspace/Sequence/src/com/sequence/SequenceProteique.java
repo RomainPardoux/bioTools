@@ -23,17 +23,28 @@ public final class SequenceProteique{
 	public SequenceProteique(String seq, String nom) {
 		this.sequence = seq;
 		this.nomSeq = nom;
+		addMonomer(sequence);
 		initConstructeur();
 	}
 
 	public SequenceProteique(String seq) {
 		this.sequence = seq;
+		addMonomer(sequence);
+		initConstructeur();
+	}
+	
+	public SequenceProteique(ArrayList<AminoAcid> seq, String nom) {
+		this.nomSeq = nom;
+		initConstructeur();
+	}
+
+	public SequenceProteique(ArrayList<AminoAcid> seq) {
 		initConstructeur();
 	}
 
 	//Init Constructeur
 	private void initConstructeur(){
-		addMonomer(sequence);
+
 		this.nbMonomer = countMonomer(aminoAcidList);
 		this.countAminoAcid(aminoAcidList);
 		this.countChargedAminoAcid(aminoAcidList);
@@ -58,7 +69,7 @@ public final class SequenceProteique{
 	//Fonctions de classe
 	//1. Fonctions generiques
 	//1.1 Alimente la liste aminoAcidList ou nucleotidList
-	public void addMonomer(String seq){
+	private void addMonomer(String seq){
 		seq = seq.toLowerCase();
 		aminoAcidList = new ArrayList<AminoAcid>();
 		for (int i = 0; i < seq.length(); i++) {
@@ -135,7 +146,7 @@ public final class SequenceProteique{
 	}
 
 	//1.2 Compte le nbre de monomere dans la sequence
-	public int countMonomer(ArrayList<AminoAcid> aminoAcidList){
+	private int countMonomer(ArrayList<AminoAcid> aminoAcidList){
 		nbMonomer = aminoAcidList.size();
 		return nbMonomer;
 	}
@@ -226,7 +237,7 @@ public final class SequenceProteique{
 	}
 
 	//2.3 Compte le nombre d'atome dans la sequence proteique
-	public void countAtom(ArrayList<AminoAcid> aminoAcidList){
+	private void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
 		int oAtomBuffer = 0;
@@ -255,7 +266,7 @@ public final class SequenceProteique{
 	}
 
 	//2.4 Calcul le poid moleculaire de la sequence proteique
-	public Double computeMW(ArrayList<AminoAcid> aminoAcidList){
+	private Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
 		Double MW = 0.0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -361,7 +372,7 @@ public final class SequenceProteique{
 	}
 
 	//2.13 Renvoie le nombre d'acide amin� rens�gn� en parametre
-	public int getNbAa(char aA){
+	private int getNbAa(char aA){
 		switch (aA) {
 		case 'A':
 			return this.nbAla ;
@@ -432,7 +443,7 @@ public final class SequenceProteique{
 	}
 
 	//2.14 Renvoi la seq proteique reformater
-	public String formateSeq(ArrayList<AminoAcid> aminoAcidList){
+	private String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
 			formatedSeq += aminoAcidList.get(i).getSyn1L();
@@ -441,7 +452,7 @@ public final class SequenceProteique{
 	}
 
 	//2.15 Renvoi une description de la composition de la seq en acide amine
-	public String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
+	private String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
 		String aAComposition = "";
 		ArrayList<String> aminAc = new ArrayList<String>();
 		boolean doublon = false;

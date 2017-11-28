@@ -20,12 +20,13 @@ public class Main {
 
 		// ctrl regex
 		String regexSeqProt = "^([ ]*)?[mM][RrHhKkDdEeSsTtNnQqCcUuGgPpAaVvIiLlMmFfYyWw]*$";
-		String regexSeqDna = "^[aAtTcCgGuU]*$";
+		String regexSeqDna = "^[aAtTcCgG]*$";
+		String regexSeqRna = "^[aAcCgGuU]*$";
 		if ( sequence.matches(regexSeqProt)){
 			SequenceProteique seqProt = new SequenceProteique(sequence, nomSeq);
 			System.out.println(seqProt.toString());
 		}
-		else if ( sequence.matches(regexSeqDna)){
+		else if ( sequence.matches(regexSeqDna) || sequence.matches(regexSeqRna)){
 			SequenceNucleique seqNuc= new SequenceNucleique(sequence, nomSeq);
 			System.out.println(seqNuc.toString());
 		} else {

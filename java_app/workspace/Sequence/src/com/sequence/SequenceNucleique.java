@@ -36,12 +36,12 @@ public class SequenceNucleique{
 	private String sequence = "", nomSeq = "", typeSeq = "";
 	private boolean isDna = false, isRna = false;
 	private int nbMonomer = 0;
-	private Double mW = 0.0; 
-	private BigDecimal mWRound;
+	private Double mwSsDna = 0.0, mwDsDna = 0.0, mwSsRna = 0.0; 
+	private BigDecimal mwSsDnaRound, mwDsDnaRound, mwSsRnaRound;
 	private ArrayList<Nucleotid> nucleotidList, nucleotidListReverse, nucleotidListComplement, nucleotidListReverseComplement;
 	private ArrayList<AminoAcid> seqTranslate53F1, seqTranslate53F2, seqTranslate53F3, seqTranslate35F1, seqTranslate35F2, seqTranslate35F3;
 	/* Variable Atom */
-	private int  nbCatom, nbNatom, nbOatom, nbHatom, nbAtom;
+	private int  nbCatom, nbNatom, nbOatom, nbHatom, nbAtom, nbAde, nbThy, nbCyt, nbGua, nbUra;
 	/* Code genetique */
 	private HashMap<String, AminoAcid> mapCodeGene = new HashMap<String, AminoAcid>();
 
@@ -89,7 +89,7 @@ public class SequenceNucleique{
 			this.typeSeq = "rna";
 		}
 	}
-	
+
 	//3. Alimente la liste nucleotidList 
 	public void addMonomer(String seq) {
 		seq = seq.toLowerCase();
@@ -145,15 +145,41 @@ public class SequenceNucleique{
 		this.nbHatom = hAtomBuffer;
 	}
 
-	//6. Calcul le poids moleculaire de la sequence
-	private Double computeMW(ArrayList<Nucleotid> nucleotidList) {
-		this.mW = 0.0;
-		Double MW = 0.0;
+	//2.1 Compte le nbre d acide amine dans la sequence
+	private void countNucleotid(ArrayList<Nucleotid> nucleotidList){
 		for (int i = 0; i < nucleotidList.size(); i++) {
-			MW = nucleotidList.get(i).getMasseMolaire();
-			this.mW += MW;
+			switch (nucleotidList.get(i).getSyn1L()) {
+			case 'A':
+				this.nbAde ++;
+				break;
+			case 'G':
+				this.nbGua ++;
+				break;
+			case 'T':
+				this.nbThy ++;
+				break;
+			case 'C':
+				this.nbCyt ++;
+				break;
+			case 'U':
+				this.nbUra ++;
+				break;
+			}
 		}
-		return this.mW;
+	}
+
+
+
+	//6. Calcul le poids moleculaire de la sequence
+	private void computeMW(ArrayList<Nucleotid> nucleotidList) {
+		if(isDna){
+			for (int i = 0; i < nucleotidList.size(); i++) {
+				mwSsDna += nucleotidList.get(i).getMasseMolaire();
+				mwDsDna += (nucleotidList.get(i).getMasseMolaire() * 2);
+			}
+			this.mwSsDna += 79;
+			this.mwDsDna += 157.9;
+		}		
 	}
 
 	//7. Reverse la sequence
@@ -347,7 +373,7 @@ public class SequenceNucleique{
 				"\n\nSequence name: " + nomSeq + 
 				"\n\nType of sequence: " + typeSeq + 
 				"\n\nNumber of nucleotids: " + nbMonomer +
-				"\n\nMolecular weight (MW): " + mWRound + " g/mol " + 
+				"\n\nMolecular weight (MW): " + mwDsDna + " g/mol " + 
 				"\n\nTranslate: " +
 				"\n\n3'5' Frame 1" + "\n" + formateSeq(seqTranslate53F1) +
 				"\n\n3'5' Frame 2" + "\n" + formateSeq(seqTranslate53F2) +
@@ -358,28 +384,28 @@ public class SequenceNucleique{
 				"\n\n---------------------------------------------------------------------------------";
 	}
 
-//	//Transcription de la sequence
-//	private String transcrit(String seq){
-//		if (this.isDna) {
-//			sequence = seq.replace('u', 't');
-//			this.isDna = true;
-//			this.isRna = false;
-//			this.typeSeq = "dna";
-//		}
-//		return sequence;
-//	}
-//
-//	//Reverse Transcription de la sequence
-//	private String reverseTranscrit(String seq){
-//		if (this.isRna) {
-//			sequence = seq.replace('t', 'u');
-//			this.isDna = false;
-//			this.isRna = true;
-//			this.typeSeq = "rna";
-//		}
-//		return sequence;
-//	}
-	
+	//	//Transcription de la sequence
+	//	private String transcrit(String seq){
+	//		if (this.isDna) {
+	//			sequence = seq.replace('u', 't');
+	//			this.isDna = true;
+	//			this.isRna = false;
+	//			this.typeSeq = "dna";
+	//		}
+	//		return sequence;
+	//	}
+	//
+	//	//Reverse Transcription de la sequence
+	//	private String reverseTranscrit(String seq){
+	//		if (this.isRna) {
+	//			sequence = seq.replace('t', 'u');
+	//			this.isDna = false;
+	//			this.isRna = true;
+	//			this.typeSeq = "rna";
+	//		}
+	//		return sequence;
+	//	}
+
 	// getters and setters
 	public String getSequence() {
 		return sequence;
@@ -397,12 +423,17 @@ public class SequenceNucleique{
 		return nbMonomer;
 	}
 
-	public Double getmW() {
-		return mW;
+
+	public Double getMwSsDna() {
+		return mwSsDna;
 	}
 
-	public BigDecimal getmWRound() {
-		return mWRound;
+	public Double getMwDsDna() {
+		return mwDsDna;
+	}
+
+	public Double getMwSsRna() {
+		return mwSsRna;
 	}
 
 	public ArrayList<Nucleotid> getNucleotidList() {
@@ -471,5 +502,37 @@ public class SequenceNucleique{
 
 	public boolean isRna() {
 		return isRna;
+	}
+
+	public BigDecimal getMwSsDnaRound() {
+		return mwSsDnaRound;
+	}
+
+	public BigDecimal getMwDsDnaRound() {
+		return mwDsDnaRound;
+	}
+
+	public BigDecimal getMwSsRnaRound() {
+		return mwSsRnaRound;
+	}
+
+	public int getNbAde() {
+		return nbAde;
+	}
+
+	public int getNbThy() {
+		return nbThy;
+	}
+
+	public int getNbCyt() {
+		return nbCyt;
+	}
+
+	public int getNbGua() {
+		return nbGua;
+	}
+
+	public int getNbUra() {
+		return nbUra;
 	}
 }

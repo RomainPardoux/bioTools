@@ -2,14 +2,13 @@ package com.sequence;
 
 public class Nucleotid {
 
-	protected static int nbAde = 0;
 	// Variables d'instance
-	protected char syn1L;
-	protected String syn3L = "";
-	protected String formuleBrute = "";
-	protected int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0,nbOxygenAtom = 0;
-	protected double masseMolaire = 0.0;
-	protected double solubilite = 0.0;
+	private char syn1L;
+	private String syn3L = "";
+	private String formuleBrute = "";
+	private int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0,nbOxygenAtom = 0;
+	private double masseMolaire = 0.0;
+	private double solubilite = 0.0;
 
 	// Constructeur
 	public Nucleotid() {

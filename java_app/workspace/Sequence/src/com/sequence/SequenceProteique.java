@@ -5,7 +5,7 @@ import com.aminoAcid.*;
 
 public final class SequenceProteique{
 
-	/* Declaration des variables d'instance */
+	/* A. Declaration des variables d'instance */
 	private String sequence = "", nomSeq = "", typeSeq = "protein", formule = "";
 	private String [] halfLife = {"","",""};
 	private int nbMonomer = 0, extCoef, extCoefWithoutCys;
@@ -17,7 +17,7 @@ public final class SequenceProteique{
 	nbIso, nbLeu, nbLys, nbMet, nbPhe, nbPro, nbSec, nbSer, nbThr, nbTrp, nbTyr, nbVal, 
 	nbPositiveAA, nbNegativeAA, nbCatom, nbNatom, nbOatom, nbSatom, nbSeAtom, nbHatom, nbAtom;
 
-	/* Constructeurs */
+	/* B. Constructeurs */
 	public SequenceProteique() {	}
 
 	public SequenceProteique(String seq, String nom) {
@@ -42,6 +42,7 @@ public final class SequenceProteique{
 		initConstructeur();
 	}
 
+	//C. Fonctions de classe
 	//Init Constructeur
 	private void initConstructeur(){
 
@@ -65,9 +66,9 @@ public final class SequenceProteique{
 		this.gravy = computeGravyIndex(aminoAcidList);
 		this.gravyRound = (new BigDecimal(this.gravy)).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
-
-	//Fonctions de classe
-	//1. Fonctions generiques
+	
+	//D. Fonctions
+	//1. Fonctions private
 	//1.1 Alimente la liste aminoAcidList ou nucleotidList
 	private void addMonomer(String seq){
 		seq = seq.toLowerCase();
@@ -151,8 +152,7 @@ public final class SequenceProteique{
 		return nbMonomer;
 	}
 
-	//2. Fonctions propre a l analyse proteique
-	//2.1 Compte le nbre d acide amine dans la sequence
+	//1.3 Compte le nbre d acide amine dans la sequence
 	private void countAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i < aminoAcidList.size(); i++) {
 			switch (aminoAcidList.get(i).getSyn1L()) {
@@ -225,7 +225,7 @@ public final class SequenceProteique{
 		}
 	}
 
-	//2.2 Compte le nbre d aa charger dans la sequence
+	//1.4 Compte le nbre d aa charger dans la sequence
 	private void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
 		for (int i = 0; i <aminoAcidList.size(); i++) {
 			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
@@ -236,7 +236,7 @@ public final class SequenceProteique{
 		}
 	}
 
-	//2.3 Compte le nombre d'atome dans la sequence proteique
+	//1.5 Compte le nombre d'atome dans la sequence proteique
 	private void countAtom(ArrayList<AminoAcid> aminoAcidList){
 		int cAtomBuffer = 0;
 		int nAtomBuffer = 0;
@@ -265,7 +265,7 @@ public final class SequenceProteique{
 		this.nbSeAtom = seAtomBuffer;
 	}
 
-	//2.4 Calcul le poid moleculaire de la sequence proteique
+	//1.6 Calcul le poid moleculaire de la sequence proteique
 	private Double computeMW(ArrayList<AminoAcid> aminoAcidList){
 		Double MWTotal = 0.0;
 		Double MW = 0.0;
@@ -277,7 +277,7 @@ public final class SequenceProteique{
 		return MWTotal;
 	}
 
-	//2.5 Calcul le pHI de la seq proteique
+	//1.7 Calcul le pHI de la seq proteique
 	private Double computePHI(ArrayList<AminoAcid> aminoAcidList){
 		Double pHI = 0.0;
 		ArrayList<Double> listPKa = new ArrayList<Double>();
@@ -305,7 +305,7 @@ public final class SequenceProteique{
 		return pHI;
 	}
 
-	//2.6 Calcul le coefficiant d'extinction molaire de la proteine
+	//1.8 Calcul le coefficiant d'extinction molaire de la proteine
 	private int computeExtinctionCoef(ArrayList<AminoAcid> aminoAcidList){
 		int cem = 0;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -322,13 +322,13 @@ public final class SequenceProteique{
 		return cem;
 	}
 
-	//2.7 Calcul le coefficiant d'extinction molaire de la proteine sans prendre en compte les cysteines
+	//1.9 Calcul le coefficiant d'extinction molaire de la proteine sans prendre en compte les cysteines
 	private int computeExtinctionCoefWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = (getNbTyr() * 1280) + (getNbTrp() * 5690);
 		return cem;
 	}
 
-	//2.8 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine
+	//1.10 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine
 	private Double computeAbs01Perc(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoef(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
@@ -336,7 +336,7 @@ public final class SequenceProteique{
 		return abs01Perc;
 	}
 
-	//2.9 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine sans prendre en compte les cysteines
+	//1.11 Calcul l'aborbance ï¿½ 0.1 pourcent de proteine sans prendre en compte les cysteines
 	private Double computeAbs01PercWithoutCys(ArrayList<AminoAcid> aminoAcidList){
 		int cem = computeExtinctionCoefWithoutCys(aminoAcidList);
 		Double mw = computeMW(aminoAcidList);
@@ -344,7 +344,7 @@ public final class SequenceProteique{
 		return abs01Perc;
 	}
 
-	//2.10 Calcul l'index aliphatique de la proteine
+	//1.12 Calcul l'index aliphatique de la proteine
 	/*Detail du calcul: p(ala) + 2.9 * p(val) + 3.9 * ( p(ile) + p(leu) ) */
 	private Double computeAliphaticIndex(ArrayList<AminoAcid> aminoAcidList){
 		Double alpihIndex = ((double)(this.getNbAla() * 100) / (double)this.getNbMonomer()) 
@@ -354,14 +354,14 @@ public final class SequenceProteique{
 		return alpihIndex;
 	}
 
-	//2.11 Determine le In vivo half life de la proteine
+	//1.13 Determine le In vivo half life de la proteine
 	private String [] getHalfLife(ArrayList<AminoAcid> aminoAcidList) {
 		this.halfLife = aminoAcidList.get(0).getHalfLife();
 		return halfLife;
 	}
 
-	//Calcul l'index GRAVY de la proteine
-	//2.12 The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
+	//1.14 Calcul l'index GRAVY de la proteine
+	//The GRAVY value for a peptide or protein is calculated as the sum of hydropathy values of all the amino acids, divided by the number of residues in the sequence.
 	private Double computeGravyIndex(ArrayList<AminoAcid> aminoAcidList){
 		Double iI = 0.00;
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -371,7 +371,7 @@ public final class SequenceProteique{
 		return iI;
 	}
 
-	//2.13 Renvoie le nombre d'acide aminï¿½ rensï¿½gnï¿½ en parametre
+	//1.15 Renvoie le nombre d'acide aminï¿½ rensï¿½gnï¿½ en parametre
 	private int getNbAa(char aA){
 		switch (aA) {
 		case 'A':
@@ -442,7 +442,7 @@ public final class SequenceProteique{
 		}
 	}
 
-	//2.14 Renvoi la seq proteique reformater
+	//1.16 Renvoi la seq proteique reformater
 	private String formateSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -451,7 +451,7 @@ public final class SequenceProteique{
 		return formatedSeq;
 	}
 
-	//2.15 Renvoi une description de la composition de la seq en acide amine
+	//1.17 Renvoi une description de la composition de la seq en acide amine
 	private String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList){
 		String aAComposition = "";
 		ArrayList<String> aminAc = new ArrayList<String>();
@@ -481,6 +481,8 @@ public final class SequenceProteique{
 
 	}
 
+	//2. Fonctions publique
+	//2.1 Fonction toString
 	@Override
 	public String toString() {
 		String msgWithoutTrpOrTyr = "";
@@ -531,7 +533,21 @@ public final class SequenceProteique{
 		"\n\n---------------------------------------------------------------------------------";
 	}
 
-	//Getters and Setters
+	//2.2 Calcul la concentration de prot (IN: Abs)
+	// C = A / (E.l)
+	public Double ComputeProtConcentration(Double Abs280){
+		Double protConcentration = Abs280 / (double) this.extCoef;
+		return protConcentration;
+	}
+	
+	//2.3 Calcul l'absorbance theorique de la prot à 280 nm (IN: Conc)
+	// A = E.l.C
+	public Double ComputeProtAbs(Double protConcentration){
+		Double Abs280 = protConcentration * (double) this.extCoef;
+		return Abs280;
+	}
+	
+	//D. Getters and Setters
 	public String getSequence() {
 		return sequence;
 	}

@@ -32,7 +32,7 @@ import com.nucleotid.Uracile;
 
 public class SequenceNucleique{
 
-	/* Declaration des variables d'instance */
+	/*A. Declaration des variables d'instance */
 	private String sequence = "", nomSeq = "", typeSeq = "";
 	private boolean isDna = false, isRna = false;
 	private int nbMonomer = 0;
@@ -45,7 +45,7 @@ public class SequenceNucleique{
 	/* Code genetique */
 	private HashMap<String, AminoAcid> mapCodeGene = new HashMap<String, AminoAcid>();
 
-	/* Constructeurs */
+	/*B. Constructeurs */
 	public SequenceNucleique() {}
 
 	public SequenceNucleique(String seq, String nom) {
@@ -59,18 +59,19 @@ public class SequenceNucleique{
 		initConstructeur();
 	}
 
-	//1. Fonctions de classe
+	//C. Fonctions
+	//1. Fonctions de classe private
 	private void initConstructeur() {
 		// TODO Auto-generated method stub
 		DetermineType(sequence);
 		initMapCodeGene();	
 		addMonomer(sequence);
 		countMonomer(nucleotidList);
-		countNucleotid(nucleotidList);
 		countAtom(nucleotidList);	
+		countNucleotid(nucleotidList);
 		computeMW(nucleotidList);
-		complement(nucleotidList);
 		reverse(nucleotidList);
+		complement(nucleotidList);
 		reverseComplement(nucleotidListReverse);
 		translate(nucleotidList, nucleotidListReverseComplement);
 	}
@@ -91,225 +92,7 @@ public class SequenceNucleique{
 		}
 	}
 
-	//3. Alimente la liste nucleotidList 
-	private void addMonomer(String seq) {
-		seq = seq.toLowerCase();
-		nucleotidList = new ArrayList<Nucleotid>();
-		for (int i = 0; i < seq.length(); i++) {
-			char nucleotid = seq.charAt(i);
-			switch (nucleotid) {
-			case 'a':
-				nucleotidList.add(new Adenine());	
-				break;
-			case 't':
-				nucleotidList.add(new Thymine());	
-				break;
-			case 'c':
-				nucleotidList.add(new Cytosine());
-				break;
-			case 'g':
-				nucleotidList.add(new Guanine());
-				break;
-			case 'u':
-				nucleotidList.add(new Uracile());
-				break;
-			} 
-		}
-	}
-
-	//4. Compte le nombre de monomeres dans la liste
-	private int countMonomer(ArrayList<Nucleotid> nucleotidList) {
-		nbMonomer = nucleotidList.size();
-		return nbMonomer;
-	}
-
-	//5. Compte le nombre d'atome dans la sequence
-	private void countAtom(ArrayList<Nucleotid> nucleotidList) {
-		int cAtomBuffer = 0;
-		int nAtomBuffer = 0;
-		int oAtomBuffer = 0;
-		int hAtomBuffer = 0;
-		int totAtomBuffer = 0;
-		for (int i = 0; i <nucleotidList.size(); i++) {
-			cAtomBuffer += nucleotidList.get(i).getNbCarbonAtom();
-			nAtomBuffer += nucleotidList.get(i).getNbAzoteAtom();
-			hAtomBuffer += nucleotidList.get(i).getNbHydrogenAtom();
-			oAtomBuffer += nucleotidList.get(i).getNbOxygenAtom();
-		}
-		oAtomBuffer -= (nucleotidList.size() - 1);
-		hAtomBuffer -= (2 * (nucleotidList.size() - 1));
-		totAtomBuffer = cAtomBuffer + nAtomBuffer + oAtomBuffer + hAtomBuffer;
-		this.nbAtom = totAtomBuffer;
-		this.nbCatom = cAtomBuffer;
-		this.nbNatom = nAtomBuffer;
-		this.nbOatom = oAtomBuffer;
-		this.nbHatom = hAtomBuffer;
-	}
-
-	//2.1 Compte le nbre d acide amine dans la sequence
-	private void countNucleotid(ArrayList<Nucleotid> nucleotidList){
-		for (int i = 0; i < nucleotidList.size(); i++) {
-			switch (nucleotidList.get(i).getSyn1L()) {
-			case 'A':
-				this.nbAde ++;
-				break;
-			case 'G':
-				this.nbGua ++;
-				break;
-			case 'T':
-				this.nbThy ++;
-				break;
-			case 'C':
-				this.nbCyt ++;
-				break;
-			case 'U':
-				this.nbUra ++;
-				break;
-			}
-		}
-	}
-
-	//6. Calcul le poids moleculaire de la sequence ! A revoir pour l arn !
-	private void computeMW(ArrayList<Nucleotid> nucleotidList) {
-		if(isDna){
-			for (int i = 0; i < nucleotidList.size(); i++) {
-				this.mwSsDna += nucleotidList.get(i).getMasseMolaire();
-				this.mwDsDna += (nucleotidList.get(i).getMasseMolaire() * 2);
-			}
-			this.mwSsDna += 79;
-			this.mwDsDna += 157.9;
-		}
-		if(isRna){
-			for (int i = 0; i < nucleotidList.size(); i++) {
-				this.mwSsRna += nucleotidList.get(i).getMasseMolaire();
-			}
-			this.mwSsRna += 157.9;
-		}		
-		this.mwSsDnaRound = (new BigDecimal(this.mwSsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
-		this.mwSsRnaRound = (new BigDecimal(this.mwSsRna)).setScale(2, BigDecimal.ROUND_HALF_UP);
-		this.mwDsDnaRound = (new BigDecimal(this.mwDsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
-	}
-
-	//7. Reverse la sequence
-	private ArrayList<Nucleotid> reverse (ArrayList<Nucleotid> nucleotidList) {
-		this.nucleotidListReverse = new ArrayList<Nucleotid>();
-		for (int i = nucleotidList.size() - 1; i >= 0 ; i--) {
-			nucleotidListReverse.add(nucleotidList.get(i));
-		}
-		return nucleotidListReverse;
-	}
-
-	//8. Complement la sequence
-	private ArrayList<Nucleotid> complement (ArrayList<Nucleotid> nucleotidList) {
-		this.nucleotidListComplement = new ArrayList<Nucleotid>();
-		for (int i = 0 ; i < nucleotidList.size() ; i++) {
-			if (nucleotidList.get(i).getSyn3L().equals("ADE")){
-				nucleotidListComplement.add(new Thymine());
-			}else if (nucleotidList.get(i).getSyn3L().equals("CYT")){
-				nucleotidListComplement.add(new Guanine());
-			}else if (nucleotidList.get(i).getSyn3L().equals("GUA")){
-				nucleotidListComplement.add(new Cytosine());
-			}else if (nucleotidList.get(i).getSyn3L().equals("THY")){
-				if(this.isDna = true) {
-					nucleotidListComplement.add(new Adenine());
-				}else {
-					nucleotidListComplement.add(new Uracile());
-				}
-			}else if (nucleotidList.get(i).getSyn3L().equals("URA")){
-				nucleotidListComplement.add(new Adenine());
-			}
-		}
-		return nucleotidListComplement;
-	}
-
-	//9. Reverse Complement la sequence
-	private ArrayList<Nucleotid> reverseComplement (ArrayList<Nucleotid> nucleotidListReverse) {
-		this.nucleotidListReverseComplement = new ArrayList<Nucleotid>();
-		for (int i = 0 ; i < nucleotidListReverse.size() ; i++) {
-			if (nucleotidListReverse.get(i).getSyn3L().equals("ADE")){
-				nucleotidListReverseComplement.add(new Thymine());
-			}else if (nucleotidListReverse.get(i).getSyn3L().equals("CYT")){
-				nucleotidListReverseComplement.add(new Guanine());
-			}else if (nucleotidListReverse.get(i).getSyn3L().equals("GUA")){
-				nucleotidListReverseComplement.add(new Cytosine());
-			}else if (nucleotidListReverse.get(i).getSyn3L().equals("THY")){
-				if(isDna) {
-					nucleotidListReverseComplement.add(new Adenine());
-				}else {
-					nucleotidListReverseComplement.add(new Uracile());
-				}
-			}else if (nucleotidListReverse.get(i).getSyn3L().equals("URA")){
-				nucleotidListReverseComplement.add(new Adenine());
-			}
-		}
-		return nucleotidListReverseComplement;
-	}
-
-	//10. Traduit la sequence
-	private void translate (ArrayList<Nucleotid> nucleotidList, ArrayList<Nucleotid> nucleotidListReverseComplement) {
-		String codon53F1 = "";
-		String codon53F2 = "";
-		String codon53F3 = "";
-		String codon35F1 = "";
-		String codon35F2 = "";
-		String codon35F3 = "";
-		seqTranslate53F1 = new ArrayList<AminoAcid>();
-		seqTranslate35F2 = new ArrayList<AminoAcid>();
-		seqTranslate35F3 = new ArrayList<AminoAcid>();
-		seqTranslate35F1 = new ArrayList<AminoAcid>();
-		seqTranslate53F2 = new ArrayList<AminoAcid>();
-		seqTranslate53F3 = new ArrayList<AminoAcid>();
-		for (int i = 0; ( i + 2 ) < nucleotidList.size(); i += 3) {
-			codon53F1 = String.valueOf(nucleotidList.get(i).getSyn1L());
-			codon53F1 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
-			codon53F1 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
-			codon53F1 = codon53F1.toLowerCase();
-			codon53F1 = codon53F1.replace('u', 't');
-			seqTranslate53F1.add(mapCodeGene.get(codon53F1));
-		}
-		for (int i = 1; ( i + 2 ) < nucleotidList.size(); i += 3) {
-			codon53F2 = String.valueOf(nucleotidList.get(i).getSyn1L());
-			codon53F2 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
-			codon53F2 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
-			codon53F2 = codon53F2.toLowerCase();
-			codon53F2 = codon53F2.replace('u', 't');
-			seqTranslate53F2.add(mapCodeGene.get(codon53F2));
-		}
-		for (int i = 2; ( i + 2 ) < nucleotidList.size(); i += 3) {
-			codon53F3 = String.valueOf(nucleotidList.get(i).getSyn1L());
-			codon53F3 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
-			codon53F3 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
-			codon53F3 = codon53F3.toLowerCase();
-			codon53F3 = codon53F3.replace('u', 't');
-			seqTranslate53F3.add(mapCodeGene.get(codon53F3));
-		}
-		for (int i = 0; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
-			codon35F1 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
-			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
-			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
-			codon35F1 = codon35F1.toLowerCase();
-			codon35F1 = codon35F1.replace('u', 't');
-			seqTranslate35F1.add(mapCodeGene.get(codon35F1));
-		}
-		for (int i = 1; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
-			codon35F2 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
-			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
-			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
-			codon35F2 = codon35F2.toLowerCase();
-			codon35F2 = codon35F2.replace('u', 't');
-			seqTranslate35F2.add(mapCodeGene.get(codon35F2));
-		}
-		for (int i = 2; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
-			codon35F3 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
-			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
-			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
-			codon35F3 = codon35F3.toLowerCase();
-			codon35F3 = codon35F3.replace('u', 't');
-			seqTranslate35F3.add(mapCodeGene.get(codon35F3));
-		}
-	}
-
-	//11. Initialise la map du code genetique
+	//3. Initialise la map du code genetique
 	private void initMapCodeGene() {
 		// TODO Auto-generated method stub
 		mapCodeGene.put("ttt", new PhenylAlanine());
@@ -378,7 +161,225 @@ public class SequenceNucleique{
 		mapCodeGene.put("tga", new Terminal());
 	}
 
-	//12. Renvoi la seq proteique reformater
+	//4. Alimente la liste nucleotidList 
+	private void addMonomer(String seq) {
+		seq = seq.toLowerCase();
+		nucleotidList = new ArrayList<Nucleotid>();
+		for (int i = 0; i < seq.length(); i++) {
+			char nucleotid = seq.charAt(i);
+			switch (nucleotid) {
+			case 'a':
+				nucleotidList.add(new Adenine());	
+				break;
+			case 't':
+				nucleotidList.add(new Thymine());	
+				break;
+			case 'c':
+				nucleotidList.add(new Cytosine());
+				break;
+			case 'g':
+				nucleotidList.add(new Guanine());
+				break;
+			case 'u':
+				nucleotidList.add(new Uracile());
+				break;
+			} 
+		}
+	}
+
+	//5. Compte le nombre de monomeres dans la liste
+	private int countMonomer(ArrayList<Nucleotid> nucleotidList) {
+		nbMonomer = nucleotidList.size();
+		return nbMonomer;
+	}
+
+	//6. Compte le nombre d'atome dans la sequence
+	private void countAtom(ArrayList<Nucleotid> nucleotidList) {
+		int cAtomBuffer = 0;
+		int nAtomBuffer = 0;
+		int oAtomBuffer = 0;
+		int hAtomBuffer = 0;
+		int totAtomBuffer = 0;
+		for (int i = 0; i <nucleotidList.size(); i++) {
+			cAtomBuffer += nucleotidList.get(i).getNbCarbonAtom();
+			nAtomBuffer += nucleotidList.get(i).getNbAzoteAtom();
+			hAtomBuffer += nucleotidList.get(i).getNbHydrogenAtom();
+			oAtomBuffer += nucleotidList.get(i).getNbOxygenAtom();
+		}
+		oAtomBuffer -= (nucleotidList.size() - 1);
+		hAtomBuffer -= (2 * (nucleotidList.size() - 1));
+		totAtomBuffer = cAtomBuffer + nAtomBuffer + oAtomBuffer + hAtomBuffer;
+		this.nbAtom = totAtomBuffer;
+		this.nbCatom = cAtomBuffer;
+		this.nbNatom = nAtomBuffer;
+		this.nbOatom = oAtomBuffer;
+		this.nbHatom = hAtomBuffer;
+	}
+
+	//7. Compte le nbre de nucleotide dans la sequence
+	private void countNucleotid(ArrayList<Nucleotid> nucleotidList){
+		for (int i = 0; i < nucleotidList.size(); i++) {
+			switch (nucleotidList.get(i).getSyn1L()) {
+			case 'A':
+				this.nbAde ++;
+				break;
+			case 'G':
+				this.nbGua ++;
+				break;
+			case 'T':
+				this.nbThy ++;
+				break;
+			case 'C':
+				this.nbCyt ++;
+				break;
+			case 'U':
+				this.nbUra ++;
+				break;
+			}
+		}
+	}
+
+	//8. Calcul le poids moleculaire de la sequence ! A revoir pour l arn !
+	private void computeMW(ArrayList<Nucleotid> nucleotidList) {
+		if(isDna){
+			for (int i = 0; i < nucleotidList.size(); i++) {
+				this.mwSsDna += nucleotidList.get(i).getMasseMolaire();
+				this.mwDsDna += (nucleotidList.get(i).getMasseMolaire() * 2);
+			}
+			this.mwSsDna += 79;
+			this.mwDsDna += 157.9;
+		}
+		if(isRna){
+			for (int i = 0; i < nucleotidList.size(); i++) {
+				this.mwSsRna += nucleotidList.get(i).getMasseMolaire();
+			}
+			this.mwSsRna += 157.9;
+		}		
+		this.mwSsDnaRound = (new BigDecimal(this.mwSsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.mwSsRnaRound = (new BigDecimal(this.mwSsRna)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		this.mwDsDnaRound = (new BigDecimal(this.mwDsDna)).setScale(2, BigDecimal.ROUND_HALF_UP);
+	}
+
+	//9. Reverse la sequence
+	private ArrayList<Nucleotid> reverse (ArrayList<Nucleotid> nucleotidList) {
+		this.nucleotidListReverse = new ArrayList<Nucleotid>();
+		for (int i = nucleotidList.size() - 1; i >= 0 ; i--) {
+			nucleotidListReverse.add(nucleotidList.get(i));
+		}
+		return nucleotidListReverse;
+	}
+
+	//10. Complement la sequence
+	private ArrayList<Nucleotid> complement (ArrayList<Nucleotid> nucleotidList) {
+		this.nucleotidListComplement = new ArrayList<Nucleotid>();
+		for (int i = 0 ; i < nucleotidList.size() ; i++) {
+			if (nucleotidList.get(i).getSyn3L().equals("ADE")){
+				nucleotidListComplement.add(new Thymine());
+			}else if (nucleotidList.get(i).getSyn3L().equals("CYT")){
+				nucleotidListComplement.add(new Guanine());
+			}else if (nucleotidList.get(i).getSyn3L().equals("GUA")){
+				nucleotidListComplement.add(new Cytosine());
+			}else if (nucleotidList.get(i).getSyn3L().equals("THY")){
+				if(this.isDna = true) {
+					nucleotidListComplement.add(new Adenine());
+				}else {
+					nucleotidListComplement.add(new Uracile());
+				}
+			}else if (nucleotidList.get(i).getSyn3L().equals("URA")){
+				nucleotidListComplement.add(new Adenine());
+			}
+		}
+		return nucleotidListComplement;
+	}
+
+	//11. Reverse Complement la sequence
+	private ArrayList<Nucleotid> reverseComplement (ArrayList<Nucleotid> nucleotidListReverse) {
+		this.nucleotidListReverseComplement = new ArrayList<Nucleotid>();
+		for (int i = 0 ; i < nucleotidListReverse.size() ; i++) {
+			if (nucleotidListReverse.get(i).getSyn3L().equals("ADE")){
+				nucleotidListReverseComplement.add(new Thymine());
+			}else if (nucleotidListReverse.get(i).getSyn3L().equals("CYT")){
+				nucleotidListReverseComplement.add(new Guanine());
+			}else if (nucleotidListReverse.get(i).getSyn3L().equals("GUA")){
+				nucleotidListReverseComplement.add(new Cytosine());
+			}else if (nucleotidListReverse.get(i).getSyn3L().equals("THY")){
+				if(isDna) {
+					nucleotidListReverseComplement.add(new Adenine());
+				}else {
+					nucleotidListReverseComplement.add(new Uracile());
+				}
+			}else if (nucleotidListReverse.get(i).getSyn3L().equals("URA")){
+				nucleotidListReverseComplement.add(new Adenine());
+			}
+		}
+		return nucleotidListReverseComplement;
+	}
+
+	//12. Traduit la sequence
+	private void translate (ArrayList<Nucleotid> nucleotidList, ArrayList<Nucleotid> nucleotidListReverseComplement) {
+		String codon53F1 = "";
+		String codon53F2 = "";
+		String codon53F3 = "";
+		String codon35F1 = "";
+		String codon35F2 = "";
+		String codon35F3 = "";
+		seqTranslate53F1 = new ArrayList<AminoAcid>();
+		seqTranslate35F2 = new ArrayList<AminoAcid>();
+		seqTranslate35F3 = new ArrayList<AminoAcid>();
+		seqTranslate35F1 = new ArrayList<AminoAcid>();
+		seqTranslate53F2 = new ArrayList<AminoAcid>();
+		seqTranslate53F3 = new ArrayList<AminoAcid>();
+		for (int i = 0; ( i + 2 ) < nucleotidList.size(); i += 3) {
+			codon53F1 = String.valueOf(nucleotidList.get(i).getSyn1L());
+			codon53F1 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
+			codon53F1 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
+			codon53F1 = codon53F1.toLowerCase();
+			codon53F1 = codon53F1.replace('u', 't');
+			seqTranslate53F1.add(mapCodeGene.get(codon53F1));
+		}
+		for (int i = 1; ( i + 2 ) < nucleotidList.size(); i += 3) {
+			codon53F2 = String.valueOf(nucleotidList.get(i).getSyn1L());
+			codon53F2 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
+			codon53F2 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
+			codon53F2 = codon53F2.toLowerCase();
+			codon53F2 = codon53F2.replace('u', 't');
+			seqTranslate53F2.add(mapCodeGene.get(codon53F2));
+		}
+		for (int i = 2; ( i + 2 ) < nucleotidList.size(); i += 3) {
+			codon53F3 = String.valueOf(nucleotidList.get(i).getSyn1L());
+			codon53F3 += String.valueOf(nucleotidList.get(i + 1).getSyn1L());
+			codon53F3 += String.valueOf(nucleotidList.get(i + 2).getSyn1L());
+			codon53F3 = codon53F3.toLowerCase();
+			codon53F3 = codon53F3.replace('u', 't');
+			seqTranslate53F3.add(mapCodeGene.get(codon53F3));
+		}
+		for (int i = 0; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
+			codon35F1 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
+			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
+			codon35F1 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
+			codon35F1 = codon35F1.toLowerCase();
+			codon35F1 = codon35F1.replace('u', 't');
+			seqTranslate35F1.add(mapCodeGene.get(codon35F1));
+		}
+		for (int i = 1; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
+			codon35F2 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
+			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
+			codon35F2 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
+			codon35F2 = codon35F2.toLowerCase();
+			codon35F2 = codon35F2.replace('u', 't');
+			seqTranslate35F2.add(mapCodeGene.get(codon35F2));
+		}
+		for (int i = 2; ( i + 2 ) < nucleotidListReverseComplement.size(); i += 3) {
+			codon35F3 = String.valueOf(nucleotidListReverseComplement.get(i).getSyn1L());
+			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 1).getSyn1L());
+			codon35F3 += String.valueOf(nucleotidListReverseComplement.get(i + 2).getSyn1L());
+			codon35F3 = codon35F3.toLowerCase();
+			codon35F3 = codon35F3.replace('u', 't');
+			seqTranslate35F3.add(mapCodeGene.get(codon35F3));
+		}
+	}
+
+	//13. Renvoi la seq proteique reformater
 	private String formateProtSeq(ArrayList<AminoAcid> aminoAcidList){
 		String formatedSeq = "";
 		for (int i = 0; i < aminoAcidList.size(); i++) {
@@ -387,8 +388,7 @@ public class SequenceNucleique{
 		return formatedSeq;
 	}
 
-	
-	//2.14 Renvoi la seq proteique reformater
+	//14. Renvoi la seq proteique reformater
 	private String formateDNASeq(ArrayList<Nucleotid> nucleotidList){
 		String formatedSeq = "";
 		for (int i = 0; i < nucleotidList.size(); i++) {
@@ -396,18 +396,7 @@ public class SequenceNucleique{
 		}
 		return formatedSeq;
 	}
-	
-	//Transcription de la sequence
-//	private String transcrit(String seq){
-//		if (this.isRna) {
-//			this.sequence = seq.replace('u', 't');
-//			this.isDna = true;
-//			this.isRna = false;
-//			this.typeSeq = "dna";
-//		}
-//		return this.sequence;
-//	}
-	
+
 	//Methode generique to string
 	@Override
 	public String toString() {
@@ -418,26 +407,37 @@ public class SequenceNucleique{
 		}else if(isRna){
 			msgDynamique = "\n\nMolecular weight for ssRNA (MW): " + mwSsRnaRound + " g/mol ";		
 		}
-		
+
 		return "-----------------------------------------------------------------------------------" +
-				"\n\nSequence name: " + nomSeq + 
-				"\n\nType of sequence: " + typeSeq + 
-				"\n\nUser-provided Sequence: " + formateDNASeq(nucleotidList) +
-				"\nReverse Sequence: " + formateDNASeq(nucleotidListReverse) +
-				"\nComplement Sequence: " + formateDNASeq(nucleotidListComplement) +
-				"\nReverse Complement Sequence: " + formateDNASeq(nucleotidListReverseComplement) +
-				"\n\nNumber of nucleotids: " + nbMonomer +
-				"\n\nMolecular weigth:" + msgDynamique +
-				"\n\nTranslate: " + 
-				"\n\n3'5' Frame 1" + "\n" + formateProtSeq(seqTranslate53F1) +
-				"\n\n3'5' Frame 2" + "\n" + formateProtSeq(seqTranslate53F2) +
-				"\n\n3'5' Frame 3" + "\n" + formateProtSeq(seqTranslate53F3) +
-				"\n\n5'3' Frame 1" + "\n" + formateProtSeq(seqTranslate35F1) +
-				"\n\n5'3' Frame 2" + "\n" + formateProtSeq(seqTranslate35F2) +
-				"\n\n5'3' Frame 3" + "\n" + formateProtSeq(seqTranslate35F3) +
-				"\n\n---------------------------------------------------------------------------------";
+		"\n\nSequence name: " + nomSeq + 
+		"\n\nType of sequence: " + typeSeq + 
+		"\n\nUser-provided Sequence: " + formateDNASeq(nucleotidList) +
+		"\nReverse Sequence: " + formateDNASeq(nucleotidListReverse) +
+		"\nComplement Sequence: " + formateDNASeq(nucleotidListComplement) +
+		"\nReverse Complement Sequence: " + formateDNASeq(nucleotidListReverseComplement) +
+		"\n\nNumber of nucleotids: " + nbMonomer +
+		"\n\nMolecular weigth:" + msgDynamique +
+		"\n\nTranslate: " + 
+		"\n\n3'5' Frame 1" + "\n" + formateProtSeq(seqTranslate53F1) +
+		"\n\n3'5' Frame 2" + "\n" + formateProtSeq(seqTranslate53F2) +
+		"\n\n3'5' Frame 3" + "\n" + formateProtSeq(seqTranslate53F3) +
+		"\n\n5'3' Frame 1" + "\n" + formateProtSeq(seqTranslate35F1) +
+		"\n\n5'3' Frame 2" + "\n" + formateProtSeq(seqTranslate35F2) +
+		"\n\n5'3' Frame 3" + "\n" + formateProtSeq(seqTranslate35F3) +
+		"\n\n---------------------------------------------------------------------------------";
 	}
 
+
+	//Transcription de la sequence
+	//	private String transcrit(String seq){
+	//		if (this.isRna) {
+	//			this.sequence = seq.replace('u', 't');
+	//			this.isDna = true;
+	//			this.isRna = false;
+	//			this.typeSeq = "dna";
+	//		}
+	//		return this.sequence;
+	//	}
 
 	//
 	//	//Reverse Transcription de la sequence
@@ -451,7 +451,7 @@ public class SequenceNucleique{
 	//		return sequence;
 	//	}
 
-	// getters and setters
+	//D. getters and setters
 	public String getSequence() {
 		return sequence;
 	}

@@ -540,7 +540,7 @@ public final class SequenceProteique{
 		return protConcentration;
 	}
 	
-	//2.3 Calcul l'absorbance theorique de la prot à 280 nm (IN: Conc)
+	//2.3 Calcul l'absorbance theorique de la prot ï¿½ 280 nm (IN: Conc)
 	// A = E.l.C
 	public Double ComputeProtAbs(Double protConcentration){
 		Double Abs280 = protConcentration * (double) this.extCoef;

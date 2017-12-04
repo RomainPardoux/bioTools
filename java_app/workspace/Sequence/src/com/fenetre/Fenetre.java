@@ -5,12 +5,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.sequence.SequenceNucleique;
@@ -31,8 +35,8 @@ public class Fenetre extends JFrame{
 
 	JTextArea jtaEcran = new JTextArea("Copy your sequence here ...");
 	//Label Prot
-	JLabel labelTypeOfSeq = new JLabel();
-	JLabel labelNbOfAA = new JLabel();
+	JLabel labelTypeOfSeq, labelNbOfAA, labelMw, labelPI;
+
 
 
 	public Fenetre() throws HeadlessException {
@@ -65,22 +69,40 @@ public class Fenetre extends JFrame{
 		panEcran.add(jsp);
 		panEcran.add(jbutSend);
 
-		//Panel Info
+		//Panel CardProt
 		JPanel cardProt = new JPanel();
-		cardProt.setBackground(Color.ORANGE);
-		cardProt.add(labelTypeOfSeq, BorderLayout.SOUTH);
-		cardProt.add(labelNbOfAA, BorderLayout.WEST);
+		cardProt.setLayout(new BorderLayout());
+		cardProt.setBackground(Color.WHITE);
+		JPanel cardProtInfo = new JPanel();
+		cardProtInfo.setLayout(new FlowLayout(FlowLayout.LEFT));
+		cardProtInfo.setPreferredSize(new Dimension(200, 200));
+		cardProtInfo.setBorder(BorderFactory.createTitledBorder("Protein identity"));
+		labelTypeOfSeq = new JLabel();
+		labelNbOfAA = new JLabel();
+		labelMw = new JLabel();
+		labelPI = new JLabel();
+		cardProtInfo.add(labelTypeOfSeq);
+		cardProtInfo.add(labelNbOfAA);
+		cardProtInfo.add(labelMw);
+		cardProtInfo.add(labelPI);
+		cardProt.add(cardProtInfo, BorderLayout.WEST);
+		
+		//Panel CardDna
 		JPanel cardDna = new JPanel();
-		cardDna.setBackground(Color.MAGENTA);		
+		cardDna.setBackground(Color.WHITE);
+		
+		//Panel CardDefault
 		JPanel cardDefautlt = new JPanel();
 		cardDefautlt.setBackground(Color.green);
+		
+		//Panel Content
 		content.setPreferredSize(new Dimension(600, 410));
-
 		content.setLayout(cl);
 		content.add(cardProt, listContent[0]);
 		content.add(cardDna, listContent[1]);
 		content.add(cardDefautlt, listContent[2]);
 
+		//Panel ContentPane
 		this.getContentPane().add(panEcran, BorderLayout.NORTH);
 		this.getContentPane().add(content, BorderLayout.CENTER);
 	}
@@ -127,10 +149,14 @@ public class Fenetre extends JFrame{
 
 		private void initPanelProt(SequenceProteique seqProt) {
 			// TODO Auto-generated method stub
-			String typeOfSeq = "Type of sequence: "	+ seqProt.getTypeSeq() + "                                                      ";
-			String nbOfAA = "Number of amino acids: "+ seqProt.getNbMonomer() + "\n";
+			String typeOfSeq = "Type of sequence: "	+ seqProt.getTypeSeq();
+			String nbOfAA = "Number of amino acids: "+ seqProt.getNbMonomer();
+			String mW = "Molecular weight (MW): " + seqProt.getmWRound();
+			String pI = "Theoretical pI: " + seqProt.getpHIRound();
 			labelTypeOfSeq.setText(typeOfSeq);
 			labelNbOfAA.setText(nbOfAA);
+			labelMw.setText(mW);
+			labelPI.setText(pI);
 
 		}
 	};

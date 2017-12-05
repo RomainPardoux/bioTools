@@ -12,7 +12,6 @@ import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +22,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
 import com.sequence.SequenceNucleique;
 import com.sequence.SequenceProteique;
 
@@ -35,7 +33,8 @@ public class Fenetre extends JFrame{
 
 	JTextArea jtaEcran = new JTextArea("Copy your sequence here ...");
 	//Label Prot
-	JLabel labelTypeOfSeq, labelNbOfAA, labelMw, labelPI;
+	JLabel labelTypeOfSeq, labelNbOfAA, labelMw, labelPI, labelNbPlusAa, labelNbMoinsAa, labelFormula, 
+	labelNbOfAtom, labelAliphIndex, labelGravy, labelAACompo;
 
 
 
@@ -70,21 +69,40 @@ public class Fenetre extends JFrame{
 		panEcran.add(jbutSend);
 
 		//Panel CardProt
+		labelTypeOfSeq = new JLabel();
+		labelNbOfAA = new JLabel();
+		labelMw = new JLabel();
+		labelPI = new JLabel();
+		labelNbPlusAa = new JLabel();
+		labelNbMoinsAa = new JLabel();
+		labelFormula = new JLabel();
+		labelNbOfAtom = new JLabel();
+		labelAliphIndex = new JLabel();
+		labelGravy = new JLabel();
+		labelAACompo = new JLabel();
 		JPanel cardProt = new JPanel();
 		cardProt.setLayout(new BorderLayout());
 		cardProt.setBackground(Color.WHITE);
 		JPanel cardProtInfo = new JPanel();
 		cardProtInfo.setLayout(new FlowLayout(FlowLayout.LEFT));
-		cardProtInfo.setPreferredSize(new Dimension(200, 200));
+		cardProtInfo.setPreferredSize(new Dimension(220, 200));
 		cardProtInfo.setBorder(BorderFactory.createTitledBorder("Protein identity"));
-		labelTypeOfSeq = new JLabel();
-		labelNbOfAA = new JLabel();
-		labelMw = new JLabel();
-		labelPI = new JLabel();
 		cardProtInfo.add(labelTypeOfSeq);
-		cardProtInfo.add(labelNbOfAA);
 		cardProtInfo.add(labelMw);
 		cardProtInfo.add(labelPI);
+		cardProtInfo.add(labelAliphIndex);
+		cardProtInfo.add(labelGravy);
+		JPanel cardProtCompo = new JPanel();
+		cardProtCompo.setLayout(new FlowLayout(FlowLayout.LEFT));
+		cardProtCompo.setPreferredSize(new Dimension(220, 150));
+		cardProtCompo.setBorder(BorderFactory.createTitledBorder("Protein Composition"));
+		cardProtCompo.add(labelNbOfAA);
+		cardProtCompo.add(labelNbMoinsAa);
+		cardProtCompo.add(labelNbPlusAa);
+		cardProtCompo.add(labelNbOfAtom);
+		cardProtCompo.add(labelFormula);
+		cardProtCompo.add(labelAACompo);
+		cardProt.add(cardProtCompo, BorderLayout.SOUTH);
 		cardProt.add(cardProtInfo, BorderLayout.WEST);
 		
 		//Panel CardDna
@@ -150,13 +168,27 @@ public class Fenetre extends JFrame{
 		private void initPanelProt(SequenceProteique seqProt) {
 			// TODO Auto-generated method stub
 			String typeOfSeq = "Type of sequence: "	+ seqProt.getTypeSeq();
-			String nbOfAA = "Number of amino acids: "+ seqProt.getNbMonomer();
+			String nbOfAA = "Number of amino acids: "+ seqProt.getNbMonomer() + "                                                       ";
 			String mW = "Molecular weight (MW): " + seqProt.getmWRound();
 			String pI = "Theoretical pI: " + seqProt.getpHIRound();
+			String nbOfplusAa = "Total number of positively charged residues (Arg + Lys + His): " + seqProt.getNbPositiveAA();
+			String nbOgMoinsAa = "Total number of negatively charged residues (Asp + Glu): " + seqProt.getNbNegativeAA() + "            ";
+			String nbOfAtom = "Total number of atoms: " + seqProt.getNbAtom() + "                                                       ";
+			String formula = "Formula: " + seqProt.getFormule() + "                                                          ";
+			String aliphIndex = "Aliphatic index: " + seqProt.getAliphIndexRound();
+			String gravy = "GRAVY index " + seqProt.getGravyRound();
+			String aACompo = "Amino Acid Composition: ";
 			labelTypeOfSeq.setText(typeOfSeq);
 			labelNbOfAA.setText(nbOfAA);
+			labelNbMoinsAa.setText(nbOgMoinsAa);
+			labelNbPlusAa.setText(nbOfplusAa);
+			labelNbOfAtom.setText(nbOfAtom);
+			labelFormula.setText(formula);
+			labelGravy.setText(gravy);
+			labelAliphIndex.setText(aliphIndex);
 			labelMw.setText(mW);
 			labelPI.setText(pI);
+			labelAACompo.setText(aACompo);
 
 		}
 	};

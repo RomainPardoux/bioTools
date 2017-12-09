@@ -227,6 +227,8 @@ public final class SequenceProteique{
 
 	//1.4 Compte le nbre d aa charger dans la sequence
 	private void countChargedAminoAcid(ArrayList<AminoAcid> aminoAcidList){
+		this.nbNegativeAA = 0;
+		this.nbPositiveAA = 0;
 		for (int i = 0; i <aminoAcidList.size(); i++) {
 			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
 				this.nbPositiveAA ++;
@@ -537,6 +539,21 @@ public final class SequenceProteique{
 	// C = A / (E.l)
 	public Double ComputeProtConcentration(Double Abs280){
 		Double protConcentration = Abs280 / (double) this.extCoef;
+		return protConcentration;
+	}
+	
+	public Double ComputeProtConcentration(Double Abs280, Unite unite){
+		Double protConcentration = Abs280 / (double) this.extCoef;
+		if(unite.equals(Unite.mM)){
+			protConcentration *= 1000;
+		}else if(unite.equals(Unite.µM)){
+			protConcentration *= 1000000;
+		}else if(unite.equals(Unite.nM)){
+			protConcentration *= 1000000000;
+		}else if(unite.equals(Unite.pM)){
+			protConcentration *= 1000000000000.0;
+		}
+		
 		return protConcentration;
 	}
 	

@@ -230,9 +230,9 @@ public final class SequenceProteique{
 		this.nbNegativeAA = 0;
 		this.nbPositiveAA = 0;
 		for (int i = 0; i <aminoAcidList.size(); i++) {
-			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
+			if (aminoAcidList.get(i).getSideChainProperty().equals(SideChaineProperties.POSITIVE_CHARGED)) {
 				this.nbPositiveAA ++;
-			}else if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.NEGATIVE_CHARGED)) {
+			}else if (aminoAcidList.get(i).getSideChainProperty().equals(SideChaineProperties.NEGATIVE_CHARGED)) {
 				this.nbNegativeAA ++;
 			}
 		}
@@ -290,11 +290,11 @@ public final class SequenceProteique{
 		listPKa.add(aminoAcidList.get(0).getpKaNH3());
 		listPKa.add(aminoAcidList.get(aminoAcidList.size()-1).getpKaCOOH());
 		for (int i = 0; i < aminoAcidList.size(); i++) {
-			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.POSITIVE_CHARGED)) {
+			if (aminoAcidList.get(i).getSideChainProperty().equals(SideChaineProperties.POSITIVE_CHARGED)) {
 				listPKa.add(aminoAcidList.get(i).getpKaR());
 				cptrPositiveCharge++;
 			}
-			if (aminoAcidList.get(i).sideChainProperty.equals(SideChaineProperties.NEGATIVE_CHARGED)) {
+			if (aminoAcidList.get(i).getSideChainProperty().equals(SideChaineProperties.NEGATIVE_CHARGED)) {
 				listPKa.add(aminoAcidList.get(i).getpKaR());
 			}
 		}
@@ -482,6 +482,33 @@ public final class SequenceProteique{
 		return aAComposition;
 
 	}
+	
+	public String describeAminoAcidComposition(ArrayList<AminoAcid> aminoAcidList, String Syn3L){
+		String aAComposition = "";
+		ArrayList<String> aminAc = new ArrayList<String>();
+		boolean doublon = false;
+		Double pourcAa = 0.0;
+		for (int i = 0; i < aminoAcidList.size(); i++) {
+			for (int j = 0; j < aminAc.size(); j++) {
+				if(aminAc.get(j).equals(aminoAcidList.get(i).getSyn3L())){
+					doublon = true;
+					break;
+				}
+			}
+			aminAc.add(aminoAcidList.get(i).getSyn3L());
+			if(!doublon && aminoAcidList.get(i).getSyn3L().equals(Syn3L)){
+				pourcAa =  ((double)(this.getNbAa(aminoAcidList.get(i).getSyn1L()) * 100) / (double)this.nbMonomer);
+				BigDecimal pourcAaRound = (new BigDecimal(pourcAa)).setScale(2, BigDecimal.ROUND_HALF_UP);
+				aAComposition = aminoAcidList.get(i).getSyn1L() + " / "
+						+ "Number : " + getNbAa(aminoAcidList.get(i).getSyn1L())
+						+ " / Percentage : " + pourcAaRound + " % "
+						+ " / Formula : " + aminoAcidList.get(i).getFormuleBrute();
+
+			}
+			doublon = false;
+		}
+		return aAComposition;
+	}
 
 	//2. Fonctions publique
 	//2.1 Fonction toString
@@ -553,7 +580,6 @@ public final class SequenceProteique{
 		}else if(unite.equals(Unite.pM)){
 			protConcentration *= 1000000000000.0;
 		}
-		
 		return protConcentration;
 	}
 	

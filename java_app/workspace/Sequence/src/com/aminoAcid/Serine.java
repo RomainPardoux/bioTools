@@ -18,7 +18,7 @@ public class Serine extends AminoAcid{
 	private String[] codons = {"UCU", "UCA", "UCG", "UCC", "AGU", "AGC"};
 	private  double pHIsoelectrique = 5.68;
 	private double pKaCOOH = 2.13, pKaNH3 = 9.05;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
 	private String [] halfLife = {"1.9 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = - 0.8;
 	
@@ -28,6 +28,11 @@ public class Serine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbSer() {
 		return nbSer;
 	}

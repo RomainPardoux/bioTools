@@ -18,7 +18,7 @@ public class GlutamicAcid extends AminoAcid{
 	private String[] codons = {"GAA", "GAG"};
 	private  double pHIsoelectrique = 3.22;
 	private double pKaCOOH = 2.16, pKaNH3 = 9.58, pKaR = 4.15;
-	SideChaineProperties sideChainProperty = SideChaineProperties.NEGATIVE_CHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.NEGATIVE_CHARGED;
 	private String [] halfLife = {"1 hour", "30 min", ">10 hour"};
 	private double hydropathie = - 3.50;
 	
@@ -28,6 +28,11 @@ public class GlutamicAcid extends AminoAcid{
 	}
 	
 	// Getters and Setters
+	
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
 	
 	public static int getNbGlu() {
 		return nbGlu;

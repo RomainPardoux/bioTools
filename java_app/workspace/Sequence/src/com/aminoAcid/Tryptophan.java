@@ -19,7 +19,7 @@ public class Tryptophan extends AminoAcid{
 	private String[] codons = {"UGG"};
 	private  double pHIsoelectrique = 5.89;
 	private double pKaCOOH = 2.38, pKaNH3 = 9.34;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private int extinctionCoef = 5500;
 	private String [] halfLife = {"2.8 hour", "3 min", "2 min"};
 	private double hydropathie = - 0.9;
@@ -30,6 +30,11 @@ public class Tryptophan extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbTrp() {
 		return nbTrp;
 	}

@@ -18,7 +18,7 @@ public class Threonine extends AminoAcid{
 	private String[] codons = {"ACU", "ACC", "ACA", "ACG"};
 	private  double pHIsoelectrique = 5.6;
 	private double pKaCOOH = 2.20, pKaNH3 = 8.96;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
 	private String [] halfLife = {"7.2 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = - 0.7;
 	
@@ -28,6 +28,11 @@ public class Threonine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbThr() {
 		return nbThr;
 	}

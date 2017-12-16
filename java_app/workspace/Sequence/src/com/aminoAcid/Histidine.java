@@ -19,7 +19,7 @@ public class Histidine extends AminoAcid{
 	private String[] codons = {"GAU", "CAC"};
 	private  double pHIsoelectrique = 7.59;
 	private double pKaCOOH = 1.7, pKaNH3 = 9.09, pKaR = 6.04;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
 	private String [] halfLife = {"3.5 hour", "10 min", ">10 hour"};
 	private double hydropathie = - 3.20;
 	
@@ -29,6 +29,11 @@ public class Histidine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbHis() {
 		return nbHis;
 	}

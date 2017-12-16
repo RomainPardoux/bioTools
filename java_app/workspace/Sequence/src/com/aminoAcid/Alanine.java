@@ -19,7 +19,7 @@ public class Alanine extends AminoAcid{
 	private String[] codons = {"GCU", "GCC", "GCA", "GCG"};
 	private  double pHIsoelectrique = 6.0;
 	private double pKaCOOH = 2.33, pKaNH3 = 9.71;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"4.4 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = 1.80;
 	
@@ -30,6 +30,11 @@ public class Alanine extends AminoAcid{
 
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public String[] getHalfLife() {
 		return halfLife;
 	}

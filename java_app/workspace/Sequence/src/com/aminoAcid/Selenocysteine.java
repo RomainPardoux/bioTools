@@ -19,7 +19,7 @@ public class Selenocysteine extends AminoAcid{
 	private String[] codons = {"UGA"};
 	private  double pHIsoelectrique = 5.47;
 	private double pKaCOOH = 1.9, pKaNH3 = 10.0;
-	private String sideChainProperty = "special";
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	
 	// Constructeur
 	public Selenocysteine() {
@@ -27,6 +27,11 @@ public class Selenocysteine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbSec() {
 		return nbSec;
 	}
@@ -73,10 +78,6 @@ public class Selenocysteine extends AminoAcid{
 
 	public double getpKaCOOH() {
 		return pKaCOOH;
-	}
-
-	public String getSideChainProperty() {
-		return sideChainProperty;
 	}
 
 	public int getNbHydrogenAtom() {

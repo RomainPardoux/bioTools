@@ -20,7 +20,7 @@ public class Glycine extends AminoAcid{
 	private String[] codons = {"GGU", "GGC", "GGA", "GGG"};
 	private  double pHIsoelectrique = 5.97;
 	private double pKaCOOH = 2.34, pKaNH3 = 9.58;
-	SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	private String [] halfLife = {"30 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = - 0.40;
 	
@@ -30,6 +30,11 @@ public class Glycine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbGly() {
 		return nbGly;
 	}

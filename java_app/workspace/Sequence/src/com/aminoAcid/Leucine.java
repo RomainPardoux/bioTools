@@ -17,7 +17,7 @@ public class Leucine extends AminoAcid{
 	private String[] codons = {"UUA", "UUG", "CUA", "CUC", "CUC", "CUG"};
 	private  double pHIsoelectrique = 5.98;
 	private double pKaCOOH = 2.32, pKaNH3 = 9.58;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"5.5 hour", "3 min", "2 min"};
 	private double hydropathie = 3.80;
 	
@@ -27,6 +27,11 @@ public class Leucine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbLeu() {
 		return nbLeu;
 	}

@@ -19,7 +19,7 @@ public class Asparagine extends AminoAcid{
 	private String[] codons = {"AAU", "AAC"};
 	private  double pHIsoelectrique = 5.41;
 	private double pKaCOOH = 2.16, pKaNH3 = 8.76;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POLAR_UNCHARGED;
 	private String [] halfLife = {"1.4 hour", "3 min", ">10 hour"};
 	private double hydropathie = - 3.50;
 
@@ -29,6 +29,11 @@ public class Asparagine extends AminoAcid{
 	}
 
 	//Getters and Setters
+	
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
 	
 	public static int getNbAsn() {
 		return nbAsn;

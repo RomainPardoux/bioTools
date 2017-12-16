@@ -17,7 +17,7 @@ public class Proline extends AminoAcid{
 	private String[] codons = {"CCU", "CCC", "CCA", "CCG"};
 	private  double pHIsoelectrique = 6.3;
 	private double pKaCOOH = 1.95, pKaNH3 = 10.47;
-	SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	private String [] halfLife = {">20 hour", ">20 hour", "?"};
 	private double hydropathie = - 1.60;
 	
@@ -27,6 +27,11 @@ public class Proline extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbPro() {
 		return nbPro;
 	}

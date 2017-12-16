@@ -18,7 +18,7 @@ public class Tyrosine extends AminoAcid{
 	private String[] codons = {"UAU", "UAC"};
 	private  double pHIsoelectrique = 5.66;
 	private double pKaCOOH = 2.24, pKaNH3 = 9.04, pKaR = 10.10;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private int extinctionCoef = 1490;
 	private String [] halfLife = {"2.8 hour", "10 min", "2 min"};
 	private double hydropathie = - 1.30;
@@ -29,6 +29,11 @@ public class Tyrosine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbTyr() {
 		return nbTyr;
 	}

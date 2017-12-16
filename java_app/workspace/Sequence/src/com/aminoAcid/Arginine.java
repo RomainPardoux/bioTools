@@ -18,7 +18,7 @@ public class Arginine extends AminoAcid{
 	private String[] codons = {"AGA", "AGG", "CGU", "GCC", "CGA", "CGG"};
 	private  double pHIsoelectrique = 10.76;
 	private double pKaCOOH = 2.03, pKaNH3 = 9.0, pKaR = 12.10;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
 	private String [] halfLife = {"1 hour", "2 min", "2 min"};
 	private double hydropathie = - 4.50;
 	
@@ -28,6 +28,11 @@ public class Arginine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbArg() {
 		return nbArg;
 	}

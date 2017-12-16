@@ -19,7 +19,7 @@ public class Cysteine extends AminoAcid{
 	private String[] codons = {"UGU", "UGC"};
 	private  double pHIsoelectrique = 5.07;
 	private double pKaCOOH = 1.91, pKaNH3 = 10.28, pKaR = 8.14;
-	SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	private int extinctionCoef = 125;
 	private String [] halfLife = {"1.2 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = 2.50;
@@ -30,6 +30,11 @@ public class Cysteine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbCys() {
 		return nbCys;
 	}

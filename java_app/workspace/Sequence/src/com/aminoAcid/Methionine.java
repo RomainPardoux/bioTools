@@ -17,7 +17,7 @@ public class Methionine extends AminoAcid{
 	private String[] codons = {"AUG"};
 	private  double pHIsoelectrique = 5.74;
 	private double pKaCOOH = 2.16, pKaNH3 = 9.08;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"30 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = 1.90;
 	
@@ -27,6 +27,11 @@ public class Methionine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbMet() {
 		return nbMet;
 	}

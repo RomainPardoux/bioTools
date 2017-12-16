@@ -17,7 +17,7 @@ public class Valine extends AminoAcid{
 	private String[] codons = {"GUU", "GUC", "GUA", "GUG"};
 	private  double pHIsoelectrique = 5.96;
 	private double pKaCOOH = 2.27, pKaNH3 = 9.52;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"100 hour", ">20 hour", ">10 hour"};
 	private double hydropathie = 4.20;
 	
@@ -27,6 +27,11 @@ public class Valine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbVal() {
 		return nbVal;
 	}

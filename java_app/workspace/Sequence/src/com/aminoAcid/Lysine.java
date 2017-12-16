@@ -17,7 +17,7 @@ public class Lysine extends AminoAcid{
 	private String[] codons = {"AAG", "AAA"};
 	private  double pHIsoelectrique = 9.74;
 	private double pKaCOOH = 2.15, pKaNH3 = 10.67, pKaR = 9.16;
-	SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.POSITIVE_CHARGED;
 	private String [] halfLife = {"1.3 hour", "3 min", "2 min"};
 	private double hydropathie = - 3.90;
 	
@@ -27,6 +27,11 @@ public class Lysine extends AminoAcid{
 	}
 	
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbLys() {
 		return nbLys;
 	}

@@ -17,7 +17,7 @@ public class PhenylAlanine extends AminoAcid{
 	private String[] codons = {"UUC", "UUU"};
 	private  double pHIsoelectrique = 5.48;
 	private double pKaCOOH = 2.18, pKaNH3 = 9.09;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"1.1 hour", "3 min", "2 min"};
 	private double hydropathie = 2.80;
 	
@@ -27,6 +27,11 @@ public class PhenylAlanine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbPhe() {
 		return nbPhe;
 	}

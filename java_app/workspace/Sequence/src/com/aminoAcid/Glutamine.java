@@ -18,7 +18,7 @@ public class Glutamine extends AminoAcid{
 	private String[] codons = {"CAG", "CAA"};
 	private  double pHIsoelectrique = 5.65;
 	private double pKaCOOH = 2.18, pKaNH3 = 9.0;
-	SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	private String [] halfLife = {"0.8 hour", "10 min", ">10 hour"};
 	private double hydropathie = - 3.50;
 	
@@ -28,6 +28,11 @@ public class Glutamine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbGln() {
 		return nbGln;
 	}

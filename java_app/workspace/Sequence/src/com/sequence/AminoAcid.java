@@ -16,17 +16,24 @@ public abstract class AminoAcid {
 	private String[] codons;
 	private  double pHIsoelectrique = 0.0;
 	private double pKaCOOH = 0.0, pKaNH3 = 0.0, pKaR = 0.0;
-	SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	private int extinctionCoef = 0;
 	private String [] halfLife = {"", "", ""};
 	private double hydropathie = 0.00;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.SPECIAL;
 	
 	// Constructeur
-	public AminoAcid() {}
+	public AminoAcid() {
+	}
 
-	// Getters and Setters
+	// Getters and Setters	
+	
+	
 	public char getSyn1L() {
 		return syn1L;
+	}
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
 	}
 
 	public String getSyn3L() {

@@ -17,7 +17,7 @@ public class Isoleucine extends AminoAcid{
 	private String[] codons = {"AUU", "AUC", "AUA"};
 	private  double pHIsoelectrique = 6.02;
 	private double pKaCOOH = 2.26, pKaNH3 = 9.60;
-	SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.HYDROPHOBIC;
 	private String [] halfLife = {"20 hour", "30 min", ">10 hour"};
 	private double hydropathie = 4.50;
 	
@@ -27,6 +27,11 @@ public class Isoleucine extends AminoAcid{
 	}
 
 	// Getters and Setters
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
+	}
+	
 	public static int getNbIle() {
 		return nbIle;
 	}

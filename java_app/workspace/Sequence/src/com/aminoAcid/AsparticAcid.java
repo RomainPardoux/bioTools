@@ -19,7 +19,7 @@ public class AsparticAcid extends AminoAcid{
 	private String[] codons = {"GAU", "GAC"};
 	private  double pHIsoelectrique = 2.77;
 	private double pKaCOOH = 1.95, pKaNH3 = 9.66, pKaR = 3.71;
-	SideChaineProperties sideChainProperty = SideChaineProperties.NEGATIVE_CHARGED;
+	private SideChaineProperties sideChainProperty = SideChaineProperties.NEGATIVE_CHARGED;
 	private String [] halfLife = {"1.1 hour", "3 min", ">10 hour"};
 	private double hydropathie = - 3.50;
 	
@@ -28,9 +28,13 @@ public class AsparticAcid extends AminoAcid{
 		nbAsp ++;
 	}
 
-	// Getters and Setters
+	// Getters and Setters	
 	public static int getNbAsp() {
 		return nbAsp;
+	}
+
+	public SideChaineProperties getSideChainProperty() {
+		return sideChainProperty;
 	}
 
 	public String[] getHalfLife() {

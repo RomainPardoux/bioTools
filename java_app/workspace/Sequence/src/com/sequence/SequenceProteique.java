@@ -573,7 +573,7 @@ public final class SequenceProteique{
 		Double protConcentration = Abs280 / (double) this.extCoef;
 		if(unite.equals(Unite.mM)){
 			protConcentration *= 1000;
-		}else if(unite.equals(Unite.µM)){
+		}else if(unite.equals(Unite.ÂµM)){
 			protConcentration *= 1000000;
 		}else if(unite.equals(Unite.nM)){
 			protConcentration *= 1000000000;

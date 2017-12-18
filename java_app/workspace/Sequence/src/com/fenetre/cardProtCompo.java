@@ -33,7 +33,7 @@ public class cardProtCompo extends JPanel{
 	private String seq = "";
 
 	//Constructeur
-	public cardProtCompo(JTextArea jtaEcran) {
+	public cardProtCompo(JTextArea jtaEcran, SequenceProteique seqProt) {
 		super();
 		seq = jtaEcran.getText();
 		setLayout(new BorderLayout());
@@ -106,6 +106,16 @@ public class cardProtCompo extends JPanel{
 		add(cardProtCompo1, BorderLayout.WEST);
 		add(cardProtCompo2, BorderLayout.EAST);
 		add(cardProtCompo3, BorderLayout.SOUTH);
+
+		//MAJ panel prot compo
+		jtfNbOfAA.setText(seqProt.getNbMonomer() + "");
+		jtfNbMoinsAa.setText(seqProt.getNbNegativeAA() + "");
+		jtfNbPlusAa.setText(seqProt.getNbPositiveAA() + "");
+		jtfNbOfAtom.setText(seqProt.getNbAtom() + "");
+		jtfFormula.setText(seqProt.getFormule() + "");
+		jtfResultAACompo.setText("");
+		jtfAACompo.setText("");
+		jtfAtomicCompo.setText("");
 	}
 
 	//class interne (listeners)

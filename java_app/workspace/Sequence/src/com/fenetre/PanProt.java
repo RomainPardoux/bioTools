@@ -18,7 +18,7 @@ public class PanProt extends JPanel{
 	private cardProtAbs cardProtAbs;
 
 	//Constructeur
-	public PanProt(JTextArea jtaEcran) {
+	public PanProt(JTextArea jtaEcran, SequenceProteique seqProt) {
 		super();
 	}
 
@@ -26,13 +26,13 @@ public class PanProt extends JPanel{
 	}
 
 	//Methode
-	public void initPanelCardProt(JTextArea jtaEcran) {
+	public void initPanelCardProt(JTextArea jtaEcran, SequenceProteique seqProt) {
 
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
-		cardProtInfo = new cardProtInfo();
-		cardProtCompo = new cardProtCompo(jtaEcran);
-		cardProtAbs = new cardProtAbs(jtaEcran);
+		cardProtInfo = new cardProtInfo(seqProt);
+		cardProtCompo = new cardProtCompo(jtaEcran, seqProt);
+		cardProtAbs = new cardProtAbs(jtaEcran, seqProt);
 		add(cardProtAbs, BorderLayout.EAST);
 		add(cardProtCompo, BorderLayout.SOUTH);
 		add(cardProtInfo, BorderLayout.WEST);
@@ -112,17 +112,5 @@ public class PanProt extends JPanel{
 	public void setCardProtAbs(cardProtAbs cardProtAbs) {
 		this.cardProtAbs = cardProtAbs;
 	}
-	
-//	//class interne
-//	class ResetListener implements ActionListener {
-//
-//		@Override
-//		public void actionPerformed(ActionEvent arg0) {
-//			// TODO Auto-generated method stub
-//			cl.show(content, listContent[2]);
-//			jbutSend.setEnabled(true);
-//			jtaEcran.setText("");
-//		}
-//	}
 		
 };

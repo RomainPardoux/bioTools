@@ -4,6 +4,6 @@ public enum Unite {
 	M,
 	mM,
 	nM,
-	ÂµM,
+	µM,
 	pM
 }

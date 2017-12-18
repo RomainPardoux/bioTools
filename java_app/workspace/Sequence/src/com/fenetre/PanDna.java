@@ -25,7 +25,7 @@ public class PanDna extends JPanel{
 	}
 	
 	//Constructeur
-	public void initPanelCardDNA() {
+	public void initPanelCardDNA(SequenceNucleique seqNuc) {
 		// TODO Auto-generated method stub
 		//Panel CardProt
 		setLayout(new BorderLayout());

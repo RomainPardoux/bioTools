@@ -110,8 +110,8 @@ public class PanEcran extends JPanel{
 			//Si seq prot :
 			if ( seq.matches(regexSeqProt)){
 //				cardProt = new PanProt(jtaEcran);
-				cardProt.initPanelCardProt(jtaEcran);
 				seqProt = new SequenceProteique(seq);
+				cardProt.initPanelCardProt(jtaEcran, seqProt);
 				System.out.println(seqProt.toString());
 				cl.show(content, listContent[0]);
 				//MAJ panel ecran
@@ -122,8 +122,8 @@ public class PanEcran extends JPanel{
 			//Sinon si seq nuc
 			else if ( seq.matches(regexSeqDna) || seq.matches(regexSeqRna)){
 //				cardDna = new PanDna();
-				cardDna.initPanelCardDNA();
 				seqNuc = new SequenceNucleique(seq);
+				cardDna.initPanelCardDNA(seqNuc);
 				System.out.println(seqNuc.toString());
 				cl.show(content, listContent[1]);
 				cardDna.majIfPanelDna(seqNuc);

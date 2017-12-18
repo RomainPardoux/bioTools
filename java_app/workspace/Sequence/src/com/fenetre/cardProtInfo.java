@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.sequence.SequenceProteique;
+
 public class cardProtInfo extends JPanel{
 
 	//Declaration variable
@@ -22,9 +24,9 @@ public class cardProtInfo extends JPanel{
 
 	//JTextField Prot
 	private JTextField jtfMw, jtfPI, jtfAliphIndex, jtfGravy;
-	
+
 	//Constructeur
-	public cardProtInfo() {
+	public cardProtInfo( SequenceProteique seqProt ) {
 		super();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(280, 170));
@@ -74,6 +76,12 @@ public class cardProtInfo extends JPanel{
 		add(cardProtInfo1, BorderLayout.WEST);
 		add(cardProtInfo2, BorderLayout.EAST);
 		add(cardProtInfo3, BorderLayout.SOUTH);
+
+		//MAJ panel prot info
+		jtfMw.setText(seqProt.getmWRound() + "");
+		jtfGravy.setText(seqProt.getGravyRound() + "");
+		jtfAliphIndex.setText(seqProt.getAliphIndexRound() + "");
+		jtfPI.setText(seqProt.getpHIRound() + "");
 	}
 
 	//getters and setters

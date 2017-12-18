@@ -22,7 +22,9 @@ public class CardDnaTranslate extends JPanel{
 	//seq
 	private SequenceNucleique seqNuc;
 	//list
-	private ArrayList<AminoAcid> aminoAcidList;
+	private ArrayList<AminoAcid> aminoAcidList35F1, aminoAcidList35F2, aminoAcidList35F3, aminoAcidList53F1, aminoAcidList53F2, aminoAcidList53F3;
+	//seq string
+	private String seq35F1, seq35F2, seq35F3, seq53F1, seq53F2, seq53F3, seqTranslate;	
 	//Tab
 	private String[] tabJcobDnaOrientation = {"3'5' Frame 1", "3'5' Frame 2", "3'5' Frame 3", "5'3' Frame 1", "5'3' Frame 2", "5'3' Frame 3"};
 
@@ -51,6 +53,40 @@ public class CardDnaTranslate extends JPanel{
 		jtaDnaTranslate.setWrapStyleWord(true);
 		jtaDnaTranslate.setAutoscrolls(true);
 
+		//init list amino acid
+		aminoAcidList35F1 = seqNuc.getSeqTranslate35F1();
+		aminoAcidList35F2 = seqNuc.getSeqTranslate35F2();
+		aminoAcidList35F3 = seqNuc.getSeqTranslate35F3();
+		aminoAcidList53F1 = seqNuc.getSeqTranslate53F1();
+		aminoAcidList53F2 = seqNuc.getSeqTranslate53F2();
+		aminoAcidList53F3 = seqNuc.getSeqTranslate53F3();
+		
+		//init seq prot translate
+		for (AminoAcid aminoAcid : aminoAcidList35F1) {
+			seq35F1 = String.valueOf(aminoAcid.getSyn1L());
+		}
+
+		for (AminoAcid aminoAcid : aminoAcidList35F2) {
+			seq35F2 = String.valueOf(aminoAcid.getSyn1L());
+		}
+
+		for (AminoAcid aminoAcid : aminoAcidList35F3) {
+			seq35F3 = String.valueOf(aminoAcid.getSyn1L());
+		}
+
+		for (AminoAcid aminoAcid : aminoAcidList53F1) {
+			seq53F1 = String.valueOf(aminoAcid.getSyn1L());
+		}
+
+		for (AminoAcid aminoAcid : aminoAcidList53F2) {
+			seq53F1 = String.valueOf(aminoAcid.getSyn1L());
+		}
+
+		for (AminoAcid aminoAcid : aminoAcidList53F3) {
+			seq53F3 = String.valueOf(aminoAcid.getSyn1L());
+		}
+		
+		
 		for (int i = 0; i < tabJcobDnaOrientation.length; i++) {
 			jcobDnaOrientation = new JCheckBox(tabJcobDnaOrientation[i]);
 			cardDnaTranslate1.add(jcobDnaOrientation);
@@ -73,15 +109,7 @@ public class CardDnaTranslate extends JPanel{
 				// TODO Auto-generated method stub
 				if (((JCheckBox)arg0.getSource()).isSelected()) {
 					if(((JCheckBox)arg0.getSource()).getText().equals("3'5' Frame 1")){
-						aminoAcidList = seqNuc.getSeqTranslate35F1();
-						String msg = "";
-						for (AminoAcid aminoAcid : aminoAcidList) {
-							msg += aminoAcid.getSyn1L();
-						}
-						msg += "\n";
-						jtaDnaTranslate.setText(msg);
-					}
-					else if(((JCheckBox)arg0.getSource()).getText().equals("3'5' Frame 2")){
+						else if(((JCheckBox)arg0.getSource()).getText().equals("3'5' Frame 2")){
 						aminoAcidList = seqNuc.getSeqTranslate35F2();
 						String msg = "";
 						for (AminoAcid aminoAcid : aminoAcidList) {

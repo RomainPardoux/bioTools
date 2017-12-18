@@ -23,7 +23,7 @@ public class cardProtAbs extends JPanel{
 	//ComboBox
 	private JComboBox<Unite> jcbUnite;
 	//Tab
-	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.µM, Unite.nM, Unite.pM};
+	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.�M, Unite.nM, Unite.pM};
 	//jta
 	private JTextArea jtaCardProtAbsWarning;
 
@@ -38,7 +38,7 @@ public class cardProtAbs extends JPanel{
 	private String seq = "";
 
 	//Constructeur
-	public cardProtAbs(JTextArea jtaEcran) {
+	public cardProtAbs(JTextArea jtaEcran, SequenceProteique seqProt) {
 		super();
 		// TODO Auto-generated method stub
 		seq = jtaEcran.getText();
@@ -94,6 +94,36 @@ public class cardProtAbs extends JPanel{
 		add(cardProtAbs1, BorderLayout.WEST);
 		add(cardProtAbs2, BorderLayout.EAST);
 		add(cardProtAbs3, BorderLayout.SOUTH);
+		
+		//coef ext mol
+		jtfExtCoef.setText(seqProt.getExtCoef() + "");
+		if(seqProt.getExtCoef() == 0){
+			jtfAbs280.setEnabled(false);
+			jtfConcProt.setEnabled(false);
+			jcbUnite.setEnabled(false);
+			jtfAbs280.setEditable(false);
+			jtfConcProt.setEditable(false);
+			jcbUnite.setEditable(false);
+		}else {
+			jtfAbs280.setEnabled(true);
+			jtfConcProt.setEnabled(true);
+			jcbUnite.setEnabled(true);
+			jtfAbs280.setEditable(true);
+			jcbUnite.setEditable(true);
+		}
+		jtfAbs01perc.setText(seqProt.getAbs01PercRound() + "");
+		jtfAbs280.setText("");
+		jtfConcProt.setText("");
+		//msg personalisé
+		String msgWithoutTrpOrTyr = "Protein Concentration = Abs (280 nm) / Epsilon";
+		if(seqProt.getNbTrp() == 0){
+			msgWithoutTrpOrTyr = "This protein does not contain any Trp residues. Experience shows that "
+					+ "this could result in more than 10% error in the computed extinction coefficient.";
+			if(seqProt.getNbTyr() == 0){
+				msgWithoutTrpOrTyr = "As there are no Trp, Tyr or Cys in the region considered, your protein should not be visible by UV spectrophotometry.";
+			}
+		} 
+		jtaCardProtAbsWarning.setText(msgWithoutTrpOrTyr);
 	}
 
 	//class interne (listeners)

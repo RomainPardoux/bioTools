@@ -117,7 +117,6 @@ public class PanEcran extends JPanel{
 				//MAJ panel ecran
 				String typeOfSeq = "Auto-Detect type of sequence: "	+ seqProt.getTypeSeq();
 				labelTypeOfSeq.setText(typeOfSeq);
-				cardProt.majIfPanelProt(seqProt);
 			}
 			//Sinon si seq nuc
 			else if ( seq.matches(regexSeqDna) || seq.matches(regexSeqRna)){
@@ -126,7 +125,6 @@ public class PanEcran extends JPanel{
 				cardDna.initPanelCardDNA(seqNuc);
 				System.out.println(seqNuc.toString());
 				cl.show(content, listContent[1]);
-				cardDna.majIfPanelDna(seqNuc);
 			//Sinon
 			} else {
 				cardDefautlt = new PanDefault();

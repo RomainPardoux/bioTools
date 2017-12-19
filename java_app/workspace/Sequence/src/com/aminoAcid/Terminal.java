@@ -7,7 +7,7 @@ public class Terminal extends AminoAcid{
 	private static int nbTer = 0;
 	
 	// Variables d'instance
-	private char syn1L = '|';
+	private char syn1L = '*';
 	private String syn3L = "Stop";
 	private String[] codons = {"TAA", "TAG", "TGA"};
 	

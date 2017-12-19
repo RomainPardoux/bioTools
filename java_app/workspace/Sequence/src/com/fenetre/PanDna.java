@@ -18,11 +18,6 @@ public class PanDna extends JPanel{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	//methode
-	public void majIfPanelDna(SequenceNucleique seqNuc) {
-		// TODO Auto-generated method stub
-	}
 	
 	//Constructeur
 	public void initPanelCardDNA(SequenceNucleique seqNuc) {
@@ -31,7 +26,7 @@ public class PanDna extends JPanel{
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		cardDnaInfo = new CardDnaInfo();
-		cardDnaTranslate = new CardDnaTranslate();
+		cardDnaTranslate = new CardDnaTranslate(seqNuc);
 		cardDnaAbs = new CardDnaAbs();
 		add(cardDnaAbs, BorderLayout.EAST);
 		add(cardDnaTranslate, BorderLayout.SOUTH);

@@ -26,13 +26,13 @@ public class PanProt extends JPanel{
 	}
 
 	//Methode
-	public void initPanelCardProt(JTextArea jtaEcran, SequenceProteique seqProt) {
+	public void initPanelCardProt(String seq, SequenceProteique seqProt) {
 
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		cardProtInfo = new cardProtInfo(seqProt);
-		cardProtCompo = new cardProtCompo(jtaEcran, seqProt);
-		cardProtAbs = new cardProtAbs(jtaEcran, seqProt);
+		cardProtCompo = new cardProtCompo(seq, seqProt);
+		cardProtAbs = new cardProtAbs(seq, seqProt);
 		add(cardProtAbs, BorderLayout.EAST);
 		add(cardProtCompo, BorderLayout.SOUTH);
 		add(cardProtInfo, BorderLayout.WEST);

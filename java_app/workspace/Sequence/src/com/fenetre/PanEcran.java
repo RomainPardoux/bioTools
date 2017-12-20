@@ -23,6 +23,7 @@ public class PanEcran extends JPanel{
 	private JScrollPane jsp = new JScrollPane(jtaEcran);
 	//panel
 	private JPanel panEcranInfo = new JPanel();
+	private JPanel content;
 	//Label Prot
 	private JLabel labelTypeOfSeq;
 	//font
@@ -37,14 +38,13 @@ public class PanEcran extends JPanel{
 	private String regexSeqDna = "";
 	private String regexSeqRna = "";
 	//seq
-	String seq = "";
+	private String seq = "";
 	//panel
-	PanProt cardProt; 
-	PanDna cardDna; 
-	PanDefault cardDefautlt;
-	CardLayout cl;
-	JPanel content;
-	String[] listContent;
+	private PanProt cardProt; 
+	private PanDna cardDna; 
+	private PanDefault cardDefautlt;
+	private CardLayout cl;
+	private String[] listContent;
 	
 	//Constructeur
 	public PanEcran(PanProt cardProt, PanDna cardDna, PanDefault cardDefautlt, CardLayout cl, JPanel content, String[] listContent) {
@@ -64,7 +64,7 @@ public class PanEcran extends JPanel{
 	}
 
 	//Methodes
-	public void initPanelEcran() {
+	private void initPanelEcran() {
 		// TODO Auto-generated method stub
 		//Panel Ecran
 		this.setPreferredSize(new Dimension(600, 270));
@@ -95,7 +95,7 @@ public class PanEcran extends JPanel{
 		this.add(jbutSend);
 	}
 	
-	//class interne
+	//Class interne
 	public class SendListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -109,9 +109,8 @@ public class PanEcran extends JPanel{
 			seq = jtaEcran.getText();
 			//Si seq prot :
 			if ( seq.matches(regexSeqProt)){
-//				cardProt = new PanProt(jtaEcran);
 				seqProt = new SequenceProteique(seq);
-				cardProt.initPanelCardProt(jtaEcran, seqProt);
+				cardProt.initPanelCardProt(seq, seqProt);
 				System.out.println(seqProt.toString());
 				cl.show(content, listContent[0]);
 				//MAJ panel ecran
@@ -120,11 +119,13 @@ public class PanEcran extends JPanel{
 			}
 			//Sinon si seq nuc
 			else if ( seq.matches(regexSeqDna) || seq.matches(regexSeqRna)){
-//				cardDna = new PanDna();
 				seqNuc = new SequenceNucleique(seq);
-				cardDna.initPanelCardDNA(seqNuc);
+				cardDna.initPanelCardDNA(cardProt, cl, content, listContent, seqNuc);
 				System.out.println(seqNuc.toString());
 				cl.show(content, listContent[1]);
+				//MAJ panel ecran
+				String typeOfSeq = "Auto-Detect type of sequence: "	+ seqNuc.getTypeSeq();
+				labelTypeOfSeq.setText(typeOfSeq);
 			//Sinon
 			} else {
 				cardDefautlt = new PanDefault();
@@ -132,6 +133,9 @@ public class PanEcran extends JPanel{
 				System.out.println("sequence undefinied");
 				cl.show(content, listContent[2]);
 				cardDefautlt.initPanelDefault();
+				//MAJ panel ecran
+				String typeOfSeq = " Menu ";
+				labelTypeOfSeq.setText(typeOfSeq);
 			}
 		}
 	}
@@ -139,7 +143,6 @@ public class PanEcran extends JPanel{
 	public class ResetListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-//			content.removeAll();
 			cardProt.removeAll();
 			cardDefautlt.removeAll();
 			cardDna.removeAll();

@@ -23,7 +23,7 @@ public class cardProtAbs extends JPanel{
 	//ComboBox
 	private JComboBox<Unite> jcbUnite;
 	//Tab
-	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.µM, Unite.nM, Unite.pM};
+	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.ÂµM, Unite.nM, Unite.pM};
 	//jta
 	private JTextArea jtaCardProtAbsWarning;
 
@@ -38,10 +38,10 @@ public class cardProtAbs extends JPanel{
 	private String seq = "";
 
 	//Constructeur
-	public cardProtAbs(JTextArea jtaEcran, SequenceProteique seqProt) {
+	public cardProtAbs(String seq, SequenceProteique seqProt) {
 		super();
 		// TODO Auto-generated method stub
-		seq = jtaEcran.getText();
+		this.seq = seq;
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(320, 170));
 		setBorder(BorderFactory.createTitledBorder("Protein Absorbance Properties"));
@@ -109,7 +109,7 @@ public class cardProtAbs extends JPanel{
 			jtfConcProt.setEnabled(true);
 			jcbUnite.setEnabled(true);
 			jtfAbs280.setEditable(true);
-			jcbUnite.setEditable(true);
+//			jcbUnite.setEditable(true);
 		}
 		jtfAbs01perc.setText(seqProt.getAbs01PercRound() + "");
 		jtfAbs280.setText("");

@@ -3,25 +3,24 @@ package com.fenetre;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Fenetre extends JFrame{
 
+	//Init Variable
 	//panel
-	CardLayout cl = new CardLayout();
-	JPanel content = new JPanel();
-	PanEcran panEcran = new PanEcran();
-	PanDna cardDna = new PanDna();
-	PanDefault cardDefautlt = new PanDefault();
-	PanProt cardProt = new PanProt();
+	private CardLayout cl = new CardLayout();
+	private JPanel content = new JPanel();
+	private PanEcran panEcran = new PanEcran();
+	private PanDna cardDna = new PanDna();
+	private PanDefault cardDefautlt = new PanDefault();
+	private PanProt cardProt = new PanProt();
 	//tab
-	String[] listContent = {"PROT", "DNA", "DEFAULT"};
-	//font
-	Font font = new Font("Arial", Font.PLAIN, 14);
+	private String[] listContent = {"PROT", "DNA", "DEFAULT"};
 
+	//Constructeur
 	public Fenetre() throws HeadlessException {
 		super();
 		this.setSize(600, 700);
@@ -33,22 +32,22 @@ public class Fenetre extends JFrame{
 		this.setVisible(true);
 	}
 
+	//Methode
 	private void initComposant() {
-
+		//On instencie l'ecran
 		panEcran = new PanEcran(cardProt, cardDna, cardDefautlt, cl, content, listContent);
 
-		//Panel Content
+		//On initialise le Panel Content
 		content.setPreferredSize(new Dimension(600, 410));
 		content.setLayout(cl);
 		content.add(cardProt, listContent[0]);
 		content.add(cardDna, listContent[1]);
 		content.add(cardDefautlt, listContent[2]);
 
-		//gestion des panels card
+		//Gestion des panels card
 		cl.show(content, listContent[2]);
 
-
-		//Panel ContentPane
+		//On ajoute l'ecran et le content au Panel ContentPane
 		this.getContentPane().add(panEcran, BorderLayout.NORTH);
 		this.getContentPane().add(content, BorderLayout.CENTER);
 	}

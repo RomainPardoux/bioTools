@@ -1,6 +1,7 @@
 package com.fenetre;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import com.sequence.AminoAcid;
 import com.sequence.SequenceNucleique;
+import com.sequence.SequenceProteique;
 
 public class CardDnaTranslate extends JPanel{
 
@@ -36,7 +38,8 @@ public class CardDnaTranslate extends JPanel{
 	private String sendTranslate;
 	//Tab
 	private String[] tabJcobDnaOrientation = {"3'5' Frame 1", "3'5' Frame 2", "3'5' Frame 3", "5'3' Frame 1", "5'3' Frame 2", "5'3' Frame 3"};
-
+	//Seq prot
+	private SequenceProteique seqProt;
 	//jta
 	private JTextArea jtaDnaTranslate;
 
@@ -46,7 +49,7 @@ public class CardDnaTranslate extends JPanel{
 	//JComboBox
 	private JCheckBox jcob35F1, jcob35F2, jcob35F3, jcob53F1, jcob53F2, jcob53F3;
 
-	public CardDnaTranslate(SequenceNucleique seqNuc) {
+	public CardDnaTranslate(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, SequenceNucleique seqNuc) {
 		super();
 		this.seqNuc = seqNuc;
 		// TODO Auto-generated constructor stub
@@ -124,7 +127,6 @@ public class CardDnaTranslate extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				initSeqTranslate();
-
 				onlyOneSelected();
 			}
 		});
@@ -137,7 +139,6 @@ public class CardDnaTranslate extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				initSeqTranslate();
-
 				onlyOneSelected();
 			}
 		});
@@ -151,7 +152,6 @@ public class CardDnaTranslate extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				initSeqTranslate();
-
 				onlyOneSelected();
 			}
 		});
@@ -162,12 +162,8 @@ public class CardDnaTranslate extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
 				initSeqTranslate();
-
 				onlyOneSelected();
-
-
 			}
 		});
 		jcob35F2 = new JCheckBox(tabJcobDnaOrientation[1]);
@@ -178,7 +174,6 @@ public class CardDnaTranslate extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				initSeqTranslate();
-
 				onlyOneSelected();
 			}
 		});
@@ -190,7 +185,6 @@ public class CardDnaTranslate extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				initSeqTranslate();
-
 				onlyOneSelected();
 			}
 		});
@@ -205,17 +199,53 @@ public class CardDnaTranslate extends JPanel{
 				// TODO Auto-generated method stub
 				String seq = "";
 				if(sendTranslate == "35F1"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq35F1);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}if(sendTranslate == "35F2"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq35F2);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}if(sendTranslate == "35F3"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq35F3);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}if(sendTranslate == "53F1"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq53F1);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}if(sendTranslate == "53F2"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq53F2);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}if(sendTranslate == "53F3"){
+					cardProt.removeAll();
+					cardProt.repaint();
 					seq = modifyBeforeSendSeqProt(seq53F3);
+					seqProt = new SequenceProteique(seq);
+					cardProt.initPanelCardProt(seq, seqProt);
+					System.out.println(seqProt.toString());
+					cl.show(content, listContent[0]);
 				}
 			}
 		});
@@ -310,10 +340,11 @@ public class CardDnaTranslate extends JPanel{
 	}
 	
 	private String modifyBeforeSendSeqProt(String seqProt){
+		String seqProt2 = "";
 		if(seqProt.contains("*")){
-			seqProt.split("*");
+			seqProt2 = seqProt.substring(0, seqProt.indexOf('*'));
 		}
-		return seqProt;
+		return seqProt2;
 	}
 	
 	private void autoSelectGoodSeq(){

@@ -33,9 +33,9 @@ public class cardProtCompo extends JPanel{
 	private String seq = "";
 
 	//Constructeur
-	public cardProtCompo(JTextArea jtaEcran, SequenceProteique seqProt) {
+	public cardProtCompo(String seq, SequenceProteique seqProt) {
 		super();
-		seq = jtaEcran.getText();
+		this.seq = seq;
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 210));
 		setBorder(BorderFactory.createTitledBorder("Protein Composition"));

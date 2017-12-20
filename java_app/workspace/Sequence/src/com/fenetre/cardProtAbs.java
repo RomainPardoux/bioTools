@@ -23,7 +23,7 @@ public class cardProtAbs extends JPanel{
 	//ComboBox
 	private JComboBox<Unite> jcbUnite;
 	//Tab
-	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.µM, Unite.nM, Unite.pM};
+	private Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.uM, Unite.nM, Unite.pM};
 	//jta
 	private JTextArea jtaCardProtAbsWarning;
 

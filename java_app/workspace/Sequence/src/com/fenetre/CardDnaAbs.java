@@ -26,7 +26,7 @@ public class CardDnaAbs extends JPanel{
 	//jta
 	private JTextArea jtaCardDnaAbsWarning;
 	//tab
-	Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.µM, Unite.nM, Unite.pM,};
+	Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.uM, Unite.nM, Unite.pM,};
 	
 	//Label Dna
 	private JLabel labelExtCoefDna, labelAbs01percDna, labelAbs280Dna,

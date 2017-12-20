@@ -23,7 +23,6 @@ public class PanEcran extends JPanel{
 	private JScrollPane jsp = new JScrollPane(jtaEcran);
 	//panel
 	private JPanel panEcranInfo = new JPanel();
-	private JPanel content;
 	//Label Prot
 	private JLabel labelTypeOfSeq;
 	//font
@@ -39,7 +38,8 @@ public class PanEcran extends JPanel{
 	private String regexSeqRna = "";
 	//seq
 	private String seq = "";
-	//panel
+	//autres variables
+	private JPanel content;
 	private PanProt cardProt; 
 	private PanDna cardDna; 
 	private PanDefault cardDefautlt;

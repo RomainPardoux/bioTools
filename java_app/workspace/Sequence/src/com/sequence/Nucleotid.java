@@ -9,6 +9,7 @@ public class Nucleotid {
 	private int nbCarbonAtom = 0, nbHydrogenAtom = 0, nbAzoteAtom = 0,nbOxygenAtom = 0;
 	private double masseMolaire = 0.0;
 	private double solubilite = 0.0;
+	private int extinctionCoef = 0;
 
 	// Constructeur
 	public Nucleotid() {
@@ -49,5 +50,9 @@ public class Nucleotid {
 
 	public double getSolubilite() {
 		return solubilite;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
 	}
 }

@@ -13,6 +13,7 @@ public class Cytosine extends Nucleotid{
 	private String formuleBrute = "C4H5N3O";
 	private int nbCarbonAtom = 4, nbHydrogenAtom = 5, nbAzoteAtom = 3, nbOxygenAtom = 1;
 	private double masseMolaire = 289.2;
+	private int extinctionCoef = 7050;
 
 	//Constructeur
 	public Cytosine() {
@@ -53,5 +54,9 @@ public class Cytosine extends Nucleotid{
 
 	public double getMasseMolaire() {
 		return masseMolaire;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
 	}
 }

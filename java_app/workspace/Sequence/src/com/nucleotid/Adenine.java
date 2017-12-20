@@ -14,6 +14,7 @@ public class Adenine extends Nucleotid{
 	private int nbCarbonAtom = 5, nbHydrogenAtom = 5, nbAzoteAtom = 5;
 	private double masseMolaire = 313.2;
 	private double solubilite = 0.103;
+	private int extinctionCoef = 15200;
 
 	//Constructeur
 	public Adenine() {
@@ -54,4 +55,9 @@ public class Adenine extends Nucleotid{
 	public double getMasseMolaire() {
 		return masseMolaire;
 	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
+	}
+
 }

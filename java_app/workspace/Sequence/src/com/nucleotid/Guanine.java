@@ -14,6 +14,7 @@ public class Guanine extends Nucleotid{
 	private int nbCarbonAtom = 5, nbHydrogenAtom = 5, nbAzoteAtom = 5, nbOxygenAtom = 1;
 	private double masseMolaire = 329.2;
 	private double solubilite = 0.103;
+	private int extinctionCoef = 12010;
 
 	//Constructeur
 	public Guanine() {
@@ -58,5 +59,9 @@ public class Guanine extends Nucleotid{
 
 	public double getSolubilite() {
 		return solubilite;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
 	}
 }

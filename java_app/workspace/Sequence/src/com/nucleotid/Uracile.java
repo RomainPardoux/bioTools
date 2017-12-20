@@ -14,6 +14,7 @@ public class Uracile extends Nucleotid{
 	private int nbCarbonAtom = 4, nbHydrogenAtom = 4, nbAzoteAtom = 2, nbOxygenAtom = 2;
 	private double masseMolaire = 306.2;
 	private double solubilite = 0.103;
+	private int extinctionCoef = 10000;
 
 	//Constructeur
 	public Uracile() {
@@ -58,5 +59,9 @@ public class Uracile extends Nucleotid{
 
 	public double getSolubilite() {
 		return solubilite;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
 	}
 }

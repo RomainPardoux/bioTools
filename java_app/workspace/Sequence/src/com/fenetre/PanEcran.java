@@ -143,6 +143,7 @@ public class PanEcran extends JPanel{
 	public class ResetListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+			labelTypeOfSeq.setText("Menu");
 			cardProt.removeAll();
 			cardDefautlt.removeAll();
 			cardDna.removeAll();

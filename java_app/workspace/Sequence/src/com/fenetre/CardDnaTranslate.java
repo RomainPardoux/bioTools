@@ -86,7 +86,7 @@ public class CardDnaTranslate extends JPanel{
 		seq53F1 = "";
 		seq53F2 = "";
 		seq53F3 = "";
-		
+
 		for (AminoAcid aminoAcid : aminoAcidList35F1) {
 			seq35F1plus += String.valueOf(aminoAcid.getSyn1L());
 			seq35F1 += String.valueOf(aminoAcid.getSyn1L());
@@ -139,7 +139,7 @@ public class CardDnaTranslate extends JPanel{
 		jbutSendProt = new JButton("Send");
 		onlyOneSelected();
 		jbutSendProt.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -213,8 +213,8 @@ public class CardDnaTranslate extends JPanel{
 		}
 		jtaDnaTranslate.setText(seqTranslate);
 	}
-	
-	
+
+
 	private void onlyOneSelected(){
 		int cptr = 0;
 		if(jcob53F1.isSelected()){
@@ -240,21 +240,25 @@ public class CardDnaTranslate extends JPanel{
 		}else{
 			jbutSendProt.setEnabled(false);
 		}
-		
+
 	}
-	
+
 	private String modifyBeforeSendSeqProt(String seqProt){
 		String seqProt2 = seqProt;
 		if(seqProt.contains("*")){
-			seqProt2 = seqProt.substring(0, seqProt.indexOf('*'));
+			if(seqProt.contains("M")) {
+				seqProt2 = seqProt.substring(seqProt.indexOf("M"), seqProt.indexOf("*", seqProt.indexOf("M")));
+			}else {
+				seqProt2 = seqProt.substring(0, seqProt.indexOf('*'));
+			}
 		}
 		return seqProt2;
 	}
-	
+
 	private void autoSelectGoodSeq(){
 		//recupere la plus longue seq entre 
 	}
-	
+
 	//Listener
 	private class PrepareForTranslateListener implements ActionListener{
 
@@ -264,6 +268,6 @@ public class CardDnaTranslate extends JPanel{
 			initSeqTranslate();
 			onlyOneSelected();
 		}
-		
+
 	}
 }

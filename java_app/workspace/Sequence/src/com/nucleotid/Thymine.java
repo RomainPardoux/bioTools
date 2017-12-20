@@ -14,6 +14,7 @@ public class Thymine extends Nucleotid{
 	private int nbCarbonAtom = 5, nbHydrogenAtom = 6, nbAzoteAtom = 2, nbOxygenAtom = 2;
 	private double masseMolaire = 304.2;
 	private double solubilite = 0.103;
+	private int extinctionCoef = 8400;
 
 	//Constructeur
 	public Thymine() {
@@ -59,5 +60,9 @@ public class Thymine extends Nucleotid{
 
 	public double getSolubilite() {
 		return solubilite;
+	}
+
+	public int getExtinctionCoef() {
+		return extinctionCoef;
 	}
 }

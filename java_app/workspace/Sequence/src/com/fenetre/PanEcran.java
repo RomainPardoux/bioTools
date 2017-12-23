@@ -72,7 +72,7 @@ public class PanEcran extends JPanel{
 		//panEcranInfo
 		panEcranInfo.setPreferredSize(new Dimension(600, 20));
 		panEcranInfo.setBackground(Color.DARK_GRAY);
-		labelTypeOfSeq = new JLabel();
+		labelTypeOfSeq = new JLabel(" Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ");
 		labelTypeOfSeq.setForeground(Color.WHITE);
 		panEcranInfo.add(labelTypeOfSeq);
 		//jtaEcran
@@ -102,9 +102,9 @@ public class PanEcran extends JPanel{
 			content.repaint();
 			jbutSend.setEnabled(false);
 			jbutReset.setEnabled(true);
-			regexSeqProt = "^([ ]*)?[mM][ .,;-RrHhKkDdEeSsTtNnQqCcUuGgPpAaVvIiLlMmFfYyWw]*$";
-			regexSeqDna = "^[ .,;-aAtTcCgG]*$";
-			regexSeqRna = "^[ .,;-aAcCgGuU]*$";
+			regexSeqProt = "^([ ]*)?[mM][ 	.,;-RrHhKkDdEeSsTtNnQqCcUuGgPpAaVvIiLlMmFfYyWw]*$";
+			regexSeqDna = "^[ 	.,;-aAtTcCgG]{1}[ 	.,;-aAtTcCgG]*$";
+			regexSeqRna = "^[ 	.,;-aAcCgGuU]{1}[ 	.,;-aAcCgGuU]*$";
 			//On recupere la sequence
 			seq = jtaEcran.getText();
 			//Si seq prot :
@@ -112,7 +112,7 @@ public class PanEcran extends JPanel{
 				seqProt = new SequenceProteique(seq);
 				cardProt.initPanelCardProt(seq, seqProt);
 				System.out.println(seqProt.toString());
-				cl.show(content, listContent[0]);
+				cl.show(content, listContent[0]); 
 				//MAJ panel ecran
 				String typeOfSeq = "Auto-Detect type of sequence: "	+ seqProt.getTypeSeq();
 				labelTypeOfSeq.setText(typeOfSeq);
@@ -120,7 +120,7 @@ public class PanEcran extends JPanel{
 			//Sinon si seq nuc
 			else if ( seq.matches(regexSeqDna) || seq.matches(regexSeqRna)){
 				seqNuc = new SequenceNucleique(seq);
-				cardDna.initPanelCardDNA(cardProt, cl, content, listContent, seq, seqNuc);
+				cardDna.initPanelCardDNA(cardProt, cl, content, listContent, seq, seqNuc, labelTypeOfSeq, jtaEcran);
 				System.out.println(seqNuc.toString());
 				cl.show(content, listContent[1]);
 				//MAJ panel ecran
@@ -128,13 +128,11 @@ public class PanEcran extends JPanel{
 				labelTypeOfSeq.setText(typeOfSeq);
 			//Sinon
 			} else {
-				cardDefautlt = new PanDefault();
 				cardDefautlt.initPanelDefault();
 				System.out.println("sequence undefinied");
 				cl.show(content, listContent[2]);
-				cardDefautlt.initPanelDefault();
 				//MAJ panel ecran
-				String typeOfSeq = " Menu ";
+				String typeOfSeq = " Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ";
 				labelTypeOfSeq.setText(typeOfSeq);
 			}
 		}
@@ -143,9 +141,8 @@ public class PanEcran extends JPanel{
 	public class ResetListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			labelTypeOfSeq.setText("Menu");
+			labelTypeOfSeq.setText(" Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ");
 			cardProt.removeAll();
-			cardDefautlt.removeAll();
 			cardDna.removeAll();
 			cl.show(content, listContent[2]);
 			jbutSend.setEnabled(true);

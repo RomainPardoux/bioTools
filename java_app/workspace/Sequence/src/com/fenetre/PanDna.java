@@ -3,7 +3,11 @@ package com.fenetre;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import com.sequence.SequenceNucleique;
 
 public class PanDna extends JPanel{
@@ -21,13 +25,13 @@ public class PanDna extends JPanel{
 	}
 	
 	//Constructeur
-	public void initPanelCardDNA(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, String seq, SequenceNucleique seqNuc) {
+	public void initPanelCardDNA(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, String seq, SequenceNucleique seqNuc, JLabel labelTypeOfSeq, JTextArea jtaEcran) {
 		// TODO Auto-generated method stub
 		//Panel CardProt
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		cardDnaInfo = new CardDnaInfo(seqNuc);
-		cardDnaTranslate = new CardDnaTranslate(cardProt, cl, content, listContent, seqNuc);
+		cardDnaTranslate = new CardDnaTranslate(cardProt, cl, content, listContent, seqNuc, labelTypeOfSeq, jtaEcran);
 		cardDnaAbs = new CardDnaAbs(seq, seqNuc);
 		add(cardDnaAbs, BorderLayout.EAST);
 		add(cardDnaTranslate, BorderLayout.SOUTH);

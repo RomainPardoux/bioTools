@@ -36,7 +36,8 @@ public class cardProtAbs extends JPanel{
 	jtfConcProt;
 
 	private String seq = "";
-
+	private String regexAbs260 = "^[0-9]*[.]{1}[0-9]*$";
+	
 	//Constructeur
 	public cardProtAbs(String seq, SequenceProteique seqProt) {
 		super();
@@ -109,7 +110,6 @@ public class cardProtAbs extends JPanel{
 			jtfConcProt.setEnabled(true);
 			jcbUnite.setEnabled(true);
 			jtfAbs280.setEditable(true);
-//			jcbUnite.setEditable(true);
 		}
 		jtfAbs01perc.setText(seqProt.getAbs01PercRound() + "");
 		jtfAbs280.setText("");
@@ -135,11 +135,15 @@ public class cardProtAbs extends JPanel{
 			SequenceProteique seqProt2 = new SequenceProteique(seq);
 
 			String sAbs280 = jtfAbs280.getText();
+			if(sAbs280.matches(regexAbs260)){
 			Double dAbs280 = Double.valueOf(sAbs280);
 			Double dProtConc = seqProt2.ComputeProtConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem());
 			BigDecimal bdProtConc = (new BigDecimal(dProtConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
 			String sProtConc = String.valueOf(bdProtConc);
 			jtfConcProt.setText(sProtConc);
+			}else {
+				jtfConcProt.setText("format issue");
+			}
 		}
 
 	}
@@ -149,13 +153,18 @@ public class cardProtAbs extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			SequenceProteique seqProt3 = new SequenceProteique(seq);
+			SequenceProteique seqProt2 = new SequenceProteique(seq);
+
 			String sAbs280 = jtfAbs280.getText();
+			if(sAbs280.matches(regexAbs260)){
 			Double dAbs280 = Double.valueOf(sAbs280);
-			Double dProtConc = seqProt3.ComputeProtConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem());
+			Double dProtConc = seqProt2.ComputeProtConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem());
 			BigDecimal bdProtConc = (new BigDecimal(dProtConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
 			String sProtConc = String.valueOf(bdProtConc);
 			jtfConcProt.setText(sProtConc);
+			}else {
+				jtfConcProt.setText("format issue");
+			}
 		}
 
 	}

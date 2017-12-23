@@ -3,7 +3,14 @@ package com.fenetre;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,6 +24,7 @@ public class Fenetre extends JFrame{
 	private PanDna cardDna = new PanDna();
 	private PanDefault cardDefautlt = new PanDefault();
 	private PanProt cardProt = new PanProt();
+	private ImageIcon imageIcon = new ImageIcon("image/adnIcone.jpeg");
 	//tab
 	private String[] listContent = {"PROT", "DNA", "DEFAULT"};
 
@@ -28,15 +36,16 @@ public class Fenetre extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("adnIcone.jpg")));
 		initComposant();
-		this.setVisible(true);
+		this.setVisible(true);		
 	}
 
 	//Methode
 	private void initComposant() {
 		//On instencie l'ecran
 		panEcran = new PanEcran(cardProt, cardDna, cardDefautlt, cl, content, listContent);
-
+		cardDefautlt.initPanelDefault();
 		//On initialise le Panel Content
 		content.setPreferredSize(new Dimension(600, 410));
 		content.setLayout(cl);

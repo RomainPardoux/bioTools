@@ -41,6 +41,8 @@ public class CardDnaAbs extends JPanel{
 	jtfConc;
 	//seqNuc
 	private String seq = "";
+	
+	private String regexAbs260 = "^[0-9]*[.]{1}[0-9]*$";
 
 	public CardDnaAbs(String seq, SequenceNucleique seqNuc) {
 		super();
@@ -113,18 +115,23 @@ public class CardDnaAbs extends JPanel{
 			// TODO Auto-generated method stub
 			SequenceNucleique seqNuc = new SequenceNucleique(seq);
 			String sAbs280 = jtfAbs260.getText();
-			Double dAbs280 = Double.valueOf(sAbs280);
-			if(seqNuc.isDna()){
-				Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
-				BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
-				String sDnaConc = String.valueOf(bdDnaConc);
-				jtfConc.setText(sDnaConc);	
-			}else if(seqNuc.isRna()){
-				Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
-				BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
-				String sRnaConc = String.valueOf(bdRnaConc);
-				jtfConc.setText(sRnaConc);
+			if(sAbs280.matches(regexAbs260)){
+				Double dAbs280 = Double.valueOf(sAbs280);
+				if(seqNuc.isDna()){
+					Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
+					BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+					String sDnaConc = String.valueOf(bdDnaConc);
+					jtfConc.setText(sDnaConc);	
+				}else if(seqNuc.isRna()){
+					Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
+					BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+					String sRnaConc = String.valueOf(bdRnaConc);
+					jtfConc.setText(sRnaConc);
+				}
+			}else {
+				jtfConc.setText("format issue");
 			}
+
 		}
 
 	}
@@ -136,18 +143,23 @@ public class CardDnaAbs extends JPanel{
 			// TODO Auto-generated method stub
 			SequenceNucleique seqNuc = new SequenceNucleique(seq);
 			String sAbs280 = jtfAbs260.getText();
-			Double dAbs280 = Double.valueOf(sAbs280);
-			if(seqNuc.isDna()){
-				Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
-				BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
-				String sDnaConc = String.valueOf(bdDnaConc);
-				jtfConc.setText(sDnaConc);	
-			}else if(seqNuc.isRna()){
-				Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
-				BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
-				String sRnaConc = String.valueOf(bdRnaConc);
-				jtfConc.setText(sRnaConc);
+			if(sAbs280.matches(regexAbs260)){
+				Double dAbs280 = Double.valueOf(sAbs280);
+				if(seqNuc.isDna()){
+					Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
+					BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+					String sDnaConc = String.valueOf(bdDnaConc);
+					jtfConc.setText(sDnaConc);	
+				}else if(seqNuc.isRna()){
+					Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
+					BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+					String sRnaConc = String.valueOf(bdRnaConc);
+					jtfConc.setText(sRnaConc);
+				}
+			}else {
+				jtfConc.setText("format issue");
 			}
+
 		}
 	}
 

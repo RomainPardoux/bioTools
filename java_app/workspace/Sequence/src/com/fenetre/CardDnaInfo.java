@@ -62,6 +62,7 @@ public class CardDnaInfo extends JPanel{
 			jtfMw.setText(seqNuc.getMwDsDnaRound() + "");
 		}else if(seqNuc.isRna()){
 			jtfMw.setText(seqNuc.getMwSsRnaRound() + "");
+			setBorder(BorderFactory.createTitledBorder("RNA identity"));
 		}
 	}
 

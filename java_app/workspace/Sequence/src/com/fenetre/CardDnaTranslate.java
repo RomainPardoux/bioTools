@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -48,7 +49,7 @@ public class CardDnaTranslate extends JPanel{
 	//JComboBox
 	private JCheckBox jcob35F1, jcob35F2, jcob35F3, jcob53F1, jcob53F2, jcob53F3;
 
-	public CardDnaTranslate(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, SequenceNucleique seqNuc) {
+	public CardDnaTranslate(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, SequenceNucleique seqNuc, JLabel labelTypeOfSeq, JTextArea jtaEcran) {
 		super();
 		this.seqNuc = seqNuc;
 		// TODO Auto-generated constructor stub
@@ -167,27 +168,34 @@ public class CardDnaTranslate extends JPanel{
 					seq = modifyBeforeSendSeqProt(seq35F1);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf35F1);
 				}if(jcob35F2.isSelected()){
 					seq = modifyBeforeSendSeqProt(seq35F2);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf35F2);
 				}if(jcob35F3.isSelected()){
 					seq = modifyBeforeSendSeqProt(seq35F3);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf35F3);
 				}if(jcob53F1.isSelected()){
 					seq = modifyBeforeSendSeqProt(seq53F1);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf53F1);
 				}if(jcob53F2.isSelected()){
 					seq = modifyBeforeSendSeqProt(seq53F2);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf53F2);
 				}if(jcob53F3.isSelected()){
 					seq = modifyBeforeSendSeqProt(seq53F3);
 					seqProt = new SequenceProteique(seq);
 					cardProt.initPanelCardProt(seq, seqProt);
+					jtaEcran.setText(orf53F3);
 				}
+				labelTypeOfSeq.setText("Auto-Detect type of sequence: translate amino-acid sequence ");
 				cl.show(content, listContent[0]);
 			}
 		});

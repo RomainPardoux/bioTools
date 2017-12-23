@@ -21,14 +21,14 @@ public class PanDna extends JPanel{
 	}
 	
 	//Constructeur
-	public void initPanelCardDNA(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, SequenceNucleique seqNuc) {
+	public void initPanelCardDNA(PanProt cardProt, CardLayout cl, JPanel content, String[] listContent, String seq, SequenceNucleique seqNuc) {
 		// TODO Auto-generated method stub
 		//Panel CardProt
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
-		cardDnaInfo = new CardDnaInfo();
+		cardDnaInfo = new CardDnaInfo(seqNuc);
 		cardDnaTranslate = new CardDnaTranslate(cardProt, cl, content, listContent, seqNuc);
-		cardDnaAbs = new CardDnaAbs();
+		cardDnaAbs = new CardDnaAbs(seq, seqNuc);
 		add(cardDnaAbs, BorderLayout.EAST);
 		add(cardDnaTranslate, BorderLayout.SOUTH);
 		add(cardDnaInfo, BorderLayout.WEST);

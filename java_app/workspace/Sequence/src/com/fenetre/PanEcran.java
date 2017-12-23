@@ -120,7 +120,7 @@ public class PanEcran extends JPanel{
 			//Sinon si seq nuc
 			else if ( seq.matches(regexSeqDna) || seq.matches(regexSeqRna)){
 				seqNuc = new SequenceNucleique(seq);
-				cardDna.initPanelCardDNA(cardProt, cl, content, listContent, seqNuc);
+				cardDna.initPanelCardDNA(cardProt, cl, content, listContent, seq, seqNuc);
 				System.out.println(seqNuc.toString());
 				cl.show(content, listContent[1]);
 				//MAJ panel ecran

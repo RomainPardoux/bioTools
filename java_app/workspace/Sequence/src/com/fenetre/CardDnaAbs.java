@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,30 +18,33 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.sequence.SequenceNucleique;
+import com.sequence.SequenceProteique;
 import com.sequence.Unite;
 
 public class CardDnaAbs extends JPanel{
 
 	private CardDnaAbs cardDnaAbs;
-	
+
 	//ComboBox
-	private JComboBox<Unite> jcbUniteDna;
+	private JComboBox<Unite> jcbUnite;
 	//jta
-	private JTextArea jtaCardDnaAbsWarning;
+	private JTextArea jtaCardAbsWarning;
 	//tab
 	Unite[] tabJcbUnite = {Unite.M, Unite.mM, Unite.uM, Unite.nM, Unite.pM,};
-	
+
 	//Label Dna
-	private JLabel labelExtCoefDna, labelAbs01percDna, labelAbs280Dna,
-	labelConcDna; 
+	private JLabel labelExtCoef, labelAbs260,
+	labelConc; 
 
 	//JTextField Dna
-	private JTextField jtfExtCoefDna, jtfAbs01percDna, jtfAbs280Dna,
-	jtfConcDna;
-	
-	
-	public CardDnaAbs() {
+	private JTextField jtfExtCoef, jtfAbs260,
+	jtfConc;
+	//seqNuc
+	private String seq = "";
+
+	public CardDnaAbs(String seq, SequenceNucleique seqNuc) {
 		super();
+		this.seq = seq;
 		// TODO Auto-generated constructor stub
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(320, 140));
@@ -48,53 +54,105 @@ public class CardDnaAbs extends JPanel{
 		JPanel cardDnaAbs2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cardDnaAbs2.setPreferredSize(new Dimension(160, 100));
 		JPanel cardDnaAbs3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		cardDnaAbs3.setPreferredSize(new Dimension(320, 30));
-		labelExtCoefDna = new JLabel("Ext. Coefficient : ");
-		labelExtCoefDna.setPreferredSize(new Dimension(150, 20));
-		jtfExtCoefDna = new JTextField();
-		jtfExtCoefDna.setPreferredSize(new Dimension(100, 20));
-		jtfExtCoefDna.setEditable(false);
-		labelAbs01percDna = new JLabel("Abs 0.1% (=1 g/l) : ");
-		labelAbs01percDna.setPreferredSize(new Dimension(150, 20));
-		jtfAbs01percDna = new JTextField();
-		jtfAbs01percDna.setPreferredSize(new Dimension(100, 20));
-		jtfAbs01percDna.setEditable(false);
-		labelAbs280Dna = new JLabel("Absorbance at 280 nm ");
-		labelAbs280Dna.setPreferredSize(new Dimension(150, 20));
-		jtfAbs280Dna = new JTextField();
-		jtfAbs280Dna.setToolTipText("Add absorbance value at 280 nm like 0.5");
-		jtfAbs280Dna.setPreferredSize(new Dimension(100, 20));
-		//			jtfAbs280Dna.addActionListener(new abs280listener());
-		labelConcDna = new JLabel("Dna Concentration ");
-		labelConcDna.setPreferredSize(new Dimension(150, 20));
-		jtfConcDna = new JTextField();
-		jtfConcDna.setPreferredSize(new Dimension(100, 20));
-		jtfConcDna.setEditable(false);
-		jcbUniteDna = new JComboBox<Unite>(tabJcbUnite);
-		jcbUniteDna.setSelectedItem(tabJcbUnite[2]);
-		//			jcbUniteDna.addActionListener(new UniteListener());
-		jtaCardDnaAbsWarning = new JTextArea();
-		jtaCardDnaAbsWarning.setEditable(false);
-		jtaCardDnaAbsWarning.setLineWrap(true);
-		jtaCardDnaAbsWarning.setWrapStyleWord(true);
-		jtaCardDnaAbsWarning.setBackground(Color.lightGray);
-		jtaCardDnaAbsWarning.setPreferredSize(new Dimension(310, 30));
-		cardDnaAbs1.add(labelExtCoefDna);
-		cardDnaAbs2.add(jtfExtCoefDna);
-		cardDnaAbs1.add(labelAbs01percDna);
-		cardDnaAbs2.add(jtfAbs01percDna);
-		cardDnaAbs1.add(labelAbs280Dna);
-		cardDnaAbs2.add(jtfAbs280Dna);
-		cardDnaAbs1.add(labelConcDna);
-		cardDnaAbs2.add(jtfConcDna);
-		cardDnaAbs2.add(jcbUniteDna);
-		cardDnaAbs3.add(jtaCardDnaAbsWarning);
+		cardDnaAbs3.setPreferredSize(new Dimension(320, 60));
+		labelExtCoef = new JLabel("Ext. Coefficient : ");
+		labelExtCoef.setPreferredSize(new Dimension(150, 20));
+		jtfExtCoef = new JTextField();
+		jtfExtCoef.setPreferredSize(new Dimension(100, 20));
+		jtfExtCoef.setEditable(false);
+		labelAbs260 = new JLabel("Absorbance at 280 nm ");
+		labelAbs260.setPreferredSize(new Dimension(150, 20));
+		jtfAbs260 = new JTextField();
+		jtfAbs260.setToolTipText("Add absorbance value at 280 nm like 0.5");
+		jtfAbs260.setPreferredSize(new Dimension(100, 20));
+		jtfAbs260.addActionListener(new abs280listener());
+		labelConc = new JLabel("Dna Concentration ");
+		labelConc.setPreferredSize(new Dimension(150, 20));
+		jtfConc = new JTextField();
+		jtfConc.setPreferredSize(new Dimension(100, 20));
+		jtfConc.setEditable(false);
+		jcbUnite = new JComboBox<Unite>(tabJcbUnite);
+		jcbUnite.setSelectedItem(tabJcbUnite[2]);
+		jcbUnite.addActionListener(new UniteListener());
+		jtaCardAbsWarning = new JTextArea();
+		jtaCardAbsWarning.setEditable(false);
+		jtaCardAbsWarning.setLineWrap(true);
+		jtaCardAbsWarning.setWrapStyleWord(true);
+		jtaCardAbsWarning.setBackground(Color.lightGray);
+		jtaCardAbsWarning.setPreferredSize(new Dimension(310, 50));
+		cardDnaAbs1.add(labelExtCoef);
+		cardDnaAbs2.add(jtfExtCoef);
+		cardDnaAbs1.add(labelAbs260);
+		cardDnaAbs2.add(jtfAbs260);
+		cardDnaAbs1.add(labelConc);
+		cardDnaAbs2.add(jtfConc);
+		cardDnaAbs2.add(jcbUnite);
+		cardDnaAbs3.add(jtaCardAbsWarning);
 		add(cardDnaAbs1, BorderLayout.WEST);
 		add(cardDnaAbs2, BorderLayout.EAST);
 		add(cardDnaAbs3, BorderLayout.SOUTH);
+		
+		//MAJ card abs
+		if(seqNuc.isDna()){
+			jtfExtCoef.setText(seqNuc.getExtCoefDna() + "");
+			labelConc.setText("DNA Concentration ");
+			setBorder(BorderFactory.createTitledBorder("DNA Absorbance Properties"));
+		}else if(seqNuc.isRna()){
+			jtfExtCoef.setText(seqNuc.getExtCoefRna() + "");
+			labelConc.setText("RNA Concentration ");
+			setBorder(BorderFactory.createTitledBorder("RNA Absorbance Properties"));
+		}
+		jtaCardAbsWarning.setText("Concentration = Abs (280 nm) / Epsilon");
+	}
+
+	//class interne (listeners)
+	class abs280listener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			SequenceNucleique seqNuc = new SequenceNucleique(seq);
+			String sAbs280 = jtfAbs260.getText();
+			Double dAbs280 = Double.valueOf(sAbs280);
+			if(seqNuc.isDna()){
+				Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
+				BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+				String sDnaConc = String.valueOf(bdDnaConc);
+				jtfConc.setText(sDnaConc);	
+			}else if(seqNuc.isRna()){
+				Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
+				BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+				String sRnaConc = String.valueOf(bdRnaConc);
+				jtfConc.setText(sRnaConc);
+			}
+		}
+
+	}
+
+	class UniteListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			SequenceNucleique seqNuc = new SequenceNucleique(seq);
+			String sAbs280 = jtfAbs260.getText();
+			Double dAbs280 = Double.valueOf(sAbs280);
+			if(seqNuc.isDna()){
+				Double dDnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "dna");
+				BigDecimal bdDnaConc = (new BigDecimal(dDnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+				String sDnaConc = String.valueOf(bdDnaConc);
+				jtfConc.setText(sDnaConc);	
+			}else if(seqNuc.isRna()){
+				Double dRnaConc = seqNuc.ComputeDNAOrRnaConcentration(dAbs280, (Unite) jcbUnite.getSelectedItem(), "rna");
+				BigDecimal bdRnaConc = (new BigDecimal(dRnaConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
+				String sRnaConc = String.valueOf(bdRnaConc);
+				jtfConc.setText(sRnaConc);
+			}
+		}
 	}
 
 
+	//getters and setters
 	public CardDnaAbs getCardDnaAbs() {
 		return cardDnaAbs;
 	}
@@ -105,23 +163,23 @@ public class CardDnaAbs extends JPanel{
 	}
 
 
-	public JComboBox<Unite> getJcbUniteDna() {
-		return jcbUniteDna;
+	public JComboBox<Unite> getJcbUnite() {
+		return jcbUnite;
 	}
 
 
-	public void setJcbUniteDna(JComboBox<Unite> jcbUniteDna) {
-		this.jcbUniteDna = jcbUniteDna;
+	public void setJcbUnite(JComboBox<Unite> jcbUnite) {
+		this.jcbUnite = jcbUnite;
 	}
 
 
-	public JTextArea getJtaCardDnaAbsWarning() {
-		return jtaCardDnaAbsWarning;
+	public JTextArea getJtaCardAbsWarning() {
+		return jtaCardAbsWarning;
 	}
 
 
-	public void setJtaCardDnaAbsWarning(JTextArea jtaCardDnaAbsWarning) {
-		this.jtaCardDnaAbsWarning = jtaCardDnaAbsWarning;
+	public void setJtaCardAbsWarning(JTextArea jtaCardAbsWarning) {
+		this.jtaCardAbsWarning = jtaCardAbsWarning;
 	}
 
 
@@ -135,85 +193,74 @@ public class CardDnaAbs extends JPanel{
 	}
 
 
-	public JLabel getLabelExtCoefDna() {
-		return labelExtCoefDna;
+	public JLabel getLabelExtCoef() {
+		return labelExtCoef;
 	}
 
 
-	public void setLabelExtCoefDna(JLabel labelExtCoefDna) {
-		this.labelExtCoefDna = labelExtCoefDna;
+	public void setLabelExtCoef(JLabel labelExtCoef) {
+		this.labelExtCoef = labelExtCoef;
 	}
 
 
-	public JLabel getLabelAbs01percDna() {
-		return labelAbs01percDna;
+	public JLabel getLabelAbs260() {
+		return labelAbs260;
 	}
 
 
-	public void setLabelAbs01percDna(JLabel labelAbs01percDna) {
-		this.labelAbs01percDna = labelAbs01percDna;
+	public void setLabelAbs260(JLabel labelAbs260) {
+		this.labelAbs260 = labelAbs260;
 	}
 
 
-	public JLabel getLabelAbs280Dna() {
-		return labelAbs280Dna;
+	public JLabel getLabelConc() {
+		return labelConc;
 	}
 
 
-	public void setLabelAbs280Dna(JLabel labelAbs280Dna) {
-		this.labelAbs280Dna = labelAbs280Dna;
+	public void setLabelConc(JLabel labelConc) {
+		this.labelConc = labelConc;
 	}
 
 
-	public JLabel getLabelConcDna() {
-		return labelConcDna;
+	public JTextField getJtfExtCoef() {
+		return jtfExtCoef;
 	}
 
 
-	public void setLabelConcDna(JLabel labelConcDna) {
-		this.labelConcDna = labelConcDna;
+	public void setJtfExtCoef(JTextField jtfExtCoef) {
+		this.jtfExtCoef = jtfExtCoef;
 	}
 
 
-	public JTextField getJtfExtCoefDna() {
-		return jtfExtCoefDna;
+	public JTextField getJtfAbs260() {
+		return jtfAbs260;
 	}
 
 
-	public void setJtfExtCoefDna(JTextField jtfExtCoefDna) {
-		this.jtfExtCoefDna = jtfExtCoefDna;
+	public void setJtfAbs260(JTextField jtfAbs260) {
+		this.jtfAbs260 = jtfAbs260;
 	}
 
 
-	public JTextField getJtfAbs01percDna() {
-		return jtfAbs01percDna;
+	public JTextField getJtfConc() {
+		return jtfConc;
 	}
 
 
-	public void setJtfAbs01percDna(JTextField jtfAbs01percDna) {
-		this.jtfAbs01percDna = jtfAbs01percDna;
+	public void setJtfConc(JTextField jtfConc) {
+		this.jtfConc = jtfConc;
 	}
 
 
-	public JTextField getJtfAbs280Dna() {
-		return jtfAbs280Dna;
+	public String getSeq() {
+		return seq;
 	}
 
 
-	public void setJtfAbs280Dna(JTextField jtfAbs280Dna) {
-		this.jtfAbs280Dna = jtfAbs280Dna;
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
 
-
-	public JTextField getJtfConcDna() {
-		return jtfConcDna;
-	}
-
-
-	public void setJtfConcDna(JTextField jtfConcDna) {
-		this.jtfConcDna = jtfConcDna;
-	}
-
-	
 	
 }

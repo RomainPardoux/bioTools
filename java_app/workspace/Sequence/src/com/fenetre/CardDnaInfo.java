@@ -6,16 +6,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.sequence.SequenceNucleique;
-import com.sequence.Unite;
 
 public class CardDnaInfo extends JPanel{
 
@@ -31,27 +27,42 @@ public class CardDnaInfo extends JPanel{
 	private JTextField jtfMw;
 
 	//Constructeur
-	public CardDnaInfo() {
+	public CardDnaInfo( SequenceNucleique seqNuc) {
 		super();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(280, 170));
-		setBorder(BorderFactory.createTitledBorder("Protein identity"));
-		JPanel cardProtInfo1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		cardProtInfo1.setPreferredSize(new Dimension(150, 110));
-		JPanel cardProtInfo2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		cardProtInfo2.setPreferredSize(new Dimension(130, 110));
-		JPanel cardProtInfo3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		cardProtInfo3.setPreferredSize(new Dimension(280, 60));
+		setBorder(BorderFactory.createTitledBorder("DNA identity"));
+		JPanel cardDnaInfo1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		cardDnaInfo1.setPreferredSize(new Dimension(150, 70));
+		JPanel cardDnaInfo2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		cardDnaInfo2.setPreferredSize(new Dimension(130, 70));
+		JPanel cardDnaInfo3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		cardDnaInfo3.setPreferredSize(new Dimension(280, 100));
 		labelMw = new JLabel("Molecular weight (MW): ");
 		labelMw.setPreferredSize(new Dimension(140, 20));
 		jtfMw = new JTextField();
 		jtfMw.setPreferredSize(new Dimension(90, 20));
 		jtfMw.setEditable(false);
-		cardProtInfo1.add(labelMw);
-		cardProtInfo2.add(jtfMw);
-		add(cardProtInfo1, BorderLayout.WEST);
-		add(cardProtInfo2, BorderLayout.EAST);
-		add(cardProtInfo3, BorderLayout.SOUTH);
+		jtaCardDnaInfoNote = new JTextArea("Notes: ");
+		jtaCardDnaInfoNote.setEditable(true);
+		jtaCardDnaInfoNote.setLineWrap(true);
+		jtaCardDnaInfoNote.setWrapStyleWord(true);
+		jtaCardDnaInfoNote.setAutoscrolls(true);
+		jtaCardDnaInfoNote.setBackground(Color.lightGray);
+		jtaCardDnaInfoNote.setPreferredSize(new Dimension(270, 90));
+		cardDnaInfo1.add(labelMw);
+		cardDnaInfo2.add(jtfMw);
+		cardDnaInfo3.add(jtaCardDnaInfoNote);
+		add(cardDnaInfo1, BorderLayout.WEST);
+		add(cardDnaInfo2, BorderLayout.EAST);
+		add(cardDnaInfo3, BorderLayout.SOUTH);
+		
+		//MAJ panel info
+		if(seqNuc.isDna()){
+			jtfMw.setText(seqNuc.getMwDsDnaRound() + "");
+		}else if(seqNuc.isRna()){
+			jtfMw.setText(seqNuc.getMwSsRnaRound() + "");
+		}
 	}
 
 

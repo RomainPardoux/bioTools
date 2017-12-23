@@ -95,7 +95,7 @@ public class cardProtAbs extends JPanel{
 		add(cardProtAbs2, BorderLayout.EAST);
 		add(cardProtAbs3, BorderLayout.SOUTH);
 		
-		//coef ext mol
+		//MAJ Card prot abs + coef ext mol
 		jtfExtCoef.setText(seqProt.getExtCoef() + "");
 		if(seqProt.getExtCoef() == 0){
 			jtfAbs280.setEnabled(false);

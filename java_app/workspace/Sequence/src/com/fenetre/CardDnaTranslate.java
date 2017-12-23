@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -34,6 +35,7 @@ public class CardDnaTranslate extends JPanel{
 	//seq string
 	private String seq35F1, seq35F2, seq35F3, seq53F1, seq53F2, seq53F3;
 	private String seq35F1plus, seq35F2plus, seq35F3plus, seq53F1plus, seq53F2plus, seq53F3plus;
+	private String orf35F1, orf35F2, orf35F3, orf53F1, orf53F2, orf53F3;
 	private String seqTranslate = "";
 	//Tab
 	private String[] tabJcobDnaOrientation = {"3'5' Frame 1", "3'5' Frame 2", "3'5' Frame 3", "5'3' Frame 1", "5'3' Frame 2", "5'3' Frame 3"};
@@ -41,10 +43,8 @@ public class CardDnaTranslate extends JPanel{
 	private SequenceProteique seqProt;
 	//jta
 	private JTextArea jtaDnaTranslate;
-
 	//Jbutton
 	private JButton jbutSendProt;
-
 	//JComboBox
 	private JCheckBox jcob35F1, jcob35F2, jcob35F3, jcob53F1, jcob53F2, jcob53F3;
 
@@ -60,6 +60,12 @@ public class CardDnaTranslate extends JPanel{
 		JPanel cardDnaTranslate2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		cardDnaTranslate2.setPreferredSize(new Dimension(460, 210));
 
+		if (seqNuc.isDna()) {
+			setBorder(BorderFactory.createTitledBorder("DNA Translate"));
+		}else{
+			setBorder(BorderFactory.createTitledBorder("RNA Translate"));
+		}
+		
 		//jtaDnaTranslate
 		jtaDnaTranslate = new JTextArea();
 		jtaDnaTranslate.setLineWrap(true);
@@ -117,24 +123,35 @@ public class CardDnaTranslate extends JPanel{
 			seq53F3 += String.valueOf(aminoAcid.getSyn1L());
 		}
 
+		//init orf
+		orf35F1 = modifyBeforeSendSeqProt(seq35F1);
+		orf35F2 = modifyBeforeSendSeqProt(seq35F2);
+		orf35F3 = modifyBeforeSendSeqProt(seq35F3);
+		orf53F1 = modifyBeforeSendSeqProt(seq53F1);
+		orf53F2 = modifyBeforeSendSeqProt(seq53F2);
+		orf53F3 = modifyBeforeSendSeqProt(seq53F3);
+
 		//checkBox
 		jcob53F1 = new JCheckBox(tabJcobDnaOrientation[3]);
 		cardDnaTranslate1.add(jcob53F1);
-		jcob53F1.addActionListener(new PrepareForTranslateListener());
 		jcob53F2 = new JCheckBox(tabJcobDnaOrientation[4]);
 		cardDnaTranslate1.add(jcob53F2);
-		jcob53F2.addActionListener(new PrepareForTranslateListener());
 		jcob53F3 = new JCheckBox(tabJcobDnaOrientation[5]);
 		cardDnaTranslate1.add(jcob53F3);
-		jcob53F3.addActionListener(new PrepareForTranslateListener());
 		jcob35F1 = new JCheckBox(tabJcobDnaOrientation[0]);
 		cardDnaTranslate1.add(jcob35F1);
-		jcob35F1.addActionListener(new PrepareForTranslateListener());
 		jcob35F2 = new JCheckBox(tabJcobDnaOrientation[1]);
 		cardDnaTranslate1.add(jcob35F2);
-		jcob35F2.addActionListener(new PrepareForTranslateListener());
 		jcob35F3 = new JCheckBox(tabJcobDnaOrientation[2]);
 		cardDnaTranslate1.add(jcob35F3);
+
+		autoSelectGoodSeq();
+
+		jcob53F1.addActionListener(new PrepareForTranslateListener());
+		jcob53F2.addActionListener(new PrepareForTranslateListener());
+		jcob53F3.addActionListener(new PrepareForTranslateListener());
+		jcob35F1.addActionListener(new PrepareForTranslateListener());
+		jcob35F2.addActionListener(new PrepareForTranslateListener());
 		jcob35F3.addActionListener(new PrepareForTranslateListener());
 		jbutSendProt = new JButton("Send");
 		onlyOneSelected();
@@ -174,6 +191,7 @@ public class CardDnaTranslate extends JPanel{
 				cl.show(content, listContent[0]);
 			}
 		});
+		initSeqTranslate();
 		jtaDnaTranslate.setText(seqTranslate);
 		JScrollPane jsp = new JScrollPane(jtaDnaTranslate);
 		jsp.setPreferredSize(new Dimension(450, 200));
@@ -240,14 +258,18 @@ public class CardDnaTranslate extends JPanel{
 		}else{
 			jbutSendProt.setEnabled(false);
 		}
-
 	}
 
 	private String modifyBeforeSendSeqProt(String seqProt){
 		String seqProt2 = seqProt;
 		if(seqProt.contains("*")){
 			if(seqProt.contains("M")) {
-				seqProt2 = seqProt.substring(seqProt.indexOf("M"), seqProt.indexOf("*", seqProt.indexOf("M")));
+				int index1 = seqProt.indexOf("M");
+				int index2 = seqProt.indexOf("*", seqProt.indexOf("M"));
+				if(index2 != -1)
+					seqProt2 = seqProt.substring(index1, index2);
+				else
+					seqProt2 = seqProt.substring(0, seqProt.indexOf('*'));
 			}else {
 				seqProt2 = seqProt.substring(0, seqProt.indexOf('*'));
 			}
@@ -257,6 +279,57 @@ public class CardDnaTranslate extends JPanel{
 
 	private void autoSelectGoodSeq(){
 		//recupere la plus longue seq entre 
+		ArrayList<Integer> orfList = new ArrayList<Integer>();
+		orfList.add(orf35F1.length());
+		orfList.add(orf35F2.length());
+		orfList.add(orf35F3.length());
+		orfList.add(orf53F1.length());
+		orfList.add(orf53F2.length());
+		orfList.add(orf53F3.length());
+		int value = 0;
+		String orfSelected = "";
+		for (int i = 0; i < orfList.size(); i++) {
+			if(orfList.get(i) > value){
+				
+				if(i == 0 && orf35F1.startsWith("M")){
+					orfSelected = "orf35F1";
+					value = orfList.get(i);
+				}
+				if(i == 1 && orf35F2.startsWith("M")){
+					orfSelected = "orf35F2";
+					value = orfList.get(i);
+				}
+				if(i == 2 && orf35F3.startsWith("M")){
+					orfSelected = "orf35F3";
+					value = orfList.get(i);
+				}
+				if(i == 3 && orf53F1.startsWith("M")){
+					orfSelected = "orf53F1";
+					value = orfList.get(i);
+				}
+				if(i == 4 && orf53F2.startsWith("M")){
+					orfSelected = "orf53F2";
+					value = orfList.get(i);
+				}
+				if(i == 5 && orf53F3.startsWith("M")){
+					orfSelected = "orf53F3";
+					value = orfList.get(i);
+				}
+			}
+		}
+		if(orfSelected == "orf35F1"){
+			jcob35F1.setSelected(true);
+		}if(orfSelected == "orf35F2"){
+			jcob35F2.setSelected(true);
+		}if(orfSelected == "orf35F3"){
+			jcob35F3.setSelected(true);
+		}if(orfSelected == "orf53F1"){
+			jcob53F1.setSelected(true);
+		}if(orfSelected == "orf53F2"){
+			jcob53F2.setSelected(true);
+		}if(orfSelected == "orf53F3"){
+			jcob53F3.setSelected(true);
+		}
 	}
 
 	//Listener

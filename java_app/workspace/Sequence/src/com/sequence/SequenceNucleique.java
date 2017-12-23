@@ -35,7 +35,7 @@ public class SequenceNucleique{
 	/*A. Declaration des variables d'instance */
 	private String sequence = "", nomSeq = "", typeSeq = "";
 	private boolean isDna = false, isRna = false;
-	private int nbMonomer = 0, extCoef = 0;
+	private int nbMonomer = 0, extCoefDna = 0, extCoefRna = 0;
 	private Double mwSsDna = 0.0, mwDsDna = 0.0, mwSsRna = 0.0; 
 	private BigDecimal mwSsDnaRound, mwDsDnaRound, mwSsRnaRound;
 	private ArrayList<Nucleotid> nucleotidList, nucleotidListReverse, nucleotidListComplement, nucleotidListReverseComplement;
@@ -70,7 +70,8 @@ public class SequenceNucleique{
 		countAtom(nucleotidList);	
 		countNucleotid(nucleotidList);
 		computeMW(nucleotidList);
-		computeExtinctionCoef(nucleotidList);
+		extCoefDna = computeExtinctionCoef(nucleotidList, typeSeq);
+		extCoefRna = computeExtinctionCoef(nucleotidList, typeSeq);
 		reverse(nucleotidList);
 		complement(nucleotidList);
 		reverseComplement(nucleotidListReverse);
@@ -399,11 +400,14 @@ public class SequenceNucleique{
 		return formatedSeq;
 	}
 
-	//15 Calcul le coefficiant d'extinction molaire de l'adn
-	private int computeExtinctionCoef(ArrayList<Nucleotid> nucleotidlList){
+	//15 Calcul le coefficiant d'extinction molaire de l'adn double brin
+	private int computeExtinctionCoef(ArrayList<Nucleotid> nucleotidlList, String typeSeq){
+		int extCoef = 0;
 		for (int i = 0; i < nucleotidlList.size(); i++) {
 			extCoef += nucleotidlList.get(i).getExtinctionCoef();
 		}
+		if(typeSeq == "dna")
+			extCoef *= 2;
 		return extCoef;
 	}
 
@@ -439,29 +443,41 @@ public class SequenceNucleique{
 
 	//2.2 Calcul la concentration de prot (IN: Abs)
 	// C = A / (E.l)
-	public Double ComputeDnaConcentration(Double Abs260){
-		Double dnaConcentration = Abs260 / (double) this.extCoef;
-		return dnaConcentration;
+	public Double ComputeDnaOrRnaConcentration(Double Abs260, String typeSeq){
+		Double Concentration = 0.0;
+		if(typeSeq == "dna")
+			Concentration = Abs260 / (double) this.extCoefDna;
+		else
+			Concentration = Abs260 / (double) this.extCoefRna;
+		return Concentration;
 	}
 
-	public Double ComputeProtConcentration(Double Abs260, Unite unite){
-		Double dnaConcentration = Abs260 / (double) this.extCoef;
+	public Double ComputeDNAOrRnaConcentration(Double Abs260, Unite unite, String typeSeq){
+		Double Concentration = 0.0;
+		if(typeSeq == "dna")
+			Concentration = Abs260 / (double) this.extCoefDna;
+		else
+			Concentration = Abs260 / (double) this.extCoefRna;
 		if(unite.equals(Unite.mM)){
-			dnaConcentration *= 1000;
+			Concentration *= 1000;
 		}else if(unite.equals(Unite.uM)){
-			dnaConcentration *= 1000000;
+			Concentration *= 1000000;
 		}else if(unite.equals(Unite.nM)){
-			dnaConcentration *= 1000000000;
+			Concentration *= 1000000000;
 		}else if(unite.equals(Unite.pM)){
-			dnaConcentration *= 1000000000000.0;
+			Concentration *= 1000000000000.0;
 		}
-		return dnaConcentration;
+		return Concentration;
 	}
 
 	//2.3 Calcul l'absorbance theorique de la prot � 280 nm (IN: Conc)
 	// A = E.l.C
-	public Double ComputeProtAbs(Double protConcentration){
-		Double Abs280 = protConcentration * (double) this.extCoef;
+	public Double ComputeDnaOrRnaAbs(Double dnaOrRnaConcentration, String typeSeq){
+		Double Abs280 = 0.0;
+		if(typeSeq == "dna")
+			Abs280 = dnaOrRnaConcentration * (double) this.extCoefDna;
+		else
+			Abs280 = dnaOrRnaConcentration * (double) this.extCoefRna;
 		return Abs280;
 	}
 	//Transcription de la sequence
@@ -490,6 +506,14 @@ public class SequenceNucleique{
 	//D. getters and setters
 	public String getSequence() {
 		return sequence;
+	}
+
+	public int getExtCoefDna() {
+		return extCoefDna;
+	}
+
+	public int getExtCoefRna() {
+		return extCoefRna;
 	}
 
 	public String getNomSeq() {

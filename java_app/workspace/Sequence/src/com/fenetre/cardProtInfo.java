@@ -34,7 +34,7 @@ public class cardProtInfo extends JPanel{
 		JPanel cardProtInfo1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cardProtInfo1.setPreferredSize(new Dimension(150, 110));
 		JPanel cardProtInfo2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		cardProtInfo2.setPreferredSize(new Dimension(130, 110));
+		cardProtInfo2.setPreferredSize(new Dimension(120, 110));
 		JPanel cardProtInfo3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		cardProtInfo3.setPreferredSize(new Dimension(280, 60));
 		labelMw = new JLabel("Molecular weight (MW): ");

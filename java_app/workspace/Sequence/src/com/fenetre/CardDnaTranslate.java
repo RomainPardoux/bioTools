@@ -154,7 +154,8 @@ public class CardDnaTranslate extends JPanel{
 		jcob35F1.addActionListener(new PrepareForTranslateListener());
 		jcob35F2.addActionListener(new PrepareForTranslateListener());
 		jcob35F3.addActionListener(new PrepareForTranslateListener());
-		jbutSendProt = new JButton("Send");
+		jbutSendProt = new JButton("Analyse");
+		jbutSendProt.setToolTipText("Analysis the selected translated ORF");
 		onlyOneSelected();
 		jbutSendProt.addActionListener(new ActionListener() {
 

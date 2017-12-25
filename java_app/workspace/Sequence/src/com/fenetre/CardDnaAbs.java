@@ -41,7 +41,7 @@ public class CardDnaAbs extends JPanel{
 	jtfConc;
 	//seqNuc
 	private String seq = "";
-	
+
 	private String regexAbs260 = "^[0-9]*[.]{1}[0-9]*$";
 
 	public CardDnaAbs(String seq, SequenceNucleique seqNuc) {
@@ -73,6 +73,7 @@ public class CardDnaAbs extends JPanel{
 		jtfConc = new JTextField();
 		jtfConc.setPreferredSize(new Dimension(100, 20));
 		jtfConc.setEditable(false);
+		jtfConc.setBackground(null);
 		jcbUnite = new JComboBox<Unite>(tabJcbUnite);
 		jcbUnite.setSelectedItem(tabJcbUnite[2]);
 		jcbUnite.addActionListener(new UniteListener());
@@ -93,7 +94,7 @@ public class CardDnaAbs extends JPanel{
 		add(cardDnaAbs1, BorderLayout.WEST);
 		add(cardDnaAbs2, BorderLayout.EAST);
 		add(cardDnaAbs3, BorderLayout.SOUTH);
-		
+
 		//MAJ card abs
 		if(seqNuc.isDna()){
 			jtfExtCoef.setText(seqNuc.getExtCoefDna() + "");
@@ -128,8 +129,10 @@ public class CardDnaAbs extends JPanel{
 					String sRnaConc = String.valueOf(bdRnaConc);
 					jtfConc.setText(sRnaConc);
 				}
+				jtfConc.setBackground(null);
 			}else {
 				jtfConc.setText("format issue");
+				jtfConc.setBackground(new Color(222, 90, 57));
 			}
 
 		}
@@ -156,8 +159,10 @@ public class CardDnaAbs extends JPanel{
 					String sRnaConc = String.valueOf(bdRnaConc);
 					jtfConc.setText(sRnaConc);
 				}
+				jtfConc.setBackground(null);
 			}else {
 				jtfConc.setText("format issue");
+				jtfConc.setBackground(new Color(222, 90, 57));
 			}
 
 		}
@@ -274,5 +279,5 @@ public class CardDnaAbs extends JPanel{
 		this.seq = seq;
 	}
 
-	
+
 }

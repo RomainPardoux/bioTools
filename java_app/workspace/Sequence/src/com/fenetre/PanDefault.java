@@ -40,6 +40,7 @@ public class PanDefault extends JPanel{
 		jtaContent.setText("This tools computes various physico-chemical properties that can be deduced from a protein, dna or rna sequence. No additional information is required about the protein, dna or rna under consideration. The sequence can be specified as a raw sequence. White space and numbers are ignored.");
 		jtaContent.setWrapStyleWord(true);
 		jtaContent.setLineWrap(true);
+		jtaContent.setEditable(false);
 		panDefaultContent.add(jtaContent);
 		initCardDefaultHelp();
 		

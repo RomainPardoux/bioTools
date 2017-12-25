@@ -45,6 +45,7 @@ public class PanEcran extends JPanel{
 	private PanDefault cardDefautlt;
 	private CardLayout cl;
 	private String[] listContent;
+	private Color color;
 	
 	//Constructeur
 	public PanEcran(PanProt cardProt, PanDna cardDna, PanDefault cardDefautlt, CardLayout cl, JPanel content, String[] listContent) {
@@ -68,10 +69,11 @@ public class PanEcran extends JPanel{
 		// TODO Auto-generated method stub
 		//Panel Ecran
 		this.setPreferredSize(new Dimension(600, 270));
-		this.setBackground(Color.DARK_GRAY);
+		color = new Color(80, 164, 82);
+		this.setBackground(color);
 		//panEcranInfo
 		panEcranInfo.setPreferredSize(new Dimension(600, 20));
-		panEcranInfo.setBackground(Color.DARK_GRAY);
+		panEcranInfo.setBackground(color);
 		labelTypeOfSeq = new JLabel(" Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ");
 		labelTypeOfSeq.setForeground(Color.WHITE);
 		panEcranInfo.add(labelTypeOfSeq);
@@ -128,11 +130,13 @@ public class PanEcran extends JPanel{
 				labelTypeOfSeq.setText(typeOfSeq);
 			//Sinon
 			} else {
-				cardDefautlt.initPanelDefault();
-				System.out.println("sequence undefinied");
+				PanDefault cardDefault2 = new PanDefault();
+				panEcranInfo.setBackground(new Color(222, 90, 57));
+				setBackground(new Color(222, 90, 57));
+				cardDefault2.initPanelDefault();
 				cl.show(content, listContent[2]);
 				//MAJ panel ecran
-				String typeOfSeq = " Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ";
+				String typeOfSeq = "This format is not suported. Please paste a validated format";
 				labelTypeOfSeq.setText(typeOfSeq);
 			}
 		}
@@ -141,6 +145,8 @@ public class PanEcran extends JPanel{
 	public class ResetListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+			panEcranInfo.setBackground(color);
+			setBackground(color);
 			labelTypeOfSeq.setText(" Please, paste your own amino acid or nucleotid sequence (in one-letter code) in the box below ");
 			cardProt.removeAll();
 			cardDna.removeAll();

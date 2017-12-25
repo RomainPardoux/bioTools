@@ -73,6 +73,7 @@ public class cardProtAbs extends JPanel{
 		jtfConcProt = new JTextField();
 		jtfConcProt.setPreferredSize(new Dimension(100, 20));
 		jtfConcProt.setEditable(false);
+		jtfConcProt.setBackground(null);
 		jcbUnite = new JComboBox<Unite>(tabJcbUnite);
 		jcbUnite.setSelectedItem(tabJcbUnite[2]);
 		jcbUnite.addActionListener(new UniteListener());
@@ -141,8 +142,10 @@ public class cardProtAbs extends JPanel{
 			BigDecimal bdProtConc = (new BigDecimal(dProtConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
 			String sProtConc = String.valueOf(bdProtConc);
 			jtfConcProt.setText(sProtConc);
+			jtfConcProt.setBackground(null);
 			}else {
 				jtfConcProt.setText("format issue");
+				jtfConcProt.setBackground(new Color(222, 90, 57));
 			}
 		}
 
@@ -162,8 +165,10 @@ public class cardProtAbs extends JPanel{
 			BigDecimal bdProtConc = (new BigDecimal(dProtConc)).setScale(5, BigDecimal.ROUND_HALF_UP);
 			String sProtConc = String.valueOf(bdProtConc);
 			jtfConcProt.setText(sProtConc);
+			jtfConcProt.setBackground(null);
 			}else {
 				jtfConcProt.setText("format issue");
+				jtfConcProt.setBackground(new Color(222, 90, 57));
 			}
 		}
 
